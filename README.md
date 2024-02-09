@@ -13,3 +13,4 @@ Tools to be used:<br>
 Git - Project Management<br>
 GitHub - Version Control<br>
 Visual Studio Code - Code Editor<br>
+Figma - UI/UX Design
