@@ -2,11 +2,11 @@
 <br>
 
 Team Members:<br>
-Abhishek Sharma ( scrum master)<br>
-Harshil Dholakiya ( developer )<br>
-Vaidik kakadiya (UI Designer)<br>
-Prabhkirat Singh (product owner)<br>
-Siavash Sharifirad (sr developer)<br>
+Abhishek Sharma ( Scrum Master )<br>
+Harshil Dholakiya ( Developer )<br>
+Vaidik Kakadiya ( UI Designer )<br>
+Prabhkirat Singh ( Product Owner )<br>
+Siavash Sharifirad ( Senior Developer )<br>
 <br>
 
 Tools to be used:<br>
