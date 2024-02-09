@@ -1,8 +1,7 @@
 # Studio---3-Project-<br>
 <br>
 
-Team Members:<br><br>
-
+Team Members:<br>
 Abhishek Sharma ( scrum master)<br>
 Harshil Dholakiya ( developer )<br>
 Vaidik kakadiya (UI Designer)<br>
