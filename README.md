@@ -68,10 +68,15 @@ They help in identifying and addressing potential issues early in the project.
 Continuous Improvement:
 Use cases allow for improvements based on user feedback, ensuring the project evolves over time.
 
+Contributions: 
+
+
 Next Steps:
-User-Stories for our Finance Management System.
+Discuss about the Userstories.
+Write the User-Stories for our Finance Management System.
 
 Tasks for Group Members:
+
 
 
 
