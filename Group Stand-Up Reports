@@ -1,0 +1,85 @@
+Date: 15/02/2024 Summary: 
+⦁	We did the brainstorm and discussed about the system idea of our project and types of Users in the our finance management system after meeting the client.
+
+There are 4 types of User in our case:
+⦁	Admins: Responsible for overseeing the entire Finance management system, admins have administrative privileges. They can manage user accounts, view all expenses and incomes, and handle system management tasks.
+
+⦁	Registered Users: Individuals who have created accounts on the system. They can manage their personal financial data, including expenses and incomes. Registered users have access to features such as profile management, expense entry, income entry, and a personalized dashboard.
+
+⦁	Premium Users: A subset of registered users with additional privileges or features. Premium users may have access to exclusive tools, advanced analytics, or premium features that enhance their financial management experience.
+
+⦁	Guests: Individuals with limited access to the system. Guests can view a simplified overview screen with basic financial information without the need to register. However, their access is restricted compared to registered users.
+
+Planned(To-Do): 
+⦁	Use-Cases for our Finance Management System. (Status: Done)
+⦁	Discuss with Tariq about Database. (Status: Done)	
+
+Who did What:
+⦁	This was a group work and the types of users were finalised after discussing with the client.
+---------------------------------------------------------------------
+Date: 16/02/2024 Summary:
+⦁	Use-cases for our Finance Management System.
+⦁	We all started to work on the Usecases for our project. 
+⦁	Discussed with Tariq about the Database which we will use the Firebase.
+
+⦁	Understanding Needs: Use-cases help identify what users need from the system.
+⦁	Planning Features: They guide the planning of specific features and functions for the project.
+⦁	Keeping Focus: Use-cases ensure that the project stays focused on user requirements.
+⦁	Testing and Quality: They are used to create tests to make sure the system works as intended.
+⦁	Clear Communication: Use-cases provide a common language for everyone involved in the project.
+⦁	Guiding Development: Use-cases serve as a roadmap for developers, helping them build the right things.
+⦁	User Training: Use-cases form the basis for user manuals and training materials.
+⦁	Managing Risks: They help in identifying and addressing potential issues early in the project.
+⦁	Continuous Improvement: Use-cases allow for improvements based on user feedback, ensuring the project evolves over time.
+
+Planned(To-Do):
+⦁	Group Discussion about what is  Userstories.(Status: Done)<br>
+⦁	Write the User-Stories for our Finance Management System.(Status: Done)<br>
+
+Who Will Do What:
+⦁	Abhishek: User-stories for Admin(Status: Yet To be Started)<br>
+⦁	Sia: Think User stories for Registered Users(Status: Yet To be Started)<<br>
+⦁	Vaidik: User stories for Premium User(Status: Yet To be Started)<s<br>
+⦁	Harshil: User Stories for Guest users(Status: Yet To be Started)<<br>
+
+Who Did What:
+⦁	This was done by Vaidik.
+
+---------------------------------------------------------------------------------------------------------------
+Date: 22/02/2024 summary:
+
+We discussed about the User-Stories of our Finance Management System.<br>
+Discuss with the client about the User-Stories.
+
+⦁	User-Centric Focus:User stories place the focus on the end-users and their needs. This helps in developing a product that aligns with user expectations and requirements.<br>
+⦁	Clear Communication: User stories provide a clear and concise way to communicate requirements between developers, designers, product owners, and users.<br>
+⦁	Prioritization: User stories aid in prioritizing features based on user value. By understanding user needs, the team can prioritize the development of features that bring the most value to users first.<br>
+⦁	Incremental Development: User stories support incremental and iterative development. Teams can deliver a functional product incrementally, allowing for faster feedback and adaptation to changing requirements.<br>
+⦁	Collaboration and Engagement: User stories encourage collaboration between different team members and stakeholders. They facilitate discussions and help in gathering feedback throughout the development process.<br>
+⦁	Flexibility and Adaptability: User stories allow for flexibility and adaptability to changing requirements. They are designed to be easily modified or reprioritized based on evolving project needs.<br>
+⦁	Measurable Acceptance Criteria: Each user story comes with acceptance criteria, which are measurable conditions that must be met for the story to be considered complete. This ensures a shared understanding of what needs to be delivered.<br>
+⦁	Testability: User stories make it easier to define and conduct tests. The acceptance criteria provide a basis for creating test cases, helping to ensure that the developed features meet the specified requirements.<br>
+⦁	Alignment with Project Goals: User stories tie directly to project goals and objectives. They ensure that the development effort is aligned with the overall vision and strategy of the project.<br>
+
+Who Did What:
+⦁	Vaidik: User-Stories for Premium Users(Status: Done)<br>
+⦁	Sia: User-Stories for Registered Users(Status: Done)<br>
+⦁	Abhishek: User-Stories for Admin(Status: Done)<br>
+⦁	Harshil: User-Stories for Guest Users(Status: Done)<br>
+
+Discussed about the Pull Request: 
+⦁	A pull request is a mechanism often used in distributed version control systems, such as Git, to propose changes to a codebase. It is a way for developers to notify others about changes they have made in a branch of a repository and request that those changes be reviewed, tested, and eventually merged into the main branch.<br>
+⦁	A developer creates a new branch from the main branch. This new branch is where they will make their changes.<br>
+⦁	The developer then opens a pull request, which is a request to merge their changes into the main branch. This includes details about the changes made, the purpose of the changes, and any relevant information.<br>
+⦁	Code Changes: The developer makes the necessary changes to the code in their branch.<br>
+
+Planned(To-Do):
+⦁	Group Discussion about the UI design for the project.(Status: Done)<br>
+⦁	Vaidik, Harshil: Group Discussion about the Functional and Non-functional Requirements for the project.(Status: Yet To Start)<br>
+⦁	Sia, Abhishek: Group Discussion about the Functional and Non-functional Requirements for the project.(Status: Yet To Start)<br>
+⦁	(Vaidik): Explain about different Tools for the UI design. (Status: Done)<br>
+⦁	Harshil: What type of data will the Admin User use.(Status: Yet To Start)<br>
+⦁	Vaidik: What type of data will the Guest User use.(Status: Yet To Start)<br>
+⦁	Abhishek: What type of data will the Premium User use.(Status: Yet To Start)<br>
+⦁	Sia: What type of data will the Registered User use.(Status: Yet To Start)<br>
+⦁	Group: Design a sketch for homepage..(Status: Yet To Start)<br>
