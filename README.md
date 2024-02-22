@@ -83,51 +83,51 @@ Harshil: User Stories for Guest users
 ---------------------------------------------------------------------------------------------------------------
 22/02/2024 summary:
 
-Planned(To-Do): 
-We discussed about the User-Stories of our Finance Management System.
+Planned(To-Do): <br>
+We discussed about the User-Stories of our Finance Management System.<br>
 
-User-Centric Focus:
-User stories place the focus on the end-users and their needs. This helps in developing a product that aligns with user expectations and requirements.
+User-Centric Focus:<br>
+User stories place the focus on the end-users and their needs. This helps in developing a product that aligns with user expectations and requirements.<br>
 
-Clear Communication:
-User stories provide a clear and concise way to communicate requirements between developers, designers, product owners, and users.
+Clear Communication:<br>
+User stories provide a clear and concise way to communicate requirements between developers, designers, product owners, and users.<br>
 
-Prioritization:
-User stories aid in prioritizing features based on user value. By understanding user needs, the team can prioritize the development of features that bring the most value to users first.
+Prioritization:<br>
+User stories aid in prioritizing features based on user value. By understanding user needs, the team can prioritize the development of features that bring the most value to users first.<br>
 
-Incremental Development:
-User stories support incremental and iterative development. Teams can deliver a functional product incrementally, allowing for faster feedback and adaptation to changing requirements.
+Incremental Development:<br>
+User stories support incremental and iterative development. Teams can deliver a functional product incrementally, allowing for faster feedback and adaptation to changing requirements.<br>
 
-Collaboration and Engagement:
-User stories encourage collaboration between different team members and stakeholders. They facilitate discussions and help in gathering feedback throughout the development process.
+Collaboration and Engagement:<br>
+User stories encourage collaboration between different team members and stakeholders. They facilitate discussions and help in gathering feedback throughout the development process.<br>
 
-Flexibility and Adaptability:
-User stories allow for flexibility and adaptability to changing requirements. They are designed to be easily modified or reprioritized based on evolving project needs.
+Flexibility and Adaptability:<br>
+User stories allow for flexibility and adaptability to changing requirements. They are designed to be easily modified or reprioritized based on evolving project needs.<br>
 
-Measurable Acceptance Criteria:
-Each user story comes with acceptance criteria, which are measurable conditions that must be met for the story to be considered complete. This ensures a shared understanding of what needs to be delivered.
+Measurable Acceptance Criteria:<br>
+Each user story comes with acceptance criteria, which are measurable conditions that must be met for the story to be considered complete. This ensures a shared understanding of what needs to be delivered.<br>
 
-Testability:
-User stories make it easier to define and conduct tests. The acceptance criteria provide a basis for creating test cases, helping to ensure that the developed features meet the specified requirements.
+Testability:<br>
+User stories make it easier to define and conduct tests. The acceptance criteria provide a basis for creating test cases, helping to ensure that the developed features meet the specified requirements.<br>
 
-Alignment with Project Goals:
-User stories tie directly to project goals and objectives. They ensure that the development effort is aligned with the overall vision and strategy of the project.
+Alignment with Project Goals:<br>
+User stories tie directly to project goals and objectives. They ensure that the development effort is aligned with the overall vision and strategy of the project.<br>
 
-Vaidik wrote the User-Stories for Premium Users
-Sia wrote the User-Stories for Registered Users
-Abhishek wrote the User-Stories for Admin
-Harshil wrote the User-Stories for Guest Users
+Vaidik wrote the User-Stories for Premium Users<br>
+Sia wrote the User-Stories for Registered Users<br>
+Abhishek wrote the User-Stories for Admin<br>
+Harshil wrote the User-Stories for Guest Users<br>
 
 Discussed about the Pull Request: 
-A pull request is a mechanism often used in distributed version control systems, such as Git, to propose changes to a codebase. It is a way for developers to notify others about changes they have made in a branch of a repository and request that those changes be reviewed, tested, and eventually merged into the main branch.
-A developer creates a new branch from the main branch. This new branch is where they will make their changes.
-The developer then opens a pull request, which is a request to merge their changes into the main branch. This includes details about the changes made, the purpose of the changes, and any relevant information.
-Code Changes: The developer makes the necessary changes to the code in their branch.
+A pull request is a mechanism often used in distributed version control systems, such as Git, to propose changes to a codebase. It is a way for developers to notify others about changes they have made in a branch of a repository and request that those changes be reviewed, tested, and eventually merged into the main branch.<br>
+A developer creates a new branch from the main branch. This new branch is where they will make their changes.<br>
+The developer then opens a pull request, which is a request to merge their changes into the main branch. This includes details about the changes made, the purpose of the changes, and any relevant information.<br>
+Code Changes: The developer makes the necessary changes to the code in their branch.<br>
 
 Next Steps:
-Group Discussion about the UI design for the project.
-Group Discussion about the Functional and Non-functional Requirements for the project.
-(vaidik): Explain about different Tools for the UI design. 
+Group Discussion about the UI design for the project.<br>
+Group Discussion about the Functional and Non-functional Requirements for the project.<br>
+(vaidik): Explain about different Tools for the UI design. <br>
 
 
 
