@@ -75,10 +75,10 @@ Next Steps:
 Group Discussion about the Userstories.
 Write the User-Stories for our Finance Management System.
 
-Abhishek: User-stories for Admin
-Sia: Think User stories for Registered Users
-Vaidik: User stories for Premium Users
-Harshil: User Stories for Guest users
+Abhishek: User-stories for Admin<br>
+Sia: Think User stories for Registered Users<br>
+Vaidik: User stories for Premium Users<br>
+Harshil: User Stories for Guest users<br>
 
 ---------------------------------------------------------------------------------------------------------------
 22/02/2024 summary:
