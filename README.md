@@ -31,7 +31,7 @@ Guests: Individuals with limited access to the system. Guests can view a simplif
 
 Next Steps: 
 Use-Cases for our Finance Management System.
-Discuss with Tariq about Database.
+Discuss with Tariq about Database. 
 
 ---------------------------------------------------------------------
 16/02/2024 summary:
@@ -68,7 +68,7 @@ They help in identifying and addressing potential issues early in the project.
 Continuous Improvement:
 Use cases allow for improvements based on user feedback, ensuring the project evolves over time.
 
-Contributions: 
+ 
 
 
 Next Steps:
