@@ -19,6 +19,8 @@ REACT with FIREBASE
 -------------------------------------------------------------------
 15/02/2024 summary: 
 
+Planned(To-Do): 
+
 We did the brainstorm and discussed about the system idea of our project and types of Users in the our finance management system.
 
 There are 4 types of User in our case:
