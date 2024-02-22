@@ -119,13 +119,13 @@ Harshil wrote the User-Stories for Guest Users
 Discussed about the Pull Request: 
 A pull request is a mechanism often used in distributed version control systems, such as Git, to propose changes to a codebase. It is a way for developers to notify others about changes they have made in a branch of a repository and request that those changes be reviewed, tested, and eventually merged into the main branch.
 A developer creates a new branch from the main branch. This new branch is where they will make their changes.
-
+The developer then opens a pull request, which is a request to merge their changes into the main branch. This includes details about the changes made, the purpose of the changes, and any relevant information.
 Code Changes: The developer makes the necessary changes to the code in their branch.
 
 Next Steps:
 Group Discussion about the UI design for the project.
 Group Discussion about the Functional and Non-functional Requirements for the project.
-(vaidik): Explain about different Tools for the UI design.
+(vaidik): Explain about different Tools for the UI design. 
 
 
 
