@@ -71,9 +71,9 @@ They help in identifying and addressing potential issues early in the project.
 Continuous Improvement:
 Use-cases allow for improvements based on user feedback, ensuring the project evolves over time.
 
-Next Steps:
-Group Discussion about the Userstories.
-Write the User-Stories for our Finance Management System.
+Next Steps:<br>
+Group Discussion about the Userstories.<br>
+Write the User-Stories for our Finance Management System.<br>
 
 Abhishek: User-stories for Admin<br>
 Sia: Think User stories for Registered Users<br>
