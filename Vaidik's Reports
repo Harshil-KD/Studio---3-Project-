@@ -28,12 +28,14 @@ Think of possible use-cases for the project.
 Think of possible userstories.
 -------------------------------------------------------------------------------------------------------
 Date: 16/02/2024
-1.	Work Accomplished Today:
+
 • Tasks Completed:
 Uses-cases for the Project.
+
 • Progress Achieved:
 User Authentication: 
 Use Case: A new user should be able to register by providing a username, email, and password. After registration, users can log in using their credentials. In case they forget their password, there should be a secure process to reset it, possibly involving a reset link sent to their registered email.
+
 Role-Based Access Control (RBAC):
 Use Case: Admins have the ability to create, update, and delete user accounts. They can also view detailed financial information, including all expenses and incomes. Registered and Premium Users can manage their profiles, view their own expenses, and incomes. Guests, with limited access, might only be able to view general information on overview screens without access to detailed financial records.
 
@@ -41,27 +43,25 @@ Use Case: Admins have the ability to create, update, and delete user accounts. T
 • Time Spent :
 Approximately 3 hours
 
-3.	Overall Project Status:
-Uses-cases for the Project.
-4.	Next Meeting Agenda:
+Planned(To-Do):
 User stories for the project
-design wireframes for the project using Figma. 
+Discuss about UI design Tools. 
 
 -------------------------------------------------------------------------------------------
 22/02/2024 Summary:
 
-Planned(To-Do):
+Tasks Completed:
 Discussed with group about the User-stories for the different types of Users in our project.
 Created the User-Stories for the premium Users.
 
-Premium User:
+Premium User:    
 1.	Advanced Filtering:
 As a premium user, I want more advanced filtering options for my expenses and income, such as custom date ranges and multiple category selections.
 
 2.	Expense Categories Management:
 As a premium user, I want the ability to add, edit, and delete expense categories for better expense organization.
 
-3.	Income Source Management:
+3.	Income Source Management:                            
 As a premium user, I want the ability to add, edit, and delete sources of income for better income organization.
 
 4.	Data Export Options:
@@ -69,4 +69,15 @@ As a premium user, I want additional options when exporting financial data, such
 
 5.	Customizable Overview Dashboard:
 As a premium user, I want the ability to customize my dashboard layout and select the key financial metrics to display.
+------------------------------------------------------------------------------------------------------
+22/02/2024 Summary:
+Discussed with group about the different UI Design Tools: 
+Figma.
+Sketch.
+Invision.
+Marvel
+Explore and learn to 
+
+-------------------------------------------------------------------------------------------
+
 
