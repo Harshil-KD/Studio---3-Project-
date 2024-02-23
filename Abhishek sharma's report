@@ -1,0 +1,40 @@
+23.02.2024
+Today i have done research on unfunctional requirements for the users of moneywise app .
+where i realised that these things needt to be int the for making this app user friendly
+these are the following requirements
+Performance:
+
+ 
+
+Response Time: The app should have low latency, providing quick responses to user inputs.
+Throughput: It should be capable of handling a certain number of transactions or data inputs per unit of time.
+Scalability: The app should be scalable to accommodate an increasing number of users and data over time.
+Reliability:
+
+ 
+
+Availability: The app should be available for use during specified time frames without significant downtime.
+Fault Tolerance: The app should be resilient to system failures, ensuring data integrity and minimizing data loss.
+Security:
+
+ 
+
+Authentication and Authorization: Ensure secure login mechanisms and proper authorization levels for users.
+Data Encryption: Implement encryption for data in transit and at rest to protect user information.
+Secure Transactions: Ensure the security of financial transactions and sensitive data.
+Usability:
+
+ 
+
+User Interface (UI) Design: The app should have an intuitive and user-friendly interface.
+Accessibility: Ensure that the app is accessible to users with disabilities.
+Consistency: Maintain a consistent look and feel across different platforms and devices.
+Scalability:
+
+ 
+
+Database Scalability: The app's database should be scalable to handle an increasing volume of financial data.
+User Scalability: The app should be able to handle a growing user base without significant degradation in performance.
+Maintainability:
+
+that took 1 lecture to figureout what is important for the project 
