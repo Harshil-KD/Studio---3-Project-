@@ -1,0 +1,18 @@
+23/2/24
+Task Completed
+
+Maintainability:
+Code Maintainability: The app's codebase should be well-organized, documented, and easily maintainable.
+Update and Patching: The app should support seamless updates and patches to fix bugs or add new features.
+Compatibility:
+Cross-platform Compatibility: Ensure the app works consistently across various operating systems and devices.
+Browser Compatibility: If a web-based app, ensure compatibility with popular web browsers.
+Performance Monitoring:
+Logging and Monitoring: Implement logging and monitoring functionalities to track errors, usage patterns, and overall system health.
+Compliance:
+Regulatory Compliance: Ensure the app complies with relevant financial regulations and standards.
+Privacy Policy: Clearly communicate and adhere to a privacy policy to protect user data.
+Backup and Recovery:
+Data Backup: Regularly backup user data to prevent data loss.
+Disaster Recovery: Implement a plan for recovering data in the event of a disaster.
+These non-functional requirements will contribute to the overall success, reliability, and user satisfaction with the expenses and savings recorder app.
