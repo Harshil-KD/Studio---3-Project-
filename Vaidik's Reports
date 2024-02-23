@@ -26,8 +26,28 @@ Basic user stories of project: Guest, Registered user, premium User, admin.
 6. Next Meeting Agenda:
 Think of possible use-cases for the project.
 Think of possible userstories.
-Discuss how to structure and design the project using Figma.
+-------------------------------------------------------------------------------------------------------
+Date: 16/02/2024
+1.	Work Accomplished Today:
+• Tasks Completed:
+Uses-cases for the Project.
+• Progress Achieved:
+User Authentication: 
+Use Case: A new user should be able to register by providing a username, email, and password. After registration, users can log in using their credentials. In case they forget their password, there should be a secure process to reset it, possibly involving a reset link sent to their registered email.
+Role-Based Access Control (RBAC):
+Use Case: Admins have the ability to create, update, and delete user accounts. They can also view detailed financial information, including all expenses and incomes. Registered and Premium Users can manage their profiles, view their own expenses, and incomes. Guests, with limited access, might only be able to view general information on overview screens without access to detailed financial records.
 
+2.	Time Management:
+• Time Spent :
+Approximately 3 hours
+
+3.	Overall Project Status:
+Uses-cases for the Project.
+4.	Next Meeting Agenda:
+User stories for the project
+design wireframes for the project using Figma. 
+
+-------------------------------------------------------------------------------------------
 22/02/2024 Summary:
 
 Planned(To-Do):
