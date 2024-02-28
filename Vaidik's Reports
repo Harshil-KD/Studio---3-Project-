@@ -77,6 +77,31 @@ Sketch.
 Invision.
 Marvel
 Group discussion about what will be the data for each types of User.
+
+Tasks Completed: 
+
+Functional Requirements for Premium User and Guest user.
+
+Premium User:
+Advanced Filtering:
+Premium users shall have access to more advanced filtering options for expenses and income, such as custom date ranges and multiple category selections.
+Expense Categories and Income Source Management:
+Premium users shall be able to add, edit, and delete expense categories for better expense organization.
+Similar functionality shall be available for managing income sources.
+Data Export Options:
+Premium users shall have additional options when exporting financial data, such as choosing specific categories or date ranges.
+Customizable Overview Dashboard:
+Premium users shall be able to customize their dashboard layout and select the key financial metrics to display.
+
+Guest User:
+Overview Access:
+Guest users shall have access to a simplified overview screen with basic financial information without the need to register.
+Limited Data Export:
+Guest users shall have the ability to export limited financial data in a restricted format for basic analysis.
+Language and Currency Selection:
+Guest users shall be able to choose their preferred language for viewing the user interface.
+Guest users shall be able to select their preferred currency for displaying financial data.
+
 planned(To-Do):
 Functional Requirements for the project.
 -------------------------------------------------------------------------------------------
