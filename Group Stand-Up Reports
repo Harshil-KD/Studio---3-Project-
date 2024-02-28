@@ -73,13 +73,25 @@ Discussed about the Pull Request:
 ⦁	The developer then opens a pull request, which is a request to merge their changes into the main branch. This includes details about the changes made, the purpose of the changes, and any relevant information.<br>
 ⦁	Code Changes: The developer makes the necessary changes to the code in their branch.<br>
 
-Planned(To-Do This Tuesday):
+Planned(To-Do):
 ⦁	Group Discussion about the UI design for the project. (Status: Done)<br>
 ⦁	Vaidik, Harshil: Group Discussion about the Functional and Non-functional Requirements for the project.(Status: Yet To Start)<br>
 ⦁	Sia, Abhishek: Group Discussion about the Functional and Non-functional Requirements for the project.(Status: Yet To Start)<br>
 ⦁	(Vaidik): Explain about different Tools for the UI design. (Status: Done)<br>
-⦁	Harshil: What type of data will the Admin User have?(Status: Yet To Start)<br>
-⦁	Vaidik: What type of data will the Guest User have?(Status: Yet To Start)<br>
-⦁	Abhishek: What type of data will the Premium User have?(Status: Yet To Start)<br>
-⦁	Sia: What type of data will the Registered User have?(Status: Yet To Start)<br>
 ⦁	Group: Design a sketch for homepage..(Status: Yet To Start)<br>
+---------------------------------------------------------------------------------------------------------------
+Date: 23/02/2024 summary:
+
+Sia, Abhishek and prabhkirat worked on the Non-Functional requiremnts for the project.
+Vaidik, Harshil worked on the functional Requiremnents for the project.
+
+Vaidik introduced the different UI Design tools: Figma, Adobe XD, Balsamiq, Invision Studio, sketch, etc.
+
+Who Did What:
+Sia Abhishek and prabhkirat Non-Functional requirements for the project.
+Vaidik, harshil Functional-reuirements for the project.
+
+Planned(To-Do):
+⦁ Group Discussion about the UI design for the project. (Status: Done)
+⦁ Group Discussion about the different diagrams for the project. (Status: Yet To Start)
+⦁ Create the usecase diagram for the project. (Status: Yet To Start)
