@@ -14,7 +14,7 @@ function LoginPageDesign() {
         style={{
           backgroundColor: "#9600DC",
           color: "white",
-          background: "linear-gradient(to right, black 10%, #9600DC 60%, #9600DC)"
+          background: "linear-gradient(to right, #23102e, #432057, #9600DC, #9600DC, #9600DC, #9600DC)"
         }}
         variant="dark"
         expand="lg">
@@ -43,7 +43,7 @@ function LoginPageDesign() {
         style={{
           backgroundColor: "#9600DC",
           color: "white",
-          background: "linear-gradient(to right, black 15%, #9600DC 60%, #9600DC)"
+          background: "linear-gradient(to right, #23102e, #432057, #9600DC, #9600DC, #9600DC, #9600DC)"
         }}
         
       >
