@@ -1,0 +1,31 @@
+/* Move Navbar Logo to the right and down */
+.forNavbar {
+  margin-left: 100px; /* Adjust the right margin as needed */
+  margin-top: 25px; /* Adjust the bottom margin as needed */
+}
+
+/* Adjust text alignment to the left */
+.login-container {
+  text-align: left !important; /* Override Bootstrap's default text alignment */
+}
+
+.login-title,
+.login-description {
+  margin-left: 100px; /* Adjust the right margin as needed */
+}
+
+.login-title {
+  padding-top: 50px;
+}
+
+.login-description {
+  padding-bottom: 50px;
+}
+
+.rounded {
+  height: 400px;
+}
+
+.label {
+    display: flex;
+}
