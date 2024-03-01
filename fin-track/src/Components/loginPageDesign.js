@@ -10,7 +10,11 @@ function LoginPageDesign() {
   return (
     <div>
 
-      <Navbar style={{ backgroundColor: "#000099" }} variant="dark" expand="lg">
+      <Navbar style={{
+          backgroundColor: "#9600DC",
+          color: "white",
+          background: "radial-gradient(circle, black 1%, #9600DC 80%, black 5%)"
+        }} variant="dark" expand="lg">
         <Container fluid className="forNavbar">
           {/* Navbar Logo */}
           <Navbar.Brand href="#">
@@ -36,6 +40,7 @@ function LoginPageDesign() {
         style={{
           backgroundColor: "#9600DC",
           color: "white",
+          background: "radial-gradient(circle, black, #9600DC, black)"
         }}
         
       >
