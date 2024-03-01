@@ -2,24 +2,25 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
-import "../CSS/loginPageDesign.css";
+import "../CSS/registerPageDesign.css";
 import VectorLogo from "../Images/Vector_Logo.png";
 import loginBg from "../Images/login-bg.png";
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
 
-function LoginPageDesign() {
+function RegisterPageDesign() {
   return (
     <div>
-
-      <Navbar 
+      <Navbar
         style={{
           backgroundColor: "#9600DC",
           color: "white",
-          background: "linear-gradient(to right, #23102e, #432057, #9600DC, #9600DC, #9600DC, #9600DC)"
+          background:
+            "linear-gradient(to right, #23102e, #432057, #9600DC, #9600DC, #9600DC, #9600DC)",
         }}
         variant="dark"
-        expand="lg">
+        expand="lg"
+      >
         <Container fluid className="forNavbar">
           {/* Navbar Logo */}
           <Navbar.Brand href="#">
@@ -41,16 +42,16 @@ function LoginPageDesign() {
       {/* Welcome Container with Navbar background color */}
       <Container
         fluid
-        className="login-container"
+        className="register-container"
         style={{
           backgroundColor: "#9600DC",
           color: "white",
-          background: "linear-gradient(to right, #23102e, #432057, #9600DC, #9600DC, #9600DC, #9600DC)"
+          background:
+            "linear-gradient(to right, #23102e, #432057, #9600DC, #9600DC, #9600DC, #9600DC)",
         }}
-        
       >
-        <h1 className="login-title">Login</h1>
-        <p className="login-description">Login to your account.</p>
+        <h1 className="register-title">SignUp</h1>
+        <p className="register-description">Register to create your account.</p>
       </Container>
 
       <div className="container px-9 text-center">
@@ -60,7 +61,7 @@ function LoginPageDesign() {
           <div className="col">
             <div className="p-3">
               <div className="text-center">
-                <img src={loginBg} className="rounded" alt="..." />
+                <img src={loginBg} className="rounded img-fluid" alt="..." />
               </div>
             </div>
           </div>
@@ -70,6 +71,30 @@ function LoginPageDesign() {
             <div className="p-3">
 
               <form action="">
+
+                <div className="mb-3">
+                  <label htmlFor="fullName" className="form-label label">
+                    <h4 className="label">Full Name:</h4>
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control label"
+                    id="fullName"
+                    placeholder="Enter your full name"
+                  />
+                </div>
+
+                <div className="mb-3">
+                  <label htmlFor="address" className="form-label label">
+                    <h4 className="label">Address:</h4>
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control label"
+                    id="address"
+                    placeholder="Enter your residential address"
+                  />
+                </div>
 
                 <div className="mb-3">
                   <label htmlFor="inputEmail" className="form-label label">
@@ -95,6 +120,18 @@ function LoginPageDesign() {
                   />
                 </div>
 
+                <div className="mb-3">
+                  <label htmlFor="inputPassword" className="form-label label">
+                    <h4 className="label"> Retype Password:</h4>
+                  </label>
+                  <input
+                    type="password"
+                    className="form-control"
+                    id="inputPassword"
+                    placeholder="Enter your password"
+                  />
+                </div>
+
               </form>
 
             </div>
@@ -109,4 +146,4 @@ function LoginPageDesign() {
   );
 }
 
-export default LoginPageDesign;
+export default RegisterPageDesign;

@@ -1,0 +1,35 @@
+.forNavbar {
+  margin-left: 100px; /* Adjust the right margin as needed */
+  margin-top: 25px; /* Adjust the bottom margin as needed */
+}
+
+/* Adjust text alignment to the left */
+.register-container {
+  text-align: left !important; /* Override Bootstrap's default text alignment */
+}
+
+.rounded {
+    min-width: 300px;
+}
+
+.register-title,
+.register-description {
+  margin-left: 100px; /* Adjust the right margin as needed */
+}
+
+.register-title {
+  padding-top: 50px;
+}
+
+.register-description {
+  padding-bottom: 50px;
+}
+
+.rounded {
+  height: 400px;
+  min-width: 300px;
+}
+
+.label {
+    display: flex;
+}
