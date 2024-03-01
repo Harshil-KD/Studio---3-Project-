@@ -14,7 +14,7 @@ function LoginPageDesign() {
         style={{
           backgroundColor: "#9600DC",
           color: "white",
-          background: "radial-gradient(circle, black, #9600DC, black)"
+          background: "linear-gradient(to right, black 10%, #9600DC 60%, #9600DC)"
         }}
         variant="dark"
         expand="lg">
@@ -43,7 +43,7 @@ function LoginPageDesign() {
         style={{
           backgroundColor: "#9600DC",
           color: "white",
-          background: "radial-gradient(circle, black, #9600DC, black)"
+          background: "linear-gradient(to right, black 15%, #9600DC 60%, #9600DC)"
         }}
         
       >
@@ -58,7 +58,7 @@ function LoginPageDesign() {
           <div className="col">
             <div className="p-3">
               <div className="text-center">
-                <img src={loginBg} className="rounded" alt="..." />
+                <img src={loginBg} className="rounded img-fluid" alt="..." />
               </div>
             </div>
           </div>
@@ -81,7 +81,7 @@ function LoginPageDesign() {
                   />
                 </div>
 
-                <div className="mb-3">
+                <div className="mb-4">
                   <label htmlFor="inputPassword" className="form-label label">
                     <h4 className="label"> Password:</h4>
                   </label>
@@ -91,6 +91,11 @@ function LoginPageDesign() {
                     id="inputPassword"
                     placeholder="Enter your password"
                   />
+                </div>
+
+                <div className="login mt-5">
+                  <button id="loginSubmit" size="lg" className="custom-button mb-3">Log In</button> <br/>
+                  <button id="register" size="lg" className="custom-button">Register</button>
                 </div>
 
               </form>
