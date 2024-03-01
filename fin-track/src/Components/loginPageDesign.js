@@ -14,7 +14,7 @@ function LoginPageDesign() {
         style={{
           backgroundColor: "#9600DC",
           color: "white",
-          background: "radial-gradient(circle, black, #9600DC, black)"
+          background: "linear-gradient(to right, #23102e, #432057, #9600DC, #9600DC, #9600DC, #9600DC)"
         }}
         variant="dark"
         expand="lg">
@@ -43,7 +43,7 @@ function LoginPageDesign() {
         style={{
           backgroundColor: "#9600DC",
           color: "white",
-          background: "radial-gradient(circle, black, #9600DC, black)"
+          background: "linear-gradient(to right, #23102e, #432057, #9600DC, #9600DC, #9600DC, #9600DC)"
         }}
         
       >
