@@ -6,7 +6,7 @@ import "../CSS/loginPageDesign.css";
 import VectorLogo from "../Images/Vector_Logo.png";
 import loginBg from "../Images/login-bg.png";
 
-function LoginPageDesign() {
+function LoginpageDesign() {
   return (
     <div>
 
@@ -19,7 +19,7 @@ function LoginPageDesign() {
         variant="dark"
         expand="lg">
         <Container fluid className="forNavbar">
-          {/* Navbar Logo */}
+          {/* Title Bar Design Logo*/}
           <Navbar.Brand href="#">
             <img
               src={VectorLogo}
@@ -31,12 +31,12 @@ function LoginPageDesign() {
             FinTrack
           </Navbar.Brand>
 
-          {/* Navbar Toggler for mobile view */}
+          {/* TitleBar Toggler for mobile view */}
           <Navbar.Toggle aria-controls="navbar-nav" />
         </Container>
       </Navbar>
 
-      {/* Welcome Container with Navbar background color */}
+      {/* Welcome Container with TitleBar background color */}
       <Container
         fluid
         className="login-container"
@@ -112,4 +112,4 @@ function LoginPageDesign() {
   );
 }
 
-export default LoginPageDesign;
+export default LoginpageDesign;
