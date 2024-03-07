@@ -1,51 +1,65 @@
-import React from 'react';
-import Container from "react-bootstrap/Container";
-import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
-
-import { Link } from 'react-router-dom';
-
+import React from "react";
+import { Link } from "react-router-dom";
 import "../CSS/mainNavbar.css";
-
 import VectorLogo from "../Images/Vector_Logo_White.png";
 
 function MainNavbar() {
   return (
     <div>
-      <Navbar className="navbar">
-        <Container fluid className="nav-brand">
-          <Navbar.Brand href="#home">
-            <img
-              src={VectorLogo}
-              width="30"
-              height="30"
-              alt="Navbar Logo"
-              className="d-inline-block align-top"
-            />{" "}
+      <nav className="navbar navbar-expand-lg bg-body-tertiary">
+        <div className="container-fluid">
+          <button
+            className="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarTogglerDemo03"
+            aria-controls="navbarTogglerDemo03"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span className="navbar-toggler-icon"></span>
+          </button>
+
+          <Link to="/" className="navbar-brand">
+            <img src={VectorLogo} className="img-fluid" alt="brand-logo" />{" "}
             FinTrack
-          </Navbar.Brand>
-        </Container>
+          </Link>
 
-        <Container fluid className="nav-links">
-          <Nav className="me-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#features">Features</Nav.Link>
-            <Nav.Link href="#pricing">About</Nav.Link>
-          </Nav>
-        </Container>
+          <div className="collapse navbar-collapse" id="navbarTogglerDemo03">
+            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+              <li className="nav-item">
+                <Link to="/" className="nav-link active" aria-current="page">
+                  Home
+                </Link>
+              </li>
 
-        <Container fluid className="nav-buttons">
-          <button type="button" class="btn btn-light btn-login">
-          <Link to="/login">Login</Link>
-          </button>
+              <li className="nav-item">
+                <Link to="/features" className="nav-link">
+                  Features
+                </Link>
+              </li>
 
-          <button type="button" class="btn btn-light btn-register">
-          <Link to="/register">Register</Link>
-          </button>
-        </Container>
-      </Navbar>
+              <li className="nav-item">
+                <Link to="/about" className="nav-link">
+                  About
+                </Link>
+              </li>
+            </ul>
+
+            <div className="d-flex">
+              <Link to="/login" className="btn custom-btn">
+                Log In
+              </Link>
+
+              <Link to="/register" className="btn custom-btn">
+                Register
+              </Link>
+            </div>
+          </div>
+        </div>
+      </nav>
     </div>
-  )
+  );
 }
 
 export default MainNavbar;
