@@ -1,0 +1,31 @@
+/* Navbar */
+.navbar {
+    background-color: #6e1797;
+    color: white;
+  }
+  
+  /* Navbar Brand */
+  .navbar-brand {
+    color: white;
+  }
+  
+  /* Navbar Links */
+  .nav-link {
+    color: white;
+    margin-right: 20px; /* Add space between each nav-link */
+  }
+  
+  /* Navbar Buttons */
+  .nav-buttons {
+    display: flex;
+    justify-content: flex-end; /* Align to the right */
+    max-width: 280px;
+  }
+  
+  .btn-login,
+  .btn-register {
+    color: black; /* Text color */
+    background-color: white; /* Background color */
+    width: 120px; /* Increase button width */
+    margin-left: -10px; /* Add space between buttons */
+  }

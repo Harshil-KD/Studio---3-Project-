@@ -2,13 +2,13 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
+import { Link } from 'react-router-dom';
+
 import "../CSS/loginPageDesign.css";
 import VectorLogo from "../Images/Vector_Logo.png";
 import loginBg from "../Images/login-bg.png";
-import FloatingLabel from 'react-bootstrap/FloatingLabel';
-import Form from 'react-bootstrap/Form';
 
-function LoginpageDesign() {
+function LoginPageDesign() {
   return (
     <div>
 
@@ -96,8 +96,8 @@ function LoginpageDesign() {
                 </div>
 
                 <div className="login mt-5">
-                  <button id="loginSubmit" size="lg" className="custom-button mb-3">Log In</button> <br/>
-                  <button id="register" size="lg" className="custom-button">Register</button>
+                  <button id="loginSubmit" size="lg" className="custom-button mb-3"><Link to="/">Login</Link></button> <br/>
+                  <button id="register" size="lg" className="custom-button"><Link to="/register">Register</Link></button>
                 </div>
 
               </form>

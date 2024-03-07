@@ -5,16 +5,11 @@
 
 /* Adjust text alignment to the left */
 .register-container {
-  text-align: left !important; /* Override Bootstrap's default text alignment */
-}
-
-.rounded {
-    min-width: 300px;
-}
-
-.register-title,
-.register-description {
-  margin-left: 100px; /* Adjust the right margin as needed */
+  /* text-align: left !important; /* Override Bootstrap's default text alignment 
+  padding-top: 25px;
+  padding-bottom: 12px;
+  padding-left: 109px; */
+  text-align: left;
 }
 
 .register-title {
@@ -31,5 +26,53 @@
 }
 
 .label {
-    display: flex;
+  display: flex;
+}
+
+.custom-button {
+  width: 100%; /* Make the buttons take up the full width of the container */
+  height: 2.5rem; /* Adjust the height as needed to match your input elements */
+}
+
+/* Rest of your existing CSS code */
+
+button {
+  /* Existing styles for your buttons */
+  background-image: linear-gradient(
+    92.88deg,
+    #455eb5 9.16%,
+    #5643cc 43.89%,
+    #673fd7 64.72%
+  );
+  border-radius: 8px;
+  border-style: none;
+  box-sizing: border-box;
+  color: #ffffff;
+  cursor: pointer;
+  flex-shrink: 0;
+  font-family: "Inter UI", "SF Pro Display", -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+    sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 0 1.6rem;
+  text-align: center;
+  text-shadow: rgba(0, 0, 0, 0.25) 0 3px 8px;
+  transition: all 0.5s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  margin-bottom: 10px;
+}
+
+/* Media query for larger screens */
+@media (min-width: 768px) {
+  button {
+    padding: 0 2.6rem;
+  }
+}
+
+button:hover {
+  box-shadow: rgba(80, 63, 205, 0.5) 0 1px 30px;
+  transition-duration: 0.1s;
 }
