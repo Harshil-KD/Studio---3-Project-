@@ -1,0 +1,137 @@
+/* Your custom styles.css or homePageDesign.css */
+
+/* General styles */
+body {
+  font-family: Arial, sans-serif; /* Use your preferred font */
+}
+
+/* Grid and column styles */
+.grid {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap; /* Allow items to wrap to the next line on smaller screens */
+  padding: 20px; /* Add padding to the grid */
+}
+
+.g-col-6 {
+  width: 48%; /* Adjust the width as needed */
+  max-width: 850px; /* Optional: Set a maximum width for better responsiveness */
+  margin-bottom: 20px; /* Add some spacing between the columns */
+  padding: 20px; /* Add padding to each column */
+  box-sizing: border-box; /* Include padding in the width calculation */
+}
+
+/* Carousel styles */
+.carousel {
+  width: 100%; /* Ensure the carousel takes up the entire width of its container */
+  border-radius: 35px; /* Set the desired border radius */
+  overflow: hidden; /* Ensure content within the carousel is clipped to the border radius */
+}
+
+.carousel img {
+  width: 100%; /* Make images responsive, taking up the full width of the container */
+  height: auto; /* Maintain the aspect ratio */
+}
+
+/* Button styles */
+.custom-btn-outline {
+  background-color: #9600dc;
+  color: #ffffff; /* Set text color */
+  border-color: #9600dc; /* Set border color */
+  height: 70px; /* Set the desired height */
+  width: 320px; /* Set the desired width */
+  font-size: 32px; /* Set the desired text size */
+  display: inline-flex; /* Ensures the button respects the specified width */
+  align-items: center; /* Vertically center the text */
+  justify-content: center; /* Horizontally center the text */
+  font-weight: bolder;
+  transition: background-color 0.3s, color 0.3s; /* Add transition for smoother hover effect */
+}
+
+.custom-btn-outline:hover {
+  background-color: #ffffff; /* Set background color on hover */
+  color: #9600dc; /* Set text color on hover */
+}
+
+/* Body3 styles */
+.body3 {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  background-color: #9600dc; /* Set background color */
+  color: #ffffff; /* Set text color */
+}
+
+.body3 img {
+  width: 100%; /* Make sure the image takes up the full width */
+  max-width: 100%; /* Ensure the image doesn't exceed its original size */
+  height: auto; /* Maintain the aspect ratio */
+}
+
+.body3content {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center; /* Center the content */
+}
+
+/* Media query for smaller screens */
+@media (max-width: 768px) {
+  /* General adjustments for smaller screens */
+  .grid {
+    flex-direction: column; /* Stack items vertically on smaller screens */
+  }
+
+  .g-col-6 {
+    width: 100%; /* Make columns take up full width on smaller screens */
+    max-width: 320px; /* Set a maximum width for smaller screens */
+  }
+
+  /* Carousel adjustments */
+  .carousel img {
+    max-width: 100%; /* Adjust the maximum width of the carousel images */
+  }
+
+  /* Body3 adjustments */
+  .body3 {
+    flex-direction: column; /* Stack items vertically on smaller screens */
+  }
+
+  .body3 img {
+    margin-bottom: 10px; /* Decrease spacing between the image and content */
+  }
+
+  .custom-btn-outline {
+    font-size: 14px; /* Decrease the font size of the button */
+    padding: 10px 15px; /* Adjust padding for the button */
+    max-width: 320px; /* Set a maximum width for the button on smaller screens */
+    box-sizing: border-box;
+  }
+
+  /* Additional changes for specific elements */
+  .body3 {
+    max-width: 320px; /* Set max-width for body3 on smaller screens */
+  }
+
+  .body3 img {
+    max-width: 285px; /* Set max-width for body3 img on smaller screens */
+  }
+
+  .row.body3 {
+    max-width: 340px; /* Set max-width for row.body3 on smaller screens */
+  }
+
+  .col-4 img {
+    max-width: 285px; /* Set max-width for col-4 img on smaller screens */
+  }
+
+  .col-8 {
+    width: 123.33%; /* Set width for col-8 on smaller screens */
+  }
+
+  .row.row-cols-1.row-cols-sm-3.g-4 {
+    max-width: 320px; /* Set max-width for row.row-cols-1.row-cols-sm-3.g-4 on smaller screens */
+  }
+}
