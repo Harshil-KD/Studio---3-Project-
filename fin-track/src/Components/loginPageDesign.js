@@ -8,7 +8,7 @@ import loginBg from "../Images/login-bg.png";
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
 
-function LoginPageDesign() {
+function LoginpageDesign() {
   return (
     <div>
 
@@ -21,7 +21,7 @@ function LoginPageDesign() {
         variant="dark"
         expand="lg">
         <Container fluid className="forNavbar">
-          {/* Navbar Logo */}
+          {/* Title Bar Design Logo*/}
           <Navbar.Brand href="#">
             <img
               src={VectorLogo}
@@ -33,12 +33,12 @@ function LoginPageDesign() {
             FinTrack
           </Navbar.Brand>
 
-          {/* Navbar Toggler for mobile view */}
+          {/* TitleBar Toggler for mobile view */}
           <Navbar.Toggle aria-controls="navbar-nav" />
         </Container>
       </Navbar>
 
-      {/* Welcome Container with Navbar background color */}
+      {/* Welcome Container with TitleBar background color */}
       <Container
         fluid
         className="login-container"
@@ -60,7 +60,7 @@ function LoginPageDesign() {
           <div className="col">
             <div className="p-3">
               <div className="text-center">
-                <img src={loginBg} className="rounded" alt="..." />
+                <img src={loginBg} className="rounded img-fluid" alt="..." />
               </div>
             </div>
           </div>
@@ -83,7 +83,7 @@ function LoginPageDesign() {
                   />
                 </div>
 
-                <div className="mb-3">
+                <div className="mb-4">
                   <label htmlFor="inputPassword" className="form-label label">
                     <h4 className="label"> Password:</h4>
                   </label>
@@ -93,6 +93,11 @@ function LoginPageDesign() {
                     id="inputPassword"
                     placeholder="Enter your password"
                   />
+                </div>
+
+                <div className="login mt-5">
+                  <button id="loginSubmit" size="lg" className="custom-button mb-3">Log In</button> <br/>
+                  <button id="register" size="lg" className="custom-button">Register</button>
                 </div>
 
               </form>
