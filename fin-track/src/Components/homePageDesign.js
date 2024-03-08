@@ -108,9 +108,35 @@ function HomePageDesign() {
       </div>
 
       {/* Body 4 */}
-      <div className="row row-cols-1 row-cols-sm  -3 g-4">
-        <div className="col">
-          <div className="card">
+      <div className="row row-cols-1 row-cols-md-3 g-4" style={{ margin: '20px 0' }}>
+        <div className="col" style={{ padding: '0 15px' }}>
+          <div className="card" style={{ backgroundColor: '#fff', margin: '20px 0', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}>
+            <img src="..." className="card-img-top" alt="..." />
+            <div className="card-body">
+              <h5 className="card-title">Card title</h5>
+              <p className="card-text">
+                This is a longer card with supporting text below as a natural
+                lead-in to additional content. This content is a little bit
+                longer.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div className="col" style={{ padding: '0 15px' }}>
+          <div className="card" style={{ backgroundColor: '#fff', margin: '20px 0', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}>
+            <img src="..." className="card-img-top" alt="..." />
+            <div className="card-body">
+              <h5 className="card-title">Card title</h5>
+              <p className="card-text">
+                This is a longer card with supporting text below as a natural
+                lead-in to additional content. This content is a little bit
+                longer.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div className="col" style={{ padding: '0 15px' }}>
+          <div className="card" style={{ backgroundColor: '#fff', margin: '20px 0', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}>
             <img src="..." className="card-img-top" alt="..." />
             <div className="card-body">
               <h5 className="card-title">Card title</h5>
@@ -123,33 +149,10 @@ function HomePageDesign() {
           </div>
         </div>
 
-        <div className="col">
-          <div className="card">
-            <img src="..." className="card-img-top" alt="..." />
-            <div className="card-body">
-              <h5 className="card-title">Card title</h5>
-              <p className="card-text">
-                This is a longer card with supporting text below as a natural
-                lead-in to additional content. This content is a little bit
-                longer.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div className="col">
-          <div className="card">
-            <img src="..." className="card-img-top" alt="..." />
-            <div className="card-body">
-              <h5 className="card-title">Card title</h5>
-              <p className="card-text">
-                This is a longer card with supporting text below as a natural
-                lead-in to additional content.
-              </p>
-            </div>
-          </div>
-        </div>
       </div>
+
+
+
     </div>
   );
 }
