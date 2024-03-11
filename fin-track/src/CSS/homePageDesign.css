@@ -17,12 +17,19 @@ body {
  
 .g-col-6 {
   flex: 0 0 48%;
-  max-width: 850px;
+  max-width: 100%;
   margin-bottom: 20px;
   padding: 20px;
   box-sizing: border-box;
 }
- 
+.g-col-6 img {
+  
+  max-width: 100%;
+  
+}
+.rounded.mx-auto.d-block1{
+  height: 200px;
+}
 /* Carousel styles */
 .carousel {
   width: 100%;
@@ -77,10 +84,14 @@ body {
   justify-content: center;
   text-align: center;
 }
- 
+.rounded.mx-auto.d-block1 {
+  width: 100%; /* You can adjust the width as needed */
+  height: 80%;
+}
+
 img.rounded.mx-auto.d-block {
-  max-width: 100%;
-  height: auto;
+  max-width: 160px;
+  height: 150px;
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -97,7 +108,9 @@ img.rounded.mx-auto.d-block {
  
 .card-img-top {
   max-width: 100%;
-  height: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  height: 60px;
   border-top-left-radius: calc(0.25rem - 1px);
   border-top-right-radius: calc(0.25rem - 1px);
 }
@@ -108,6 +121,7 @@ img.rounded.mx-auto.d-block {
  
 .card-title {
   margin-bottom: 0.5rem;
+  font-weight: bold;
 }
  
 .card-text {
