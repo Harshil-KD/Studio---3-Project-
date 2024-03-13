@@ -1,6 +1,9 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { doSignInUserWithEmailAndPassword, doSignInWithGoogle } from "./Firebase/Auth"; // Adjust the import path as necessary
+import { useNavigate, Link } from "react-router-dom";
+import {
+  doSignInUserWithEmailAndPassword,
+  doSignInWithGoogle,
+} from "./Firebase/Auth"; // Adjust the import path as necessary
 import "bootstrap/dist/css/bootstrap.min.css";
 import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
@@ -11,10 +14,10 @@ import loginBg from "../Images/login-bg.png";
 
 function LoginPageDesign() {
   const navigate = useNavigate(); // Use for navigation after login
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [isSigningIn, setIsSigningIn] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState("");
 
   const onSubmitEmailPassword = async (e) => {
     e.preventDefault();
@@ -113,9 +116,12 @@ function LoginPageDesign() {
                     type="email"
                     className="form-control label"
                     id="inputEmail"
-                    autoComplete='email'
+                    autoComplete="email"
                     required
-                    value={email} onChange={(e) => { setEmail(e.target.value) }}
+                    value={email}
+                    onChange={(e) => {
+                      setEmail(e.target.value);
+                    }}
                     placeholder="Enter your mail address"
                   />
                 </div>
@@ -128,32 +134,37 @@ function LoginPageDesign() {
                     type="password"
                     className="form-control"
                     id="inputPassword"
-                    autoComplete='current-password'
+                    autoComplete="current-password"
                     required
-                    value={password} onChange={(e) => { setPassword(e.target.value) }}
+                    value={password}
+                    onChange={(e) => {
+                      setPassword(e.target.value);
+                    }}
                     placeholder="Enter your password"
                   />
                 </div>
 
                 <div className="login mt-5">
                   <button
-          id="loginSubmit"
-          onClick={onSubmitEmailPassword}
-          disabled={isSigningIn}
-          className="custom-button mb-3"
-        >
-          Login with Email
-        </button>
-        <button
-          id="googleSignIn"
-          onClick={onGoogleSignIn}
-          disabled={isSigningIn}
-          className="custom-button mb-3"
-        >
-          Sign in with Google
-        </button>
-        {/* Error Message Display */}
-        {errorMessage && <p className="text-danger">{errorMessage}</p>}
+                    id="loginSubmit"
+                    onClick={onSubmitEmailPassword}
+                    disabled={isSigningIn}
+                    className="custom-button mb-3"
+                  >
+                    Login with Email
+                  </button>
+                  <button
+                    id="googleSignIn"
+                    onClick={onGoogleSignIn}
+                    disabled={isSigningIn}
+                    className="custom-button mb-3"
+                  >
+                    Sign in with Google
+                  </button>
+                  {/* Error Message Display */}
+                  {errorMessage && (
+                    <p className="text-danger">{errorMessage}</p>
+                  )}
                   <br />
                   <Link to="/register">
                     <button id="register" size="lg" className="custom-button">
@@ -171,7 +182,6 @@ function LoginPageDesign() {
 }
 
 export default LoginPageDesign;
-
 
 // const onSubmit = async (e) => {
 //   e.preventDefault();

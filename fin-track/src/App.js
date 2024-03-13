@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import {app} from "./Components/Firebase/firebase.js"
 import LoginPageDesign from "./Components/loginPageDesign.js";
 import RegisterPageDesign from "./Components/registerPageDesign.js";
 import HomePageDesign from "./Components/homePageDesign.js";
