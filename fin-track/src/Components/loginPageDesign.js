@@ -2,7 +2,7 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 import "../CSS/loginPageDesign.css";
 import VectorLogo from "../Images/Vector_Logo.png";
@@ -11,15 +11,16 @@ import loginBg from "../Images/login-bg.png";
 function LoginPageDesign() {
   return (
     <div>
-
-      <Navbar 
+      <Navbar
         style={{
           backgroundColor: "#9600DC",
           color: "white",
-          backgroundImage: "linear-gradient(to right, #23102e, #432057, #9600DC, #9600DC, #9600DC, #9600DC)"
+          backgroundImage:
+            "linear-gradient(to right, #23102e, #432057, #9600DC, #9600DC, #9600DC, #9600DC)",
         }}
         variant="dark"
-        expand="lg">
+        expand="lg"
+      >
         <Container fluid className="forNavbar">
           {/* Title Bar Design Logo*/}
           <Navbar.Brand href="#">
@@ -45,18 +46,16 @@ function LoginPageDesign() {
         style={{
           backgroundColor: "#9600DC",
           color: "white",
-          backgroundImage: "linear-gradient(to right, #23102e, #432057, #9600DC, #9600DC, #9600DC, #9600DC)"
+          backgroundImage:
+            "linear-gradient(to right, #23102e, #432057, #9600DC, #9600DC, #9600DC, #9600DC)",
         }}
-        
       >
         <h1 className="login-title">Login</h1>
         <p className="login-description">Login to your account.</p>
       </Container>
 
       <div className="container px-9 text-center">
-
         <div className="row gx-5">
-
           <div className="col">
             <div className="p-3">
               <div className="text-center">
@@ -66,11 +65,8 @@ function LoginPageDesign() {
           </div>
 
           <div className="col colForm">
-
             <div className="p-3">
-
               <form action="">
-
                 <div className="mb-3">
                   <label htmlFor="inputEmail" className="form-label label">
                     <h4 className="label">Email Address:</h4>
@@ -96,20 +92,27 @@ function LoginPageDesign() {
                 </div>
 
                 <div className="login mt-5">
-                  <button id="loginSubmit" size="lg" className="custom-button mb-3"><Link to="/">Login</Link></button> <br/>
-                  <button id="register" size="lg" className="custom-button"><Link to="/register">Register</Link></button>
+                  <Link to="/userOverview">
+                    <button
+                      id="loginSubmit"
+                      size="lg"
+                      className="custom-button mb-3"
+                    >
+                      Login
+                    </button>
+                  </Link>{" "}
+                  <br />
+                  <Link to="/register">
+                    <button id="register" size="lg" className="custom-button">
+                      Register
+                    </button>
+                  </Link>
                 </div>
-
               </form>
-
             </div>
-
           </div>
-
         </div>
-
       </div>
-
     </div>
   );
 }
