@@ -6,7 +6,6 @@ import HomePageDesign from "./Components/homePageDesign.js";
 import UserAccountPage from "./Components/UserAccountPage.js";
 import UserOverviewPage from "./Components/UserOverviewPage.js";
 import UserSummaryPage from "./Components/UserSummaryPage.js";
-import { app, analytics } from "./firebase";
 
 function App() {
   return (

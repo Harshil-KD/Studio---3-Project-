@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import { doSignInUserWithEmailAndPassword, /*doSignInWithGoogle*/ } from "./Firebase/Auth";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
@@ -8,7 +9,50 @@ import "../CSS/loginPageDesign.css";
 import VectorLogo from "../Images/Vector_Logo.png";
 import loginBg from "../Images/login-bg.png";
 
+// import { useAuth } from "./Firebase/AuthContext";
+
+
 function LoginPageDesign() {
+  
+  // const { userLoggedIn } = useAuth();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [isSigningIn, setIsSigningIn] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+
+    // Validation checks
+    if (!email || !password || isSigningIn) {
+      return;
+    }
+
+    setIsSigningIn(true);
+
+    try {
+      // Attempt to sign in
+      await doSignInUserWithEmailAndPassword(email, password);
+    } catch (error) {
+      // Handle errors
+      setErrorMessage(error.message);
+      console.log(errorMessage)
+    } finally {
+      // Reset loading state
+      setIsSigningIn(false);
+    }
+  };
+
+  // const doGoogleSignIn = (e) => {
+  //   e.preventDefault();
+  //   if (!isSigningIn) {
+  //     setIsSigningIn(true);
+  //     doSignInWithGoogle().catch(err => {
+  //       setIsSigningIn(false);
+  //     });
+  //   }
+  // };
+
   return (
     <div>
       <Navbar
@@ -75,6 +119,9 @@ function LoginPageDesign() {
                     type="email"
                     className="form-control label"
                     id="inputEmail"
+                    autoComplete='email'
+                    required
+                    value={email} onChange={(e) => { setEmail(e.target.value) }}
                     placeholder="Enter your mail address"
                   />
                 </div>
@@ -87,6 +134,9 @@ function LoginPageDesign() {
                     type="password"
                     className="form-control"
                     id="inputPassword"
+                    autoComplete='current-password'
+                    required
+                    value={password} onChange={(e) => { setPassword(e.target.value) }}
                     placeholder="Enter your password"
                   />
                 </div>
@@ -95,6 +145,7 @@ function LoginPageDesign() {
                   <Link to="/userOverview">
                     <button
                       id="loginSubmit"
+                      onClick={onSubmit}
                       size="lg"
                       className="custom-button mb-3"
                     >
@@ -118,3 +169,42 @@ function LoginPageDesign() {
 }
 
 export default LoginPageDesign;
+
+
+// const onSubmit = async (e) => {
+//   e.preventDefault();
+
+//   // Validation checks
+//   if (!email || !password || isSigningIn) {
+//     return;
+//   }
+
+//   setIsSigningIn(true);
+
+//   try {
+//     // Attempt to sign in
+//     const userCredential = await doSignInUserWithEmailAndPassword(email, password);
+
+//     // Retrieve user data from Firestore
+//     const userDoc = await getDoc(doc(db, 'users', userCredential.user.uid));
+//     const userData = userDoc.data();
+
+//     setIsSigningIn(false);
+
+//     // Redirect based on user role
+//     if (userData) {
+//       if (userData.role === "admin") {
+//         history.push("/admin");
+//       } else if (userData.role === "premium" || userData.role === "registered") {
+//         history.push("/overview");
+//       } else {
+//         // Handle other roles or set a default redirect
+//         history.push("/overview");
+//       }
+//     }
+//   } catch (error) {
+//     // Handle errors
+//     setErrorMessage(error.message);
+//     setIsSigningIn(false);
+//   }
+// };
