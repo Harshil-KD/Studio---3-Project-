@@ -1,57 +1,51 @@
 import React, { useState } from "react";
-import { doSignInUserWithEmailAndPassword, /*doSignInWithGoogle*/ } from "./Firebase/Auth";
+import { useNavigate } from "react-router-dom";
+import { doSignInUserWithEmailAndPassword, doSignInWithGoogle } from "./Firebase/Auth"; // Adjust the import path as necessary
 import "bootstrap/dist/css/bootstrap.min.css";
 import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
-import { Link } from "react-router-dom";
 
 import "../CSS/loginPageDesign.css";
 import VectorLogo from "../Images/Vector_Logo.png";
 import loginBg from "../Images/login-bg.png";
 
-// import { useAuth } from "./Firebase/AuthContext";
-
-
 function LoginPageDesign() {
-  
-  // const { userLoggedIn } = useAuth();
+  const navigate = useNavigate(); // Use for navigation after login
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isSigningIn, setIsSigningIn] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
-  const onSubmit = async (e) => {
+  const onSubmitEmailPassword = async (e) => {
     e.preventDefault();
-
-    // Validation checks
     if (!email || !password || isSigningIn) {
       return;
     }
-
     setIsSigningIn(true);
-
     try {
-      // Attempt to sign in
       await doSignInUserWithEmailAndPassword(email, password);
+      navigate("/userOverview"); // Navigate to user overview page upon successful login
     } catch (error) {
-      // Handle errors
+      console.log(error.message);
       setErrorMessage(error.message);
-      console.log(errorMessage)
     } finally {
-      // Reset loading state
       setIsSigningIn(false);
     }
   };
 
-  // const doGoogleSignIn = (e) => {
-  //   e.preventDefault();
-  //   if (!isSigningIn) {
-  //     setIsSigningIn(true);
-  //     doSignInWithGoogle().catch(err => {
-  //       setIsSigningIn(false);
-  //     });
-  //   }
-  // };
+  const onGoogleSignIn = async (e) => {
+    e.preventDefault();
+    setIsSigningIn(true);
+    try {
+      await doSignInWithGoogle();
+      navigate("/userOverview");
+    } catch (error) {
+      console.log(error.message);
+      setErrorMessage(error.message);
+    } finally {
+      setIsSigningIn(false);
+    }
+  };
 
   return (
     <div>
@@ -142,16 +136,24 @@ function LoginPageDesign() {
                 </div>
 
                 <div className="login mt-5">
-                  <Link to="/userOverview">
-                    <button
-                      id="loginSubmit"
-                      onClick={onSubmit}
-                      size="lg"
-                      className="custom-button mb-3"
-                    >
-                      Login
-                    </button>
-                  </Link>{" "}
+                  <button
+          id="loginSubmit"
+          onClick={onSubmitEmailPassword}
+          disabled={isSigningIn}
+          className="custom-button mb-3"
+        >
+          Login with Email
+        </button>
+        <button
+          id="googleSignIn"
+          onClick={onGoogleSignIn}
+          disabled={isSigningIn}
+          className="custom-button mb-3"
+        >
+          Sign in with Google
+        </button>
+        {/* Error Message Display */}
+        {errorMessage && <p className="text-danger">{errorMessage}</p>}
                   <br />
                   <Link to="/register">
                     <button id="register" size="lg" className="custom-button">
