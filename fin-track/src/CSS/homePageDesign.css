@@ -85,7 +85,7 @@ body {
   text-align: center;
 }
 .rounded.mx-auto.d-block1 {
-  width: 100%; /* You can adjust the width as needed */
+  width: 100%; 
   height: 80%;
 }
 

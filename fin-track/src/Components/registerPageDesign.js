@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Navbar from "react-bootstrap/Navbar";
+
 import Container from "react-bootstrap/Container";
 import { useNavigate } from 'react-router-dom';
 import { doCreateUserWithEmailAndPassword } from "./Firebase/Auth"; // Make sure this path is correct
 import "../CSS/loginPageDesign.css";
-import VectorLogo from "../Images/Vector_Logo.png";
 import loginBg from "../Images/login-bg.png";
+import MainNavbar from "./mainNavbar";
 
 function RegisterPageDesign() {
   const navigate = useNavigate();
@@ -39,30 +39,7 @@ function RegisterPageDesign() {
 
   return (
     <div>
-      <Navbar
-        style={{
-          backgroundColor: "#9600DC",
-          color: "white",
-          background: "linear-gradient(to right, #23102e, #432057, #9600DC, #9600DC, #9600DC, #9600DC)",
-        }}
-        variant="dark"
-        expand="lg"
-      >
-        <Container fluid className="forNavbar">
-          <Navbar.Brand href="#">
-            <img
-              src={VectorLogo}
-              width="30"
-              height="30"
-              className="d-inline-block align-top"
-              alt="Navbar Logo"
-            />{" "}
-            FinTrack
-          </Navbar.Brand>
-          <Navbar.Toggle aria-controls="navbar-nav" />
-        </Container>
-      </Navbar>
-
+      <MainNavbar/>
       <Container
         fluid
         className="register-container"

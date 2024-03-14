@@ -7,6 +7,7 @@ import HomePageDesign from "./Components/homePageDesign.js";
 import UserAccountPage from "./Components/UserAccountPage.js";
 import UserOverviewPage from "./Components/UserOverviewPage.js";
 import UserSummaryPage from "./Components/UserSummaryPage.js";
+import About from "./Components/about.js";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Routes>
           <Route path="/login" element={<LoginPageDesign />} />
           <Route path="/register" element={<RegisterPageDesign />} />
+          <Route path="/about" element={<About />} />
           <Route path="/" element={<HomePageDesign />} />
           <Route path="/userAccount" element={<UserAccountPage />} />
           <Route path="/userOverview" element={<UserOverviewPage />} />
