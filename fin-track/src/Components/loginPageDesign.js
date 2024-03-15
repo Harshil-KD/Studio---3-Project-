@@ -1,9 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { useUserId } from "./Firebase/userContext";
+
 import {
   doSignInUserWithEmailAndPassword,
   doSignInWithGoogle,
 } from "./Firebase/Auth"; // Adjust the import path as necessary
+import { db } from "./Firebase/firebase";
+import { getDocs, where, query, collection } from "firebase/firestore";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
@@ -14,6 +18,7 @@ import loginBg from "../Images/login-bg.png";
 
 function LoginPageDesign() {
   const navigate = useNavigate(); // Use for navigation after login
+  const { userId, setUserId } = useUserId();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isSigningIn, setIsSigningIn] = useState(false);
@@ -27,7 +32,21 @@ function LoginPageDesign() {
     setIsSigningIn(true);
     try {
       await doSignInUserWithEmailAndPassword(email, password);
-      navigate("/userOverview"); // Navigate to user overview page upon successful login
+      
+      const collectionRef = collection(db, "users");
+      const q = query(collectionRef, where("email", "==", email));
+      const snapshot = await getDocs(q);
+      
+      const results = snapshot.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id,
+      }));
+      
+      // Set the userId
+      setUserId(results[0].id);
+      console.log(userId)
+      
+      navigate("/userAccount"); // Navigate to user overview page upon successful login
     } catch (error) {
       console.log(error.message);
       setErrorMessage(error.message);
@@ -35,7 +54,7 @@ function LoginPageDesign() {
       setIsSigningIn(false);
     }
   };
-
+  
   const onGoogleSignIn = async (e) => {
     e.preventDefault();
     setIsSigningIn(true);
