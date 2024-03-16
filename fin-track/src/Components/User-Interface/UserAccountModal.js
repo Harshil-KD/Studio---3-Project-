@@ -1,6 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useUserId } from "../Firebase/userContext";
-import { collection, doc, setDoc, onSnapshot } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  setDoc,
+  onSnapshot,
+  updateDoc,
+  deleteDoc,
+} from "firebase/firestore";
 import { db } from "../Firebase/firebase";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
@@ -13,28 +20,75 @@ function UserAccountModal() {
   const [accountType, setAccountType] = useState("cheque");
   const [accountBalance, setAccountBalance] = useState("");
   const [accounts, setAccounts] = useState([]);
+  const [mode, setMode] = useState("add");
   const { userId } = useUserId();
 
   const handleShow = () => setShow(true);
-  const handleClose = () => setShow(false);
-
-  const accountData = {
-    accountName,
-    accountNumber,
-    accountType,
-    accountBalance,
+  const handleClose = () => {
+    setShow(false);
+    clearForm();
   };
 
-  async function handleAddAccount() {
+  const clearForm = () => {
+    setAccountName("");
+    setAccountNumber("");
+    setAccountType("cheque");
+    setAccountBalance("");
+  };
+
+  const handleAddAccount = async () => {
     try {
       const accountsCollectionRef = collection(db, "users", userId, "accounts");
-      const accountDocRef = doc(accountsCollectionRef, accountName);
-      await setDoc(accountDocRef, accountData);
-      console.log("Account added successfully!");
+      const accountData = {
+        accountName,
+        accountNumber,
+        accountType,
+        accountBalance,
+      };
+      await setDoc(doc(accountsCollectionRef), accountData);
+      handleClose();
     } catch (error) {
       console.error("Error adding account:", error);
     }
-  }
+  };
+
+  const handleEditModal = (account) => {
+    if (account) {
+      setMode("edit");
+      setAccountName(account.accountName);
+      setAccountNumber(account.accountNumber);
+      setAccountType(account.accountType);
+      setAccountBalance(account.accountBalance);
+      handleShow();
+    }
+  };
+
+  const handleEditAccount = async (account) => {
+    try {
+      const accountsCollectionRef = collection(db, "users", userId, "accounts");
+      const accountData = {
+        accountName,
+        accountNumber,
+        accountType,
+        accountBalance,
+      };
+      const accountDocRef = doc(accountsCollectionRef, account.id);
+      await updateDoc(accountDocRef, accountData);
+      handleClose();
+    } catch (error) {
+      console.error("Error updating account:", error);
+    }
+  };
+
+  const handleDeleteAccount = async (accountId) => {
+    try {
+      const accountsCollectionRef = collection(db, "users", userId, "accounts");
+      const accountDocRef = doc(accountsCollectionRef, accountId);
+      await deleteDoc(accountDocRef);
+    } catch (error) {
+      console.error("Error deleting account:", error);
+    }
+  };
 
   useEffect(() => {
     if (userId) {
@@ -54,19 +108,26 @@ function UserAccountModal() {
 
   return (
     <>
-      <Button className="me-2 mb-2" onClick={handleShow}>
+      <Button
+        className="me-2 mb-2"
+        onClick={() => {
+          handleShow();
+          setMode("add");
+        }}
+      >
         Add Account
       </Button>
 
       <Modal show={show} onHide={handleClose} fullscreen>
         <Modal.Header closeButton>
-          <Modal.Title>Add Account</Modal.Title>
+          <Modal.Title>
+            {mode === "edit" ? "Edit Account" : "Add Account"}
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {/* Add your modal content here */}
           <form>
             <div className="mb-3">
-              <label htmlFor="AccountName:" className="form-label">
+              <label htmlFor="accountName" className="form-label">
                 Account Name :
               </label>
               <input
@@ -75,78 +136,72 @@ function UserAccountModal() {
                 value={accountName}
                 onChange={(e) => setAccountName(e.target.value)}
                 id="accountName"
-                aria-describedby="accountName"
               />
-              {/* <div id="emailHelp" className="form-text">
-                  We'll never share your email with anyone else.
-                </div> */}
             </div>
             <div className="mb-3">
-              <label htmlFor="AccountNumber" className="form-label">
+              <label htmlFor="accountNumber" className="form-label">
                 Account Number :
               </label>
               <input
-                type="Number"
+                type="number"
                 className="form-control"
-                id="accountNumber"
                 value={accountNumber}
                 onChange={(e) => setAccountNumber(e.target.value)}
+                id="accountNumber"
               />
             </div>
             <div className="mb-3">
-              <label htmlFor="AccountType" className="form-label">
+              <label htmlFor="accountType" className="form-label">
                 Account Type :
               </label>
               <select
-                id="accountType"
-                name="accountType"
+                className="form-select"
                 value={accountType}
                 onChange={(e) => setAccountType(e.target.value)}
+                id="accountType"
               >
                 <option value="cheque">Cheque Account</option>
                 <option value="savings">Savings Account</option>
                 <option value="credit">Credit Card</option>
                 <option value="loan">Loan Account</option>
                 <option value="cash">Cash</option>
-                <option value="cash">Other</option>
+                <option value="other">Other</option>
               </select>
             </div>
             <div className="mb-3">
-              <label htmlFor="AccountBalance" className="form-label">
+              <label htmlFor="accountBalance" className="form-label">
                 Account Balance :
               </label>
               <input
                 type="number"
                 className="form-control"
-                id="accountBalance"
                 value={accountBalance}
                 onChange={(e) => setAccountBalance(e.target.value)}
+                id="accountBalance"
               />
             </div>
             <button
-              type="submit"
-              onClick={handleAddAccount}
+              type="button"
+              onClick={mode === "edit" ? handleEditAccount : handleAddAccount}
               className="btn btn-primary"
             >
-              Add Account..
+              {mode === "edit" ? "Update Account" : "Add Account"}
             </button>
           </form>
         </Modal.Body>
       </Modal>
-      {/* <Table responsive="sm">
-        <thead>
-          <tr>
-            <th>Account Name</th>
-            <th>Account Number</th>
-            <th>Account Type</th>
-            <th>Account Balance</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </Table> */}
-      {accounts.map((account) => (
-        <div key={account.id}>
-          <h5>{account.accountType.toUpperCase()}</h5>
+
+      {Object.entries(
+        accounts.reduce((acc, account) => {
+          if (!acc[account.accountType]) {
+            acc[account.accountType] = [];
+          }
+          acc[account.accountType].push(account);
+          return acc;
+        }, {})
+      ).map(([accountType, accountsGroup]) => (
+        <div key={accountType}>
+          <h3>{accountType.toUpperCase()}</h3>
           <Table responsive="sm">
             <thead>
               <tr>
@@ -155,10 +210,26 @@ function UserAccountModal() {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>{account.accountName}</td>
-                <td>{account.accountBalance}</td>
-              </tr>
+              {accountsGroup.map((account) => (
+                <tr key={account.id}>
+                  <td>{account.accountName}</td>
+                  <td>{account.accountBalance}</td>
+                  <td>
+                    <Button
+                      variant="primary"
+                      onClick={() => handleEditModal(account)}
+                    >
+                      Edit
+                    </Button>{" "}
+                    <Button
+                      variant="danger"
+                      onClick={() => handleDeleteAccount(account.id)}
+                    >
+                      Delete
+                    </Button>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </Table>
         </div>
