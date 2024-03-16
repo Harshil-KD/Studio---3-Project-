@@ -20,6 +20,9 @@ function UserAccountModal() {
   const [accountType, setAccountType] = useState("cheque");
   const [accountBalance, setAccountBalance] = useState("");
   const [accounts, setAccounts] = useState([]);
+
+  const [editAccount, setEditAccount] = useState(null);
+
   const [mode, setMode] = useState("add");
   const { userId } = useUserId();
 
@@ -45,7 +48,7 @@ function UserAccountModal() {
         accountType,
         accountBalance,
       };
-      await setDoc(doc(accountsCollectionRef), accountData);
+      await setDoc(doc(accountsCollectionRef, accountName), accountData);
       handleClose();
     } catch (error) {
       console.error("Error adding account:", error);
@@ -54,16 +57,31 @@ function UserAccountModal() {
 
   const handleEditModal = (account) => {
     if (account) {
+      console.log("Edit button clicked");
+      console.log("Account ID:", account.id);
+      console.log("Account Name:", account.accountName);
+      console.log("Account Number:", account.accountNumber);
+      console.log("Account Type:", account.accountType);
+      console.log("Account Balance:", account.accountBalance);
+
       setMode("edit");
+
       setAccountName(account.accountName);
       setAccountNumber(account.accountNumber);
       setAccountType(account.accountType);
       setAccountBalance(account.accountBalance);
+      setEditAccount(account);
       handleShow();
+    } else {
+      console.error("Error: No account provided for editing");
     }
   };
 
-  const handleEditAccount = async (account) => {
+  useEffect(() => {
+    console.log("Mode: ", mode);
+  }, [mode]);
+
+  const handleUpdateAccount = async (editAccount) => {
     try {
       const accountsCollectionRef = collection(db, "users", userId, "accounts");
       const accountData = {
@@ -72,7 +90,7 @@ function UserAccountModal() {
         accountType,
         accountBalance,
       };
-      const accountDocRef = doc(accountsCollectionRef, account.id);
+      const accountDocRef = doc(accountsCollectionRef, editAccount.id);
       await updateDoc(accountDocRef, accountData);
       handleClose();
     } catch (error) {
@@ -182,7 +200,14 @@ function UserAccountModal() {
             </div>
             <button
               type="button"
-              onClick={mode === "edit" ? handleEditAccount : handleAddAccount}
+              onClick={() => {
+                console.log("Current mode:", mode);
+                if (mode === "edit") {
+                  handleUpdateAccount(editAccount);
+                } else {
+                  handleAddAccount();
+                }
+              }}
               className="btn btn-primary"
             >
               {mode === "edit" ? "Update Account" : "Add Account"}
@@ -190,7 +215,8 @@ function UserAccountModal() {
           </form>
         </Modal.Body>
       </Modal>
-
+              
+      
       {Object.entries(
         accounts.reduce((acc, account) => {
           if (!acc[account.accountType]) {
