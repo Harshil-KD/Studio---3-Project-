@@ -1,0 +1,366 @@
+[33mcommit 4bb734e4e12731b88831a417b1f2508ed700a76a[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mUser-Interface[m[33m, [m[1;31morigin/Web-Pages[m[33m, [m[1;31morigin/User-Interface[m[33m, [m[1;32mWeb-Pages[m[33m)[m
+Author: Harshil Dholakiya <dholakiaharshil7@gmail.com>
+Date:   Sat Mar 16 11:30:00 2024 +1300
+
+    database to user added
+
+[33mcommit 0ac881612b920b1a84e2c781648f15f31ca665c0[m
+Merge: 66dc1b4 014c39d
+Author: Harshil Dholakiya <dholakiaharshil7@gmail.com>
+Date:   Thu Mar 14 11:13:55 2024 +1300
+
+    Merge branch 'Web-Pages' of https://github.com/Harshil-KD/Studio---3-Project-Group-3 into Web-Pages
+
+[33mcommit 66dc1b4c48393fc7736688cd8c4ee5b328493fb3[m
+Author: Harshil Dholakiya <dholakiaharshil7@gmail.com>
+Date:   Thu Mar 14 11:13:30 2024 +1300
+
+    authentication successfully done
+
+[33mcommit 014c39d19a59d53e8c43e1805e8c07202c222609[m
+Author: Harshil Dholakiya <dholakiaharshil7@gmail.com>
+Date:   Thu Mar 14 10:43:56 2024 +1300
+
+    filtering the code and adding few tests
+
+[33mcommit 8701e0689a8f6663d662eff767c19d80cb515a94[m
+Author: Harshil Dholakiya <dholakiaharshil7@gmail.com>
+Date:   Thu Mar 14 10:34:35 2024 +1300
+
+    adding google sign in
+
+[33mcommit 7ebda0c87cd84b16a3f0765d9a29cd348685069b[m
+Author: Harshil Dholakiya <dholakiaharshil7@gmail.com>
+Date:   Thu Mar 14 10:18:23 2024 +1300
+
+    firebase authentication added but errors
+
+[33mcommit 05d05d274ba186d2df5de7a0b0dd23536fd53af5[m
+Author: Harshil Dholakiya <dholakiaharshil7@gmail.com>
+Date:   Wed Mar 13 22:34:25 2024 +1300
+
+    added firbase
+
+[33mcommit 558cb34c95e7f89d6f13630d3281817f25f04482[m
+Author: Harshil Dholakiya <dholakiaharshil7@gmail.com>
+Date:   Tue Mar 12 11:06:45 2024 +1300
+
+    added pages
+
+[33mcommit 5c23d1ca60e3e9f763eee687433737b8664f5ecf[m[33m ([m[1;31morigin/Home-Page[m[33m, [m[1;32mHome-Page[m[33m)[m
+Author: vaidik100 <vaidikkakadiya@gmail.com>
+Date:   Mon Mar 11 14:46:34 2024 +1300
+
+    Update homepage layout and css
+
+[33mcommit 39772f6669fdcee9f3117cb31f9c5ef5f5d05f72[m
+Author: vaidik100 <vaidikkakadiya@gmail.com>
+Date:   Fri Mar 8 14:52:36 2024 +1300
+
+    Enhance responsiveness
+
+[33mcommit 24f99544443095f7470f00218ae97d7b19380615[m
+Author: Harshil Dholakiya <dholakiaharshil7@gmail.com>
+Date:   Fri Mar 8 11:56:56 2024 +1300
+
+    Home Page design coded
+
+[33mcommit ff3f74d5c5df0a9182c5f9a9e7853bc70e7b0919[m
+Author: Harshil Dholakiya <dholakiaharshil7@gmail.com>
+Date:   Thu Mar 7 19:56:25 2024 +1300
+
+    REFACTORING NAVBAR
+
+[33mcommit 545e6dd4715a9a3c60c3bab29c7919b569b1c00e[m
+Author: Harshil Dholakiya <dholakiaharshil7@gmail.com>
+Date:   Thu Mar 7 15:05:40 2024 +1300
+
+    Navbar for pages
+
+[33mcommit 3a87d9b6514f8edd4f294ec36c62e310b44ce4aa[m[33m ([m[1;31morigin/Register-Page[m[33m, [m[1;32mRegister-Page[m[33m)[m
+Merge: 2e26d1a a6ede92
+Author: Harshil Dholakiya <dholakiaharshil7@gmail.com>
+Date:   Thu Mar 7 13:00:32 2024 +1300
+
+    Merge branch 'Login-Page' into Register-Page
+
+[33mcommit a6ede921c45ff8d6fc83d1338ef6967f965a5614[m[33m ([m[1;31morigin/Login-Page[m[33m, [m[1;32mLogin-Page[m[33m)[m
+Merge: 3786931 e3eb8e4
+Author: Harshil Dholakiya <dholakiaharshil7@gmail.com>
+Date:   Thu Mar 7 12:52:59 2024 +1300
+
+    Merge branch 'Login-Page' of https://github.com/Harshil-KD/Studio---3-Project-Group-3 into Login-Page
+
+[33mcommit 3786931e4188af15209c75d812c0e0faa16ceae7[m
+Author: Harshil Dholakiya <dholakiaharshil7@gmail.com>
+Date:   Thu Mar 7 12:52:22 2024 +1300
+
+    Solving conflict
+
+[33mcommit ec3bfbf4b5d548feb5dfdef6ae570f94d5b1338d[m
+Author: Harshil Dholakiya <dholakiaharshil7@gmail.com>
+Date:   Thu Mar 7 12:50:56 2024 +1300
+
+    Solving git conflict
+
+[33mcommit e3eb8e4dfc3cdac1cda62403246b933b807eb34c[m
+Author: vaidik100 <vaidikkakadiya@gmail.com>
+Date:   Sat Mar 2 20:31:17 2024 +1300
+
+    Loginpage changes
+
+[33mcommit fa1d61874c6153794250fbae98139ab1055dca77[m
+Merge: b24dedf 8f23dad
+Author: Two-Ocean <73182679+Two-Ocean@users.noreply.github.com>
+Date:   Fri Mar 1 16:40:14 2024 +1300
+
+    Merge branch 'Login-Page' of https://github.com/Harshil-KD/Studio---3-Project-Group-3 into Login-Page
+
+[33mcommit b24dedfc960fac0f1d0e2055817c5812a113e2d8[m
+Author: Two-Ocean <73182679+Two-Ocean@users.noreply.github.com>
+Date:   Fri Mar 1 16:38:20 2024 +1300
+
+    Buttons added. More mobile friendly design.
+
+[33mcommit 2e26d1a80dce16f4790a8de2f46f9331b702314c[m
+Author: Harshil Dholakiya <dholakiaharshil7@gmail.com>
+Date:   Fri Mar 1 16:37:23 2024 +1300
+
+    register page code starting
+
+[33mcommit 8f23dadc682675e6709a594477c4820239f17229[m
+Author: Harshil Dholakiya <dholakiaharshil7@gmail.com>
+Date:   Fri Mar 1 14:06:36 2024 +1300
+
+    navbar color updated
+
+[33mcommit 88f707aec418cbb2de046637e3dd327b579865a6[m
+Author: Harshil Dholakiya <dholakiaharshil7@gmail.com>
+Date:   Fri Mar 1 13:43:45 2024 +1300
+
+    updated code
+
+[33mcommit a66f82a9c284973e3eb9c44a36f64ff05c8fd968[m[33m ([m[1;32mmain[m[33m)[m
+Author: Harshil Dholakiya <dholakiaharshil7@gmail.com>
+Date:   Fri Mar 1 13:27:29 2024 +1300
+
+    Login Page Design
+
+[33mcommit e444d66be6904590ad9be2c7ba1ebefaf0e671c7[m
+Author: Harshil Dholakiya <dholakiaharshil7@gmail.com>
+Date:   Fri Mar 1 13:18:43 2024 +1300
+
+    Login Page Design
+
+[33mcommit 8a5a7b30de9248d4ca957662bdd13135934e9981[m
+Author: vaidik100 <vaidikkakadiya@gmail.com>
+Date:   Wed Feb 28 20:40:49 2024 +1300
+
+    Update Vaidik's Reports
+
+[33mcommit 87db94599ff1ce6fe7fd1706bc51e0b902bf3013[m
+Author: vaidik100 <vaidikkakadiya@gmail.com>
+Date:   Wed Feb 28 20:24:32 2024 +1300
+
+    Update Group Stand-Up Reports
+
+[33mcommit bbb4bcaa1316ff28aa20031e94798176252bc1f5[m
+Author: vaidik100 <vaidikkakadiya@gmail.com>
+Date:   Fri Feb 23 16:51:01 2024 +1300
+
+    Update Vaidik's Reports
+
+[33mcommit 29640a3f62cf0fa108666bdc843226f983e5a334[m
+Author: prabhkirat12 <127061880+prabhkirat12@users.noreply.github.com>
+Date:   Fri Feb 23 16:47:29 2024 +1300
+
+    Add files via upload
+    
+    this is the first three pages design of app iot is rough but if  this kind of design is decided by all team then it will be made with coding in react in upcoming days
+
+[33mcommit 035a1e73b75965178850d105f6039b36fa84f6c4[m
+Author: vaidik100 <vaidikkakadiya@gmail.com>
+Date:   Fri Feb 23 16:45:27 2024 +1300
+
+    Update Vaidik's Reports
+
+[33mcommit 50f7e052a20d61e425b77d5406e157c6e62c8479[m
+Author: abhishek-2110 <127062024+abhishek-2110@users.noreply.github.com>
+Date:   Fri Feb 23 16:18:25 2024 +1300
+
+    Create Abhishek sharma's report
+    
+    making decision on unfunctional requirements for the app
+
+[33mcommit 5e0bae466c373cf1b5737868950a2c1d8961fe5f[m
+Author: Two-Ocean <73182679+Two-Ocean@users.noreply.github.com>
+Date:   Fri Feb 23 16:17:51 2024 +1300
+
+    Create Sia's Reports
+
+[33mcommit fda65c5969b495306355b4db5228ad1c7fc084f0[m
+Author: vaidik100 <vaidikkakadiya@gmail.com>
+Date:   Fri Feb 23 14:44:17 2024 +1300
+
+    Update Vaidik's Reports
+
+[33mcommit 3dc488269ec67078ffc6bc579dd9a880c539931a[m
+Author: Harshil Dholakiya <dholakiaharshil7@gmail.com>
+Date:   Fri Feb 23 13:48:10 2024 +1300
+
+    Update Group Stand-Up Reports
+
+[33mcommit e20334ab2b4d27d9f2c925c6d4c47b220b85c59a[m
+Author: vaidik100 <vaidikkakadiya@gmail.com>
+Date:   Fri Feb 23 13:35:26 2024 +1300
+
+    Update Vaidik's Reports
+
+[33mcommit c832f69daeab25e2b8da3e3b80e82658a4ad0e32[m
+Author: Harshil Dholakiya <dholakiaharshil7@gmail.com>
+Date:   Fri Feb 23 12:53:07 2024 +1300
+
+    Create Group Stand-Up Reports
+    
+    Stand-up Meeting Report
+
+[33mcommit dc6d4ff27177fda1c3d76b62c1aeee7ff8260e26[m
+Author: vaidik100 <vaidikkakadiya@gmail.com>
+Date:   Fri Feb 23 11:39:27 2024 +1300
+
+    Update README.md
+
+[33mcommit b5e4cf230ce6ef9aa59793617f59f8552ac89cb6[m
+Author: vaidik100 <vaidikkakadiya@gmail.com>
+Date:   Thu Feb 22 22:20:25 2024 +1300
+
+    Update README.md
+
+[33mcommit 11cba5a123b111350a0def9ab54401653d49bd83[m
+Author: vaidik100 <vaidikkakadiya@gmail.com>
+Date:   Thu Feb 22 22:19:28 2024 +1300
+
+    Update README.md
+
+[33mcommit 553abfb2a4ce35342d491e7448e35d5519d37f45[m
+Author: vaidik100 <vaidikkakadiya@gmail.com>
+Date:   Thu Feb 22 22:16:51 2024 +1300
+
+    Create Vaidik's Reports
+    
+    Report
+
+[33mcommit e9153fdd9b9080ab54bb95b264447dcef8d665dc[m
+Author: vaidik100 <vaidikkakadiya@gmail.com>
+Date:   Thu Feb 22 21:55:54 2024 +1300
+
+    Update README.md
+
+[33mcommit 9c5d2359b5803acc3ba065e6d40b3dad5fa857a7[m
+Author: vaidik100 <vaidikkakadiya@gmail.com>
+Date:   Thu Feb 22 21:52:38 2024 +1300
+
+    Update README.md
+
+[33mcommit 6aa6dfdc8375fbcde2f24e96b428edffa77792e5[m
+Author: vaidik100 <vaidikkakadiya@gmail.com>
+Date:   Thu Feb 22 21:49:16 2024 +1300
+
+    Update README.md
+
+[33mcommit 3c03f3aa53bdc0cb94bc4e03984025a35b51b770[m
+Author: vaidik100 <vaidikkakadiya@gmail.com>
+Date:   Thu Feb 22 21:10:32 2024 +1300
+
+    Update README.md
+    
+    summary
+
+[33mcommit 56e891e8529a257d4b831f9dfc2d4e2d461ba7c1[m
+Author: vaidik100 <vaidikkakadiya@gmail.com>
+Date:   Thu Feb 22 20:16:59 2024 +1300
+
+    Update README.md
+
+[33mcommit 34b0cdeecc33d367a71f0b4aa754558171cfcf12[m
+Author: vaidik100 <vaidikkakadiya@gmail.com>
+Date:   Thu Feb 22 20:14:29 2024 +1300
+
+    Update README.md
+
+[33mcommit 8f8c1327e6ecd4827aae9a3903d277e261d50f25[m
+Author: vaidik100 <vaidikkakadiya@gmail.com>
+Date:   Thu Feb 22 19:22:54 2024 +1300
+
+    Update README.md
+    
+    Summary
+
+[33mcommit 7db3b358d9231c9c546308aac274ddcfc7152746[m
+Author: abhishek-2110 <127062024+abhishek-2110@users.noreply.github.com>
+Date:   Thu Feb 15 11:32:50 2024 +1300
+
+    Update README.md
+
+[33mcommit 3536f6969e198034681174e51970607a7aa63a13[m
+Author: Harshil Dholakiya <dholakiaharshil7@gmail.com>
+Date:   Fri Feb 9 16:09:05 2024 +1300
+
+    Update README.md
+
+[33mcommit 9a89ae3c9982e3f4e24b447d0ff99f3281b7c00c[m
+Author: Harshil Dholakiya <dholakiaharshil7@gmail.com>
+Date:   Fri Feb 9 16:08:29 2024 +1300
+
+    Update README.md
+
+[33mcommit 39b074a6220fbfbda7daa37ecd6f5f87b77d7993[m
+Author: Harshil Dholakiya <dholakiaharshil7@gmail.com>
+Date:   Fri Feb 9 16:07:22 2024 +1300
+
+    Update README.md
+
+[33mcommit 455ad5debddf2d61b824753966c675a72003247c[m
+Author: Harshil Dholakiya <dholakiaharshil7@gmail.com>
+Date:   Fri Feb 9 16:06:44 2024 +1300
+
+    Update README.md
+
+[33mcommit 6baeeacebdb5d49155dd801c7e004b7390bf4932[m
+Author: Harshil Dholakiya <dholakiaharshil7@gmail.com>
+Date:   Fri Feb 9 16:05:22 2024 +1300
+
+    Update README.md
+
+[33mcommit 80ce33a0a1a15e998e498b6353fd92b5aedc2a97[m
+Author: Harshil Dholakiya <dholakiaharshil7@gmail.com>
+Date:   Fri Feb 9 16:04:26 2024 +1300
+
+    Update README.md
+
+[33mcommit 52d2451462978c0a37f2e6eb3438ca5acd83030e[m
+Author: Harshil Dholakiya <dholakiaharshil7@gmail.com>
+Date:   Fri Feb 9 16:01:24 2024 +1300
+
+    Update README.md
+
+[33mcommit 7fd59744b641d139f75037a13613edfd6f62d4f9[m
+Author: Harshil Dholakiya <dholakiaharshil7@gmail.com>
+Date:   Fri Feb 9 16:01:00 2024 +1300
+
+    Update README.md
+
+[33mcommit 8f2b99a35fd84700c082e1c4010a8145400efa7f[m
+Author: abhishek-2110 <127062024+abhishek-2110@users.noreply.github.com>
+Date:   Fri Feb 9 15:59:25 2024 +1300
+
+    Update README.md
+    
+    we are about to bstart a project name  as (helping hands)
+    which is about raisingt funds and use those funds for needy people , helping them in medication, shelter,,food , education and  community support
+
+[33mcommit 65381bd81341db8698c9a2f2b80d128c4e471dd3[m
+Author: Harshil Dholakiya <dholakiaharshil7@gmail.com>
+Date:   Fri Feb 9 15:36:16 2024 +1300
+
+    Initial commit

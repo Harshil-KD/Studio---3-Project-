@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
+import { db } from "./Firebase/firebase";
+import { addDoc, collection } from "firebase/firestore";
 import { useNavigate } from 'react-router-dom';
-import { doCreateUserWithEmailAndPassword } from "./Firebase/Auth"; // Make sure this path is correct
+import { doCreateUserWithEmailAndPassword } from "./Firebase/Auth";
 import "../CSS/loginPageDesign.css";
 import VectorLogo from "../Images/Vector_Logo.png";
 import loginBg from "../Images/login-bg.png";
@@ -20,20 +22,40 @@ function RegisterPageDesign() {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-
+  
     if (password !== confirmPassword) {
       setErrorMessage("Passwords do not match.");
       return;
     }
-
+  
     setIsRegistering(true);
     try {
       await doCreateUserWithEmailAndPassword(email, password);
+      await addUserToDatabase(); // Add user data to Firestore after successful registration
       navigate("/login"); // Or navigate to any page you'd like the user to go to after registration
     } catch (error) {
       setErrorMessage(error.message);
     } finally {
       setIsRegistering(false);
+    }
+  };
+  
+
+  const addUserToDatabase = async () => {
+    const collectionRef = collection(db, "users");
+    const userData = {
+      Full_Name: fullName,
+      Address: address,
+      Email: email,
+      Type: "trial"
+    };
+  
+    try {
+      const docRef = await addDoc(collectionRef, userData);
+      console.log("User added with ID: ", docRef.id);
+      console.log("User data added to Firestore: ", userData);
+    } catch (error) {
+      console.error("Error adding user: ", error);
     }
   };
 
