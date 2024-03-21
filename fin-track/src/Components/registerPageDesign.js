@@ -4,7 +4,7 @@ import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
 import { db } from "./Firebase/firebase";
 import { addDoc, collection } from "firebase/firestore";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { doCreateUserWithEmailAndPassword } from "./Firebase/Auth";
 import "../CSS/loginPageDesign.css";
 import VectorLogo from "../Images/Vector_Logo.png";
@@ -20,6 +20,16 @@ function RegisterPageDesign() {
   const [isRegistering, setIsRegistering] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
+    // Extracting user data from props if available
+    const { location } = useLocation();
+    const user = location.state && location.state.user;
+    console.log(user);
+    // Handling pre-filled fields if user is signing up with email
+    if (user) {
+      setEmail(user.email);
+      setFullName(user.displayName);
+    }
+
   const onSubmit = async (e) => {
     e.preventDefault();
   
@@ -30,6 +40,10 @@ function RegisterPageDesign() {
   
     setIsRegistering(true);
     try {
+      if(user){
+        await addUserToDatabase();
+        navigate("/userOverview");
+      }
       await doCreateUserWithEmailAndPassword(email, password);
       await addUserToDatabase(); // Add user data to Firestore after successful registration
       navigate("/login"); // Or navigate to any page you'd like the user to go to after registration
