@@ -6,9 +6,11 @@ import { db } from "./Firebase/firebase";
 import { addDoc, collection } from "firebase/firestore";
 import { useNavigate } from 'react-router-dom';
 import { doCreateUserWithEmailAndPassword } from "./Firebase/Auth";
-import "../CSS/loginPageDesign.css";
+import "../CSS/registerPageDesign.css";
 import VectorLogo from "../Images/Vector_Logo.png";
 import loginBg from "../Images/login-bg.png";
+import { Link } from "react-router-dom";
+
 
 function RegisterPageDesign() {
   const navigate = useNavigate();
@@ -191,6 +193,11 @@ function RegisterPageDesign() {
                   Register
                 </button>
               </form>
+              <Link to="/login">
+                <button type="link" className="custom-button mb-3">
+                  Login
+                </button>
+              </Link>
             </div>
           </div>
         </div>

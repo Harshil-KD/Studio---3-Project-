@@ -12,6 +12,10 @@
   text-align: left;
 }
 
+.register-title,
+.register-description {
+  margin-left: 100px;
+}
 .register-title {
   padding-top: 50px;
 }
