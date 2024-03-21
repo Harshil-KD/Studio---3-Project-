@@ -31,30 +31,37 @@ function LoginPageDesign() {
     }
     setIsSigningIn(true);
     try {
+      // Sign in user with email and password
       await doSignInUserWithEmailAndPassword(email, password);
-      
+
+      // Query Firestore for user document based on email
       const collectionRef = collection(db, "users");
-      const q = query(collectionRef, where("email", "==", email));
+      const q = query(collectionRef, where("Email", "==", email));
       const snapshot = await getDocs(q);
-      
-      const results = snapshot.docs.map((doc) => ({
-        ...doc.data(),
-        id: doc.id,
-      }));
-      
-      // Set the userId
-      setUserId(results[0].id);
-      console.log(userId)
-      
-      navigate("/userAccount"); // Navigate to user overview page upon successful login
+
+      console.log("Snapshot:", snapshot);
+
+      if (!snapshot.empty) {
+        // Get the first document (assuming email is unique)
+        const userDoc = snapshot.docs[0];
+        // Set the userId
+        setUserId(userDoc.id);
+        console.log(userId);
+        console.log("User ID:", userDoc.id);
+
+        navigate("/userAccount"); // Navigate to user account page upon successful login
+      } else {
+        // User not found
+        setErrorMessage("User not found.");
+      }
     } catch (error) {
-      console.log(error.message);
+      console.error("Error signing in:", error);
       setErrorMessage(error.message);
     } finally {
       setIsSigningIn(false);
     }
   };
-  
+
   const onGoogleSignIn = async (e) => {
     e.preventDefault();
     setIsSigningIn(true);
