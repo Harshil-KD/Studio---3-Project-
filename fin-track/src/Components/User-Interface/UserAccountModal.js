@@ -12,6 +12,7 @@ import { db } from "../Firebase/firebase";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Table from "react-bootstrap/Table";
+import  "../User-Interface/UserAccountModal.css"; 
 
 function UserAccountModal() {
   const [show, setShow] = useState(false);
@@ -125,16 +126,8 @@ function UserAccountModal() {
   }, [userId]);
 
   return (
-    <>
-      <Button
-        className="me-2 mb-2"
-        onClick={() => {
-          handleShow();
-          setMode("add");
-        }}
-      >
-        Add Account
-      </Button>
+    <div className="container">
+     
 
       <Modal show={show} onHide={handleClose} fullscreen>
         <Modal.Header closeButton>
@@ -215,8 +208,7 @@ function UserAccountModal() {
           </form>
         </Modal.Body>
       </Modal>
-              
-      
+
       {Object.entries(
         accounts.reduce((acc, account) => {
           if (!acc[account.accountType]) {
@@ -226,13 +218,14 @@ function UserAccountModal() {
           return acc;
         }, {})
       ).map(([accountType, accountsGroup]) => (
-        <div key={accountType}>
+        <div key={accountType} className="table-container">
           <h3>{accountType.toUpperCase()}</h3>
           <Table responsive="sm">
             <thead>
               <tr>
-                <th>Account Name</th>
+                <th>Account Name</th>         
                 <th>Account Balance</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -255,12 +248,24 @@ function UserAccountModal() {
                     </Button>
                   </td>
                 </tr>
+                
               ))}
             </tbody>
           </Table>
         </div>
       ))}
-    </>
+       <Button
+        className="me-2 mb-2 btn-add"
+        onClick={() => {
+          handleShow();
+          setMode("add");
+        }}
+      >
+        Add Account
+      </Button>
+
+     
+    </div>
   );
 }
 
