@@ -179,7 +179,6 @@ function UserSummaryTab() {
 
     fetchData();
   }, [userId]);
-
   useEffect(() => {
     const fetchData = async () => {
       if (!userId) return;
@@ -310,31 +309,30 @@ function UserSummaryTab() {
         </Tab>
 
         <Tab eventKey="statement" title="Statement">
-          {Object.entries(transactionsData).map(([date, transactions]) => (
-            <div key={date}>
-              <h3>{date}</h3>
-              <Table striped bordered hover>
-                <thead>
-                  <tr>
-                    <th>Account Name</th>
-                    <th>Category</th>
-                    <th>Amount</th>
+        {Object.entries(transactionsData).map(([date, transactions]) => (
+          <div key={date}>
+            <h3>{date}</h3>
+            <Table striped bordered hover>
+              <thead>
+                <tr>
+                  <th>Account Name</th>
+                  <th>Category</th>
+                  <th>Amount</th>
+                </tr>
+              </thead>
+              <tbody>
+                {transactions.map((transaction) => (
+                  <tr key={transaction.id}>
+                    <td>{transaction.accountName}</td>
+                    <td>{transaction.category}</td>
+                    <td>{transaction.amount}</td>
                   </tr>
-                </thead>
-                <tbody>
-                  {transactions.map((transaction) => (
-                    <tr key={transaction.id}>
-                      <td>{transaction.accountName}</td>
-                      <td>{transaction.category}</td>
-                      <td>{transaction.amount}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </Table>
-            </div>
-          ))}
-        </Tab>
-
+                ))}
+              </tbody>
+            </Table>
+          </div>
+        ))}
+      </Tab>
         <Tab eventKey="expense" title="Expense">
           Tab content for Expense
         </Tab>

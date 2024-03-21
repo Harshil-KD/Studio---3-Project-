@@ -1,0 +1,77 @@
+/* mainNavbar.css */
+
+/* Set background color for the navbar */
+.navbar {
+    background-color: #6e1797 !important;
+  }
+  
+  /* Set text color for the navbar-brand */
+  .navbar-brand {
+    color: #fff;
+  }
+  
+  /* Style the navbar-brand */
+  .navbar-brand {
+    color: #fff; /* Set the text color to white */
+    font-size: 1.5rem; /* Adjust the font size as needed */
+    display: flex;
+    align-items: center;
+  }
+  
+  /* Style the navbar links */
+  .navbar-nav .nav-link {
+    color: #fff; /* Set the text color to white */
+    margin-right: 15px; /* Adjust the margin between links */
+    font-weight: bold; /* Make the font bold for navbar links */
+  }
+  
+  /* Add margin between navbar-brand and the ul */
+  .navbar-brand + .collapse {
+    margin-left: 20px;
+  }
+  
+  /* Center the navbar-nav between navbar-brand and d-flex for larger screens */
+  @media (min-width: 768px) {
+    .navbar-nav {
+      margin-left: auto; /* Align to the right */
+      margin-right: auto; /* Align to the left */
+    }
+  }
+  
+  /* Style the buttons in the form */
+  .form-inline .btn {
+    margin-right: 15px; /* Adjust the margin between buttons */
+    width: 120px; /* Set the button width as needed */
+    background-color: #fff; /* Set white background for buttons */
+    color: #000; /* Set black text color for buttons */
+    border: 1px solid #000; /* Set black border for buttons */
+  }
+  
+  /* Adjust the spacing between the buttons and the search bar */
+  .form-inline {
+    margin-left: auto; /* Move the form to the right */
+  }
+  
+  /* Adjust the margin between the search bar and the buttons */
+  .form-inline .btn:first-child {
+    margin-right: 10px;
+  }
+  
+  /* Style the active link */
+  .nav-item.active .nav-link {
+    font-weight: bold; /* Set the font weight for the active link */
+  }
+  
+  /* Optional: Style the navbar-toggler icon */
+  .navbar-toggler-icon {
+    background-color: #fff; /* Set the background color for the toggler icon */
+  }
+  
+  .custom-btn {
+    background-color: #fff; /* Set white background for buttons */
+    color: #000; /* Set black text color for buttons */
+    border: 1px solid #000; /* Set black border for buttons */
+    margin-right: 15px; /* Adjust the margin between buttons */
+    width: 120px; /* Set the button width as needed */
+  }
+  
