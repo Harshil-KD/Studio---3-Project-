@@ -66,8 +66,12 @@ function LoginPageDesign() {
     e.preventDefault();
     setIsSigningIn(true);
     try {
-      await doSignInWithGoogle();
+      // Sign in with Google
+      const userCredential = await doSignInWithGoogle();
+
+      // Navigate to register page with pre-filled data
       navigate("/userOverview");
+      console.log(userCredential.user.email, userCredential.user.displayName);
     } catch (error) {
       console.log(error.message);
       setErrorMessage(error.message);
@@ -208,41 +212,3 @@ function LoginPageDesign() {
 }
 
 export default LoginPageDesign;
-
-// const onSubmit = async (e) => {
-//   e.preventDefault();
-
-//   // Validation checks
-//   if (!email || !password || isSigningIn) {
-//     return;
-//   }
-
-//   setIsSigningIn(true);
-
-//   try {
-//     // Attempt to sign in
-//     const userCredential = await doSignInUserWithEmailAndPassword(email, password);
-
-//     // Retrieve user data from Firestore
-//     const userDoc = await getDoc(doc(db, 'users', userCredential.user.uid));
-//     const userData = userDoc.data();
-
-//     setIsSigningIn(false);
-
-//     // Redirect based on user role
-//     if (userData) {
-//       if (userData.role === "admin") {
-//         history.push("/admin");
-//       } else if (userData.role === "premium" || userData.role === "registered") {
-//         history.push("/overview");
-//       } else {
-//         // Handle other roles or set a default redirect
-//         history.push("/overview");
-//       }
-//     }
-//   } catch (error) {
-//     // Handle errors
-//     setErrorMessage(error.message);
-//     setIsSigningIn(false);
-//   }
-// };
