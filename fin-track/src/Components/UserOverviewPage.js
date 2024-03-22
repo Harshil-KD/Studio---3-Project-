@@ -43,7 +43,7 @@ function UserOverviewPage() {
     <div>
       <UserNavbar />
       <div style={{ textAlign: 'center', paddingTop: '20px' }}>
-        <h1>Overview in the Graph Form</h1>
+        <h1>Overview of account in the Graph Form</h1>
       </div>
       {/* Adjust the minHeight to move the graph up */}
       <div style={{
