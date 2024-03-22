@@ -70,12 +70,7 @@ function LoginPageDesign() {
       const userCredential = await doSignInWithGoogle();
 
       // Navigate to register page with pre-filled data
-      navigate("/register", {
-        state: {
-          email: userCredential.user.email,
-          displayName: userCredential.user.displayName,
-        },
-      });
+      navigate("/userOverview");
       console.log(userCredential.user.email, userCredential.user.displayName);
     } catch (error) {
       console.log(error.message);
