@@ -69,35 +69,31 @@ function UserSummaryTab() {
   }, [userId]);
 
   // Function to handle form submission
-  const handleIncomeSubmit = async (event) => {
+  const handleFormSubmit = async (event, type) => {
     event.preventDefault();
-    console.log(accountId);
     try {
-      // Upload image to Firebase Storage
       const imageRef = ref(
         storage,
         `${userId}/${accountId}/${Date.now()}_${image.name}`
       );
       await uploadBytes(imageRef, image);
-      console.log("Image uploaded successfully:", imageRef.fullPath); // Added console log
 
-      // Get the download URL of the uploaded image
       const imageUrl = await getDownloadURL(imageRef);
 
-      // Calculate the new balance
       const selectedAccount = accountData.find((acc) => acc.id === accountId);
       const currentBalance = parseFloat(selectedAccount.accountBalance);
-      const newBalance = currentBalance + parseFloat(amount);
+      const newBalance =
+        type === "income"
+          ? currentBalance + parseFloat(amount)
+          : currentBalance - parseFloat(amount);
 
-      // Update the balance field of the account document in Firestore
       const accountDocRef = doc(db, "users", userId, "accounts", accountId);
       await updateDoc(accountDocRef, { accountBalance: newBalance });
 
       const transactionId = generateId(10);
 
-      // Store the form data and image URL in Firestore
-      const accountsRef = doc(db, "users", userId, "accounts", accountId); // Reference to the user's account document
-      const transactionsCollectionRef = collection(accountsRef, "transactions"); // Reference to the transactions subcollection
+      const accountsRef = doc(db, "users", userId, "accounts", accountId);
+      const transactionsCollectionRef = collection(accountsRef, "transactions");
       await setDoc(doc(transactionsCollectionRef, transactionId), {
         userId,
         date,
@@ -105,11 +101,9 @@ function UserSummaryTab() {
         category,
         amount,
         description,
-        imageUrl, // Add the imageUrl to the Firestore document
+        imageUrl,
       });
-      console.log("Form data stored in Firestore successfully!"); // Added console log
 
-      // Clear the form fields after successful submission
       setDate("");
       setAccount("");
       setCategory("");
@@ -195,8 +189,8 @@ function UserSummaryTab() {
         className="mb-3"
         justify
       >
-        <Tab eventKey="income" title="Profit">
-          <Form onSubmit={handleIncomeSubmit}>
+        <Tab eventKey="income" title="Income">
+          <Form onSubmit={(event) => handleFormSubmit(event, "income")}>
             <FloatingLabel controlId="date" label="Date">
               <Form.Control
                 type="date"
@@ -281,7 +275,62 @@ function UserSummaryTab() {
         </Tab>
 
         <Tab eventKey="expense" title="Expense">
-          Tab content for Expense
+        <Form onSubmit={(event) => handleFormSubmit(event, "expense")}>
+            <FloatingLabel controlId="date" label="Date">
+              <Form.Control
+                type="date"
+                value={date}
+                onChange={(e) => setDate(e.target.value)}
+              />
+            </FloatingLabel>
+            <FloatingLabel controlId="account" label="Account">
+              <Form.Select
+                aria-label="Select Account"
+                onChange={(e) => {
+                  setAccount(e.target.value);
+                  setAccountId(e.target.value); // Set the selected account ID
+                }}
+                value={account}
+                disabled={loading} // Disable the dropdown when loading
+              >
+                <option value="">Select Account</option>
+                {!loading &&
+                  accountData.map((acc) => (
+                    <option key={acc.accountNumber} value={acc.id}>
+                      {acc.accountName}
+                    </option>
+                  ))}
+              </Form.Select>
+            </FloatingLabel>
+            <FloatingLabel controlId="category" label="Category">
+              <Form.Control
+                type="text"
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+              />
+            </FloatingLabel>
+            <FloatingLabel controlId="amount" label="Amount">
+              <Form.Control
+                type="number"
+                value={amount}
+                onChange={(e) => setAmount(e.target.value)}
+              />
+            </FloatingLabel>
+            <FloatingLabel controlId="description" label="Description">
+              <Form.Control
+                as="textarea"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+              />
+            </FloatingLabel>
+            <Form.Group controlId="image">
+              <Form.Label>Image</Form.Label>
+              <Form.Control type="file" onChange={handleImageChange} />
+            </Form.Group>
+            <Button variant="primary" type="submit">
+              Add Expense ....
+            </Button>
+          </Form>
         </Tab>
       </Tabs>
     </>
