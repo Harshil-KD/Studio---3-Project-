@@ -4,7 +4,7 @@ import { collection, query, getDocs } from "firebase/firestore";
 import { db } from "./Firebase/firebase";
 import { PieChart, Pie, Cell, Legend } from 'recharts';
 import UserNavbar from './userNavbar';
-
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
 function UserOverviewPage() {
@@ -70,9 +70,32 @@ function UserOverviewPage() {
           </Pie>
           <Legend align="center" verticalAlign="bottom" />
         </PieChart>
+
+        </div>
+{/* Adjust the minHeight to move the graph up */}
+<div style={{
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+  minHeight: '60vh', // Reduced from 80vh to move the graph up
+}}>
+  <BarChart width={600} height={400} data={accountData}>
+    <CartesianGrid strokeDasharray="3 3" />
+    <XAxis dataKey="name" />
+    <YAxis />
+    <Tooltip />
+    <Legend />
+    <Bar dataKey="value" fill="#8884d8" />
+  </BarChart>
+</div>
       </div>
-    </div>
+ 
+
+
   );
+
+
 }
 
 export default UserOverviewPage;
