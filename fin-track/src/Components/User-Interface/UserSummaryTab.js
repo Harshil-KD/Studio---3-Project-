@@ -10,7 +10,7 @@ import {
   updateDoc,
   query,
   orderBy,
-  getDoc,
+  onSnapshot,
 } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage"; // Import necessary storage functions
 import { Tabs, Tab, FloatingLabel, Form, Button, Table } from "react-bootstrap";
@@ -69,7 +69,7 @@ function UserSummaryTab() {
   }, [userId]);
 
   // Function to handle form submission
-  const handleSubmit = async (event) => {
+  const handleIncomeSubmit = async (event) => {
     event.preventDefault();
     console.log(accountId);
     try {
@@ -124,19 +124,19 @@ function UserSummaryTab() {
   };
 
   useEffect(() => {
+    const unsubscribeFunctions = []; // Define unsubscribeFunctions array
+
     const fetchData = async () => {
       if (!userId) return;
 
       try {
         const userDocRef = doc(db, "users", userId);
-        const userDocSnapshot = await getDoc(userDocRef);
-
         const accountsCollectionRef = collection(userDocRef, "accounts");
         const accountsSnapshot = await getDocs(accountsCollectionRef);
 
-        const allTransactions = [];
+        const transactionsData = {};
 
-        for (const accountDoc of accountsSnapshot.docs) {
+        accountsSnapshot.forEach((accountDoc) => {
           const transactionsCollectionRef = collection(
             accountDoc.ref,
             "transactions"
@@ -144,96 +144,42 @@ function UserSummaryTab() {
 
           const transactionsQuery = query(
             transactionsCollectionRef,
-            orderBy("date", "desc") // Sort transactions by date in descending order
+            orderBy("date", "desc")
           );
 
-          const transactionsSnapshot = await getDocs(transactionsQuery);
+          const unsubscribe = onSnapshot(transactionsQuery, (snapshot) => {
+            snapshot.docs.forEach((doc) => {
+              const transaction = {
+                id: doc.id,
+                ...doc.data(),
+                accountName: accountDoc.data().accountName,
+                accountId: accountDoc.id,
+              };
 
-          const transactionsData = transactionsSnapshot.docs.map((doc) => ({
-            id: doc.id,
-            ...doc.data(),
-            accountName: accountDoc.data().accountName,
-          }));
+              const date = transaction.date;
 
-          allTransactions.push(...transactionsData);
-        }
+              if (!transactionsData[date]) {
+                transactionsData[date] = [];
+              }
 
-        // Group transactions by date
-        const groupedTransactions = allTransactions.reduce(
-          (acc, transaction) => {
-            const date = transaction.date;
-            if (!acc[date]) {
-              acc[date] = [];
-            }
-            acc[date].push(transaction);
-            return acc;
-          },
-          {}
-        );
+              transactionsData[date].push(transaction);
+            });
 
-        setTransactionsData(groupedTransactions);
+            setTransactionsData(transactionsData);
+          });
+
+          unsubscribeFunctions.push(unsubscribe);
+        });
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
 
     fetchData();
-  }, [userId]);
-  useEffect(() => {
-    const fetchData = async () => {
-      if (!userId) return;
 
-      try {
-        const userDocRef = doc(db, "users", userId);
-        const userDocSnapshot = await getDoc(userDocRef);
-
-        const accountsCollectionRef = collection(userDocRef, "accounts");
-        const accountsSnapshot = await getDocs(accountsCollectionRef);
-
-        const allTransactions = [];
-
-        for (const accountDoc of accountsSnapshot.docs) {
-          const transactionsCollectionRef = collection(
-            accountDoc.ref,
-            "transactions"
-          );
-
-          const transactionsQuery = query(
-            transactionsCollectionRef,
-            orderBy("date", "desc") // Sort transactions by date in descending order
-          );
-
-          const transactionsSnapshot = await getDocs(transactionsQuery);
-
-          const transactionsData = transactionsSnapshot.docs.map((doc) => ({
-            id: doc.id,
-            ...doc.data(),
-            accountName: accountDoc.data().accountName,
-          }));
-
-          allTransactions.push(...transactionsData);
-        }
-
-        // Group transactions by date
-        const groupedTransactions = allTransactions.reduce(
-          (acc, transaction) => {
-            const date = transaction.date;
-            if (!acc[date]) {
-              acc[date] = [];
-            }
-            acc[date].push(transaction);
-            return acc;
-          },
-          {}
-        );
-
-        setTransactionsData(groupedTransactions);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
+    return () => {
+      unsubscribeFunctions.forEach((unsubscribe) => unsubscribe());
     };
-
-    fetchData();
   }, [userId]);
 
   const handleImageChange = (event) => {
@@ -250,7 +196,7 @@ function UserSummaryTab() {
         justify
       >
         <Tab eventKey="income" title="Profit">
-          <Form onSubmit={handleSubmit}>
+          <Form onSubmit={handleIncomeSubmit}>
             <FloatingLabel controlId="date" label="Date">
               <Form.Control
                 type="date"
@@ -303,36 +249,37 @@ function UserSummaryTab() {
               <Form.Control type="file" onChange={handleImageChange} />
             </Form.Group>
             <Button variant="primary" type="submit">
-              Submit
+              Add Income ....
             </Button>
           </Form>
         </Tab>
 
         <Tab eventKey="statement" title="Statement">
-        {Object.entries(transactionsData).map(([date, transactions]) => (
-          <div key={date}>
-            <h3>{date}</h3>
-            <Table striped bordered hover>
-              <thead>
-                <tr>
-                  <th>Account Name</th>
-                  <th>Category</th>
-                  <th>Amount</th>
-                </tr>
-              </thead>
-              <tbody>
-                {transactions.map((transaction) => (
-                  <tr key={transaction.id}>
-                    <td>{transaction.accountName}</td>
-                    <td>{transaction.category}</td>
-                    <td>{transaction.amount}</td>
+          {Object.keys(transactionsData).map((date) => (
+            <div key={date}>
+              <h4>Date: {date}</h4>
+              <Table striped bordered hover>
+                <thead>
+                  <tr>
+                    <th>Account Name</th>
+                    <th>Category</th>
+                    <th>Amount</th>
                   </tr>
-                ))}
-              </tbody>
-            </Table>
-          </div>
-        ))}
-      </Tab>
+                </thead>
+                <tbody>
+                  {transactionsData[date].map((transaction) => (
+                    <tr key={transaction.id}>
+                      <td>{transaction.accountName}</td>
+                      <td>{transaction.category}</td>
+                      <td>{transaction.amount}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
+            </div>
+          ))}
+        </Tab>
+
         <Tab eventKey="expense" title="Expense">
           Tab content for Expense
         </Tab>
