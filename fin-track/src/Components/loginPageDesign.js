@@ -5,6 +5,7 @@ import { useUserId } from "./Firebase/userContext";
 import {
   doSignInUserWithEmailAndPassword,
   doSignInWithGoogle,
+  checkUserExists,
 } from "./Firebase/Auth"; // Adjust the import path as necessary
 import { db } from "./Firebase/firebase";
 import { getDocs, where, query, collection } from "firebase/firestore";
@@ -32,20 +33,20 @@ function LoginPageDesign() {
     setIsSigningIn(true);
     try {
       await doSignInUserWithEmailAndPassword(email, password);
-      
+
       const collectionRef = collection(db, "users");
       const q = query(collectionRef, where("email", "==", email));
       const snapshot = await getDocs(q);
-      
+
       const results = snapshot.docs.map((doc) => ({
         ...doc.data(),
         id: doc.id,
       }));
-      
+
       // Set the userId
       setUserId(results[0].id);
       console.log(userId)
-      
+
       navigate("/userAccount"); // Navigate to user overview page upon successful login
     } catch (error) {
       console.log(error.message);
@@ -54,13 +55,44 @@ function LoginPageDesign() {
       setIsSigningIn(false);
     }
   };
-  
+
   const onGoogleSignIn = async (e) => {
     e.preventDefault();
     setIsSigningIn(true);
     try {
-      await doSignInWithGoogle();
-      navigate("/userOverview");
+      const user = await doSignInWithGoogle();
+      const userExists = await checkUserExists(user.email);
+
+      if (userExists) {
+        const collectionRef = collection(db, "users");
+        const q = query(collectionRef, where("Email", "==", email));
+        const snapshot = await getDocs(q);
+
+        if (!snapshot.empty) {
+          const results = snapshot.docs.map((doc) => ({
+            ...doc.data(),
+            id: doc.id,
+          }));
+
+          if (results.length === 1) {
+            // Set the userId if only one result is found
+            setUserId(results[0].id);
+            console.log(userId);
+            navigate("/userOverview");
+          } else {
+            // Handle multiple results
+            // You may want to display an error message or log the issue
+            console.error("Multiple users found with the same email");
+            setErrorMessage("Multiple users found with the same email. Please contact support.");
+          }
+        } else {
+          // Navigate to register if no user found
+          navigate("/register");
+        }
+      } else {
+        // Navigate to register if user doesn't exist
+        navigate("/register");
+      }
     } catch (error) {
       console.log(error.message);
       setErrorMessage(error.message);
@@ -68,6 +100,8 @@ function LoginPageDesign() {
       setIsSigningIn(false);
     }
   };
+
+
 
   return (
     <div>
