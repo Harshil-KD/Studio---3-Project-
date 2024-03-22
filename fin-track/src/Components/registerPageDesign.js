@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Navbar from "react-bootstrap/Navbar";
+
 import Container from "react-bootstrap/Container";
 import { db } from "./Firebase/firebase";
 import { addDoc, collection } from "firebase/firestore";
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { doCreateUserWithEmailAndPassword } from "./Firebase/Auth";
 import "../CSS/loginPageDesign.css";
-import VectorLogo from "../Images/Vector_Logo.png";
 import loginBg from "../Images/login-bg.png";
+import MainNavbar from "./mainNavbar";
 
 function RegisterPageDesign() {
   const navigate = useNavigate();
@@ -20,16 +20,6 @@ function RegisterPageDesign() {
   const [isRegistering, setIsRegistering] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
-    // Extracting user data from props if available
-    const { location } = useLocation();
-    const user = location.state && location.state.user;
-    console.log(user);
-    // Handling pre-filled fields if user is signing up with email
-    if (user) {
-      setEmail(user.email);
-      setFullName(user.displayName);
-    }
-
   const onSubmit = async (e) => {
     e.preventDefault();
   
@@ -40,10 +30,6 @@ function RegisterPageDesign() {
   
     setIsRegistering(true);
     try {
-      if(user){
-        await addUserToDatabase();
-        navigate("/userOverview");
-      }
       await doCreateUserWithEmailAndPassword(email, password);
       await addUserToDatabase(); // Add user data to Firestore after successful registration
       navigate("/login"); // Or navigate to any page you'd like the user to go to after registration
@@ -75,30 +61,7 @@ function RegisterPageDesign() {
 
   return (
     <div>
-      <Navbar
-        style={{
-          backgroundColor: "#9600DC",
-          color: "white",
-          background: "linear-gradient(to right, #23102e, #432057, #9600DC, #9600DC, #9600DC, #9600DC)",
-        }}
-        variant="dark"
-        expand="lg"
-      >
-        <Container fluid className="forNavbar">
-          <Navbar.Brand href="#">
-            <img
-              src={VectorLogo}
-              width="30"
-              height="30"
-              className="d-inline-block align-top"
-              alt="Navbar Logo"
-            />{" "}
-            FinTrack
-          </Navbar.Brand>
-          <Navbar.Toggle aria-controls="navbar-nav" />
-        </Container>
-      </Navbar>
-
+      <MainNavbar/>
       <Container
         fluid
         className="register-container"
