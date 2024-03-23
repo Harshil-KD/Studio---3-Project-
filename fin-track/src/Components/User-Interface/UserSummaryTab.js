@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { useUserId } from "../Firebase/userContext";
-import { db } from "../Firebase/firebase"; // Import storage from Firebase
-import { storage } from "../Firebase/firebase";
+import { useUserId } from "../Firebase/UserContext";
+import { db } from "../Firebase/Firebase"; // Import storage from Firebase
+import { storage } from "../Firebase/Firebase";
 import {
   getDocs,
   collection,

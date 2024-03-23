@@ -10,6 +10,7 @@ import ourScope from "../Images/about.jpeg";
 import support from "../Images/support.jpg";
 import money from "../Images/9834606.jpg";
 import join from "../Images/join.jpg";
+
 function About() {
   return (
     <div>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useUserId } from "../Firebase/userContext";
+import { useUserId } from "../Firebase/UserContext";
 import {
   collection,
   doc,
@@ -8,7 +8,7 @@ import {
   updateDoc,
   deleteDoc,
 } from "firebase/firestore";
-import { db } from "../Firebase/firebase";
+import { db } from "../Firebase/Firebase";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Table from "react-bootstrap/Table";

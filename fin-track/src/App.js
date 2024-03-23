@@ -1,13 +1,13 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import  "./Components/Firebase/firebase.js";
-import LoginPageDesign from "./Components/loginPageDesign.js";
-import RegisterPageDesign from "./Components/registerPageDesign.js";
-import HomePageDesign from "./Components/homePageDesign.js";
+import  "./Components/Firebase/Firebase.js";
+import LoginPageDesign from "./Components/LoginPageDesign.js";
+import RegisterPageDesign from "./Components/RegisterPageDesign.js";
+import HomePageDesign from "./Components/HomePageDesign.js";
 import UserAccountPage from "./Components/UserAccountPage.js";
 import UserOverviewPage from "./Components/UserOverviewPage.js";
 import UserSummaryPage from "./Components/UserSummaryPage.js";
-import Features from "./Components/features.js"; 
+import Features from "./Components/Features.js"; 
 function App() {
   return (
     <>

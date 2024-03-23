@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
-import { db } from "./Firebase/firebase";
+import { db } from "./Firebase/Firebase";
 import { addDoc, collection } from "firebase/firestore";
 import { useNavigate, useLocation } from 'react-router-dom';
 import { doCreateUserWithEmailAndPassword } from "./Firebase/Auth";
-import "../CSS/loginPageDesign.css";
+import "../CSS/registerPageDesign.css";
 import VectorLogo from "../Images/Vector_Logo.png";
 import loginBg from "../Images/login-bg.png";
 

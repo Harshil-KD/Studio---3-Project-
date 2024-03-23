@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { useUserId } from "./Firebase/userContext";
+import { useUserId } from "./Firebase/UserContext";
 
 import {
   doSignInUserWithEmailAndPassword,
   doSignInWithGoogle,
 } from "./Firebase/Auth"; // Adjust the import path as necessary
-import { db } from "./Firebase/firebase";
-import { getDocs, where, query, collection } from "firebase/firestore";
+import { db } from "./Firebase/Firebase";
+import { getDocs, where, query, collection, addDoc } from "firebase/firestore";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
@@ -68,12 +68,35 @@ function LoginPageDesign() {
     try {
       // Sign in with Google
       const userCredential = await doSignInWithGoogle();
-
-      // Navigate to register page with pre-filled data
+  
+      // Check if the user exists in Firestore
+      const collectionRef = collection(db, "users");
+      const q = query(collectionRef, where("Email", "==", userCredential.user.email));
+      const snapshot = await getDocs(q);
+  
+      if (!snapshot.empty) {
+        // User already exists, retrieve the user document reference
+        const userDoc = snapshot.docs[0];
+        setUserId(userDoc.id);
+        console.log("User ID:", userDoc.id);
+      } else {
+        // User doesn't exist, save user data to Firestore
+        const userData = {
+          Email: userCredential.user.email,
+          Full_Name: userCredential.user.displayName,
+          Address: "",
+          Type: "trial"
+          // Add any other user data you want to save
+        };
+        const newUserRef = await addDoc(collectionRef, userData);
+        setUserId(newUserRef.id);
+        console.log("New User ID:", newUserRef.id);
+      }
+  
+      // Navigate to user overview or any other page
       navigate("/userOverview");
-      console.log(userCredential.user.email, userCredential.user.displayName);
     } catch (error) {
-      console.log(error.message);
+      console.error("Error signing in with Google:", error);
       setErrorMessage(error.message);
     } finally {
       setIsSigningIn(false);
