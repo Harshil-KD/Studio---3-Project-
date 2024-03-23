@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useUserId } from "./Firebase/userContext";
 import { collection, query, getDocs } from "firebase/firestore";
 import { db } from "./Firebase/firebase";
-import { PieChart, Pie, Cell, Legend } from 'recharts';
+import { PieChart, Pie, Cell, Legend, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
 import UserNavbar from './userNavbar';
-
+import "../CSS/UserOverviewPage.css";
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
 function UserOverviewPage() {
@@ -45,32 +45,38 @@ function UserOverviewPage() {
       <div style={{ textAlign: 'center', paddingTop: '20px' }}>
         <h1>Overview of account in the Graph Form</h1>
       </div>
-      {/* Adjust the minHeight to move the graph up */}
-      <div style={{
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        minHeight: '60vh', // Reduced from 80vh to move the graph up
-      }}>
-        <PieChart width={400} height={400}>
-          <Pie
-            data={accountData}
-            cx={200}
-            cy={200}
-            outerRadius={80}
-            fill="#8884d8"
-            dataKey="value"
-            nameKey="name"
-            label={(entry) => `${entry.name}: ${(entry.percent * 100).toFixed(0)}%`}
-          >
-            {accountData.map((entry, index) => (
-              <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-            ))}
-          </Pie>
-          <Legend align="center" verticalAlign="bottom" />
-        </PieChart>
+      <div className="charts-container">
+        <div className="pie-chart">
+          <PieChart width={400} height={400}>
+            <Pie
+              data={accountData}
+              cx={200}
+              cy={200}
+              outerRadius={80}
+              fill="#8884d8"
+              dataKey="value"
+              nameKey="name"
+              label={(entry) => `${entry.name}: ${(entry.percent * 100).toFixed(0)}%`}
+            >
+              {accountData.map((entry, index) => (
+                <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+              ))}
+            </Pie>
+            <Legend align="center" verticalAlign="bottom" />
+          </PieChart>
+        </div>
+        <div className="bar-chart">
+          <BarChart width={400} height={400} data={accountData}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="name" />
+            <YAxis />
+            <Tooltip />
+            <Bar dataKey="value" fill="#8884d8" />
+          </BarChart>
+        </div>
       </div>
+      
+       
     </div>
   );
 }

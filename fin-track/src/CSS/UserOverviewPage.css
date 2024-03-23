@@ -1,27 +1,19 @@
-
-  
-  .chart-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    padding: 20px;
-  }
-  
-  @media (max-width: 768px) {
-    .chart-container {
-      flex-direction: column;
-    }
-  
-    .recharts-wrapper {
-      width: 100% !important;
-      height: auto !important;
-    }
-  
-    .pie-chart {
-      width: 100%;
-      max-width: 100%;
-      height: auto;
-    }
+.charts-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  min-height: 60vh;
+  flex-wrap: wrap; /* Added for responsiveness */
 }
-  
+
+.pie-chart, .bar-chart {
+  flex: 1; 
+  margin: 10px; 
+}
+
+@media (max-width: 768px) {
+  .charts-container {
+    flex-direction: column; 
+}
+}
