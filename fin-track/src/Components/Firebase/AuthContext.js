@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { auth } from "./firebase";
+import { auth } from "./Firebase";
 import { onAuthStateChanged } from "firebase/auth";
 
 const AuthContext = createContext();
@@ -20,9 +20,11 @@ export function AuthProvider({ children }) {
 
   async function initializeUser(user) {
     if (user) {
+      console.log("User logged in:", user);
       setCurrentUser({ ...user });
       setUserLoggedIn(true);
     } else {
+      console.log("No user logged in");
       setCurrentUser(null);
       setUserLoggedIn(false);
     }
@@ -31,7 +33,7 @@ export function AuthProvider({ children }) {
 
   const value = {
     currentUser,
-    userLoggedIn,
+    isAuthenticated: userLoggedIn, // Renamed to isAuthenticated
     loading,
   };
 

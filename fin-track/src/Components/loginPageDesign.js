@@ -18,7 +18,7 @@ import loginBg from "../Images/login-bg.png";
 
 function LoginPageDesign() {
   const navigate = useNavigate(); // Use for navigation after login
-  const { userId, setUserId } = useUserId();
+  const { setUserId, setUserType } = useUserId();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isSigningIn, setIsSigningIn] = useState(false);
@@ -46,10 +46,14 @@ function LoginPageDesign() {
         const userDoc = snapshot.docs[0];
         // Set the userId
         setUserId(userDoc.id);
-        console.log(userId);
         console.log("User ID:", userDoc.id);
 
-        navigate("/userAccount"); // Navigate to user account page upon successful login
+        // Set the user type
+        const userType = userDoc.data().Type; // Assuming 'Type' is the field containing user type
+        setUserType(userType); // Set user type in context
+        console.log("User Type:", userType);
+
+        navigate("/userOverview"); // Navigate to user account page upon successful login
       } else {
         // User not found
         setErrorMessage("User not found.");
@@ -68,16 +72,23 @@ function LoginPageDesign() {
     try {
       // Sign in with Google
       const userCredential = await doSignInWithGoogle();
-  
+
       // Check if the user exists in Firestore
       const collectionRef = collection(db, "users");
-      const q = query(collectionRef, where("Email", "==", userCredential.user.email));
+      const q = query(
+        collectionRef,
+        where("Email", "==", userCredential.user.email)
+      );
       const snapshot = await getDocs(q);
-  
+
       if (!snapshot.empty) {
         // User already exists, retrieve the user document reference
         const userDoc = snapshot.docs[0];
         setUserId(userDoc.id);
+
+        // Retrieve user type from Firestore and set it in context
+        const userType = userDoc.data().Type;
+        setUserType(userType);
         console.log("User ID:", userDoc.id);
       } else {
         // User doesn't exist, save user data to Firestore
@@ -85,14 +96,17 @@ function LoginPageDesign() {
           Email: userCredential.user.email,
           Full_Name: userCredential.user.displayName,
           Address: "",
-          Type: "trial"
+          Type: "trial", // Set default user type for new users
           // Add any other user data you want to save
         };
         const newUserRef = await addDoc(collectionRef, userData);
         setUserId(newUserRef.id);
+
+        // Set default user type in context for new users
+        setUserType("trial");
         console.log("New User ID:", newUserRef.id);
       }
-  
+
       // Navigate to user overview or any other page
       navigate("/userOverview");
     } catch (error) {

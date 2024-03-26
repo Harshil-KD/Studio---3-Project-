@@ -1,5 +1,5 @@
 import React from "react";
-
+import { useAuth } from './Firebase/AuthContext';
 import { Link } from "react-router-dom";
 
 import "../CSS/homePageDesign.css";
@@ -13,8 +13,18 @@ import fileImage from "../Images/fileImage.svg";
 import CardImage1 from "../Images/CardImage1.svg";
 import CardImage2 from "../Images/CardImage2.svg";
 import CardImage3 from "../Images/CardImage3.svg";
+// import { Navigate } from "react-router-dom";
 
 function HomePageDesign() {
+  const { currentUser, isAuthenticated } = useAuth();
+
+  if(isAuthenticated) {
+    console.log(currentUser.displayName)
+  }
+  else{
+    console.log("No user logged in")
+  }
+  
   return (
     <div>
       {/* Body Navbar */}

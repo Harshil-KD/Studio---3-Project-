@@ -1,17 +1,27 @@
 import React from "react";
+import {useAuth} from "./Firebase/AuthContext"
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import "bootstrap/dist/css/bootstrap.min.css";
 import MainNavbar from "./mainNavbar";
 import { Link } from "react-router-dom";
-import "../CSS/about.css";
-import ourScope from "../Images/about.jpeg";
-import support from "../Images/support.jpg";
-import money from "../Images/9834606.jpg";
-import join from "../Images/join.jpg";
+// import "../CSS/about.css";
+// import ourScope from "../Images/about.jpeg";
+// import support from "../Images/support.jpg";
+// import money from "../Images/9834606.jpg";
+// import join from "../Images/join.jpg";
 
 function About() {
+  const { currentUser, isAuthenticated } = useAuth();
+
+  if(isAuthenticated) {
+    console.log(currentUser.displayName)
+  }
+  else{
+    console.log("No user logged in")
+  }
+  
   return (
     <div>
       <MainNavbar />
@@ -28,7 +38,7 @@ function About() {
           </Col>
           <Col md={6} className="d-flex align-self-center justify-content-end">
             <img
-              src={ourScope}
+              
               alt="..."
               className="rounded img-fluid w-auto mx-auto about-image"
             />
@@ -48,7 +58,7 @@ function About() {
               boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
             }}
           >
-            <img src={join} className="card-img-top" alt="..." />
+            <img className="card-img-top" alt="..." />
 
             <div className="card-body">
               <h5 className="card-title">Join Now</h5>
@@ -68,7 +78,7 @@ function About() {
               boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
             }}
           >
-            <img src={money} className="card-img-top" alt="..." />
+            <img className="card-img-top" alt="..." />
 
             <div className="card-body">
               <h5 className="card-title">
@@ -89,7 +99,7 @@ function About() {
               boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
             }}
           >
-            <img src={support} className="card-img-top logo" alt="..." />
+            <img className="card-img-top logo" alt="..." />
 
             <div className="card-body">
               <h5 className="card-title">Contact our Support Team</h5>
