@@ -8,6 +8,8 @@ import UserAccountPage from "./Components/UserAccountPage.js";
 import UserOverviewPage from "./Components/UserOverviewPage.js";
 import UserSummaryPage from "./Components/UserSummaryPage.js";
 import Features from "./Components/Features.js";
+import About from "./Components/About.js"
+import AdminPage from "./Components/AdminPage.js";
 function App() {
   return (
     <>
@@ -20,6 +22,8 @@ function App() {
           <Route path="/userAccount" element={<UserAccountPage />} />
           <Route path="/userOverview" element={<UserOverviewPage />} />
           <Route path="/userSummary" element={<UserSummaryPage />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/admin" element={<AdminPage />} />
         </Routes>
       </Router>
     </>
