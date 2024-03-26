@@ -1,19 +1,37 @@
 .charts-container {
   display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
+  flex-direction: column; /* Display charts vertically on small screens */
+  align-items: center; /* Center charts horizontally */
   min-height: 60vh;
-  flex-wrap: wrap; /* Added for responsiveness */
 }
 
 .pie-chart, .bar-chart {
-  flex: 1; 
-  margin: 10px; 
+  width: 100%; /* Make charts take full width */
+  max-width: 600px; /* Limit maximum width of charts */
+  margin: 10px; /* Add margin for spacing */
 }
 
-@media (max-width: 768px) {
-  .charts-container {
-    flex-direction: column; 
+.chart-heading {
+  text-align: center;
+  margin-top: 20px;
 }
+
+.chart-heading h2 {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+@media (min-width: 768px) {
+  .charts-container {
+    flex-direction: row; /* Display charts horizontally on medium and larger screens */
+    justify-content: space-around; /* Add space between charts */
+    align-items: flex-start; /* Align charts to the top */
+  }
+  
+}
+@media (min-width: 768px) {
+  .navbar-nav {
+    margin-left: auto; /* Align to the right */
+    margin-right: auto; /* Align to the left */
+  }
 }
