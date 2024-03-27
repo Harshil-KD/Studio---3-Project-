@@ -27,7 +27,6 @@ function UserSummaryTab() {
   const [accountData, setAccountData] = useState([]);
   const [transactionsData, setTransactionsData] = useState([]);
   const [loading, setLoading] = useState(true);
-
   const { userId } = useUserId();
 
   // Function to generate a random alphanumeric string of given length
@@ -69,7 +68,11 @@ function UserSummaryTab() {
   }, [userId]);
 
   // Function to handle form submission
-  const handleFormSubmit = async (event, type) => {
+
+  const handleFormSubmit = async (event, transactionType) => {
+
+ 
+
     event.preventDefault();
     try {
       const imageRef = ref(
@@ -79,16 +82,20 @@ function UserSummaryTab() {
       await uploadBytes(imageRef, image);
 
       const imageUrl = await getDownloadURL(imageRef);
-
+      let newAmount = parseFloat(amount);
+      if (transactionType === "expense") {
+        newAmount *= -1; // Make the amount negative for expenses
+      }
+  
       const selectedAccount = accountData.find((acc) => acc.id === accountId);
       const currentBalance = parseFloat(selectedAccount.accountBalance);
-      const newBalance =
-        type === "income"
-          ? currentBalance + parseFloat(amount)
-          : currentBalance - parseFloat(amount);
+      const newBalance = currentBalance + newAmount;
+  
+      // Update the balance field of the account document in Firestore
 
       const accountDocRef = doc(db, "users", userId, "accounts", accountId);
       await updateDoc(accountDocRef, { accountBalance: newBalance });
+  
 
       const transactionId = generateId(10);
 
@@ -99,7 +106,7 @@ function UserSummaryTab() {
         date,
         account,
         category,
-        amount,
+        amount: newAmount.toString(),
         description,
         imageUrl,
       });
@@ -150,6 +157,7 @@ function UserSummaryTab() {
                 accountId: accountDoc.id,
               };
 
+
               const date = transaction.date;
 
               if (!transactionsData[date]) {
@@ -174,6 +182,8 @@ function UserSummaryTab() {
     return () => {
       unsubscribeFunctions.forEach((unsubscribe) => unsubscribe());
     };
+
+
   }, [userId]);
 
   const handleImageChange = (event) => {
