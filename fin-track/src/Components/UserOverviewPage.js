@@ -129,7 +129,8 @@ function UserOverviewPage() {
       </BarChart>
     </ResponsiveContainer>
   </div>
-</div>      </div>
+</div> 
+ </div>
    
   );
 }
