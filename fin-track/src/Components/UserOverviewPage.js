@@ -118,7 +118,7 @@ function UserOverviewPage() {
         <div className="bar-chart">
           <BarChart width={400} height={400} data={transactionData}>
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="bank" />
+            <XAxis dataKey="accountName" />
             <YAxis />
             <Tooltip />
             <Bar dataKey="Credit" fill="#82ca9d" />
