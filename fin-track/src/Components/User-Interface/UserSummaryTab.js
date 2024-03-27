@@ -68,7 +68,11 @@ function UserSummaryTab() {
   }, [userId]);
 
   // Function to handle form submission
+
   const handleFormSubmit = async (event, transactionType) => {
+
+ 
+
     event.preventDefault();
     try {
       const imageRef = ref(
@@ -78,7 +82,6 @@ function UserSummaryTab() {
       await uploadBytes(imageRef, image);
 
       const imageUrl = await getDownloadURL(imageRef);
-
       let newAmount = parseFloat(amount);
       if (transactionType === "expense") {
         newAmount *= -1; // Make the amount negative for expenses
@@ -89,6 +92,7 @@ function UserSummaryTab() {
       const newBalance = currentBalance + newAmount;
   
       // Update the balance field of the account document in Firestore
+
       const accountDocRef = doc(db, "users", userId, "accounts", accountId);
       await updateDoc(accountDocRef, { accountBalance: newBalance });
   
@@ -153,6 +157,7 @@ function UserSummaryTab() {
                 accountId: accountDoc.id,
               };
 
+
               const date = transaction.date;
 
               if (!transactionsData[date]) {
@@ -177,6 +182,8 @@ function UserSummaryTab() {
     return () => {
       unsubscribeFunctions.forEach((unsubscribe) => unsubscribe());
     };
+
+
   }, [userId]);
 
   const handleImageChange = (event) => {

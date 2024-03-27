@@ -9,12 +9,11 @@ import {
 import { db } from "./Firebase/firebase";
 import { getDocs, where, query, collection } from "firebase/firestore";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
-
 import "../CSS/loginPageDesign.css";
-import VectorLogo from "../Images/Vector_Logo.png";
 import loginBg from "../Images/login-bg.png";
+import MainNavbar from "./mainNavbar";
+
 
 function LoginPageDesign() {
   const navigate = useNavigate(); // Use for navigation after login
@@ -66,8 +65,12 @@ function LoginPageDesign() {
     e.preventDefault();
     setIsSigningIn(true);
     try {
-      await doSignInWithGoogle();
+      // Sign in with Google
+      const userCredential = await doSignInWithGoogle();
+
+      // Navigate to register page with pre-filled data
       navigate("/userOverview");
+      console.log(userCredential.user.email, userCredential.user.displayName);
     } catch (error) {
       console.log(error.message);
       setErrorMessage(error.message);
@@ -78,33 +81,7 @@ function LoginPageDesign() {
 
   return (
     <div>
-      <Navbar
-        style={{
-          backgroundColor: "#9600DC",
-          color: "white",
-          backgroundImage:
-            "linear-gradient(to right, #23102e, #432057, #9600DC, #9600DC, #9600DC, #9600DC)",
-        }}
-        variant="dark"
-        expand="lg"
-      >
-        <Container fluid className="forNavbar">
-          {/* Title Bar Design Logo*/}
-          <Navbar.Brand href="#">
-            <img
-              src={VectorLogo}
-              width="30"
-              height="30"
-              alt="Navbar Logo"
-              className="d-inline-block align-top"
-            />{" "}
-            FinTrack
-          </Navbar.Brand>
-
-          {/* TitleBar Toggler for mobile view */}
-          <Navbar.Toggle aria-controls="navbar-nav" />
-        </Container>
-      </Navbar>
+     <MainNavbar/>
 
       {/* Welcome Container with TitleBar background color */}
       <Container
@@ -208,41 +185,3 @@ function LoginPageDesign() {
 }
 
 export default LoginPageDesign;
-
-// const onSubmit = async (e) => {
-//   e.preventDefault();
-
-//   // Validation checks
-//   if (!email || !password || isSigningIn) {
-//     return;
-//   }
-
-//   setIsSigningIn(true);
-
-//   try {
-//     // Attempt to sign in
-//     const userCredential = await doSignInUserWithEmailAndPassword(email, password);
-
-//     // Retrieve user data from Firestore
-//     const userDoc = await getDoc(doc(db, 'users', userCredential.user.uid));
-//     const userData = userDoc.data();
-
-//     setIsSigningIn(false);
-
-//     // Redirect based on user role
-//     if (userData) {
-//       if (userData.role === "admin") {
-//         history.push("/admin");
-//       } else if (userData.role === "premium" || userData.role === "registered") {
-//         history.push("/overview");
-//       } else {
-//         // Handle other roles or set a default redirect
-//         history.push("/overview");
-//       }
-//     }
-//   } catch (error) {
-//     // Handle errors
-//     setErrorMessage(error.message);
-//     setIsSigningIn(false);
-//   }
-// };
