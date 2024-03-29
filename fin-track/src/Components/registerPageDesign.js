@@ -4,7 +4,7 @@ import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
 import { db } from "./Firebase/Firebase";
 import { addDoc, collection } from "firebase/firestore";
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import { doCreateUserWithEmailAndPassword } from "./Firebase/Auth";
 import "../CSS/registerPageDesign.css";
 import VectorLogo from "../Images/Vector_Logo.png";
@@ -12,38 +12,27 @@ import loginBg from "../Images/login-bg.png";
 
 function RegisterPageDesign() {
   const navigate = useNavigate();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [fullName, setFullName] = useState('');
-  const [address, setAddress] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [fullName, setFullName] = useState("");
+  const [address, setAddress] = useState("");
   const [isRegistering, setIsRegistering] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
-
-    // Extracting user data from props if available
-    const { location } = useLocation();
-    const user = location.state && location.state.user;
-    console.log(user);
-    // Handling pre-filled fields if user is signing up with email
-    if (user) {
-      setEmail(user.email);
-      setFullName(user.displayName);
-    }
+  const [errorMessage, setErrorMessage] = useState("");
 
   const onSubmit = async (e) => {
     e.preventDefault();
-  
+
     if (password !== confirmPassword) {
       setErrorMessage("Passwords do not match.");
       return;
     }
-  
+
     setIsRegistering(true);
     try {
-      if(user){
-        await addUserToDatabase();
-        navigate("/userOverview");
-      }
+      await addUserToDatabase();
+      navigate("/userOverview");
+
       await doCreateUserWithEmailAndPassword(email, password);
       await addUserToDatabase(); // Add user data to Firestore after successful registration
       navigate("/login"); // Or navigate to any page you'd like the user to go to after registration
@@ -53,7 +42,6 @@ function RegisterPageDesign() {
       setIsRegistering(false);
     }
   };
-  
 
   const addUserToDatabase = async () => {
     const collectionRef = collection(db, "users");
@@ -61,9 +49,9 @@ function RegisterPageDesign() {
       Full_Name: fullName,
       Address: address,
       Email: email,
-      Type: "trial"
+      Type: "trial",
     };
-  
+
     try {
       const docRef = await addDoc(collectionRef, userData);
       console.log("User added with ID: ", docRef.id);
@@ -79,7 +67,8 @@ function RegisterPageDesign() {
         style={{
           backgroundColor: "#9600DC",
           color: "white",
-          background: "linear-gradient(to right, #23102e, #432057, #9600DC, #9600DC, #9600DC, #9600DC)",
+          background:
+            "linear-gradient(to right, #23102e, #432057, #9600DC, #9600DC, #9600DC, #9600DC)",
         }}
         variant="dark"
         expand="lg"
@@ -105,7 +94,8 @@ function RegisterPageDesign() {
         style={{
           backgroundColor: "#9600DC",
           color: "white",
-          background: "linear-gradient(to right, #23102e, #432057, #9600DC, #9600DC, #9600DC, #9600DC)",
+          background:
+            "linear-gradient(to right, #23102e, #432057, #9600DC, #9600DC, #9600DC, #9600DC)",
         }}
       >
         <h1 className="register-title">SignUp</h1>
@@ -124,7 +114,11 @@ function RegisterPageDesign() {
 
           <div className="col colForm">
             <div className="p-3">
-              {errorMessage && <div className="alert alert-danger" role="alert">{errorMessage}</div>}
+              {errorMessage && (
+                <div className="alert alert-danger" role="alert">
+                  {errorMessage}
+                </div>
+              )}
               <form onSubmit={onSubmit}>
                 <div className="mb-3">
                   <label htmlFor="fullName" className="form-label label">
@@ -187,7 +181,10 @@ function RegisterPageDesign() {
                 </div>
 
                 <div className="mb-4">
-                  <label htmlFor="inputRetypePassword" className="form-label label">
+                  <label
+                    htmlFor="inputRetypePassword"
+                    className="form-label label"
+                  >
                     <h4 className="label">Retype Password:</h4>
                   </label>
                   <input
@@ -201,7 +198,11 @@ function RegisterPageDesign() {
                   />
                 </div>
 
-                <button type="submit" className="custom-button mb-3" disabled={isRegistering}>
+                <button
+                  type="submit"
+                  className="custom-button mb-3"
+                  disabled={isRegistering}
+                >
                   Register
                 </button>
               </form>

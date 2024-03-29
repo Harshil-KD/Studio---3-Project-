@@ -8,18 +8,6 @@ export const UserIdProvider = ({ children }) => {
   const [userId, setUserId] = useState(null);
   const [userType, setUserType] = useState(null); // Add state for user type
 
-  // Load userId and userType from local storage on component mount
-  useEffect(() => {
-    const storedUserId = localStorage.getItem("userId");
-    const storedUserType = localStorage.getItem("userType"); // Retrieve user type from local storage
-    if (storedUserId) {
-      setUserId(storedUserId);
-    }
-    if (storedUserType) {
-      setUserType(storedUserType); // Set user type state
-    }
-  }, []);
-
   // Update local storage when userId or userType changes
   useEffect(() => {
     if (userId) {
@@ -33,6 +21,19 @@ export const UserIdProvider = ({ children }) => {
       localStorage.removeItem("userType"); // Remove user type from local storage if it's null
     }
   }, [userId, userType]);
+  
+  // Load userId and userType from local storage on component mount
+  useEffect(() => {
+    const storedUserId = localStorage.getItem("userId");
+    const storedUserType = localStorage.getItem("userType"); // Retrieve user type from local storage
+    if (storedUserId) {
+      setUserId(storedUserId);
+    }
+    if (storedUserType) {
+      setUserType(storedUserType); // Set user type state
+    }
+  }, []);
+
 
   return (
     <UserIdContext.Provider value={{ userId, setUserId, userType, setUserType }}>
