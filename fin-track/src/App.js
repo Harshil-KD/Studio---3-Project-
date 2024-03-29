@@ -22,6 +22,12 @@ function App() {
           <Route path="/userAccount" element={<UserAccountPage />} />
           <Route path="/userOverview" element={<UserOverviewPage />} />
           <Route path="/userSummary" element={<UserSummaryPage />} />
+
+          <Route path="/features" element={<Features />} />
+
+
+          <Route path="/about" element={<About />} />
+
         </Routes>
       </Router>
     </>

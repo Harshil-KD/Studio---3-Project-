@@ -1,0 +1,84 @@
+.about-image {
+  flex: 0 0 48%;
+  max-width: 100%;
+  margin-bottom: 20px;
+  padding: 20px;
+  box-sizing: border-box;
+}
+/* Large Desktops and Widescreens */
+@media (min-width: 1200px) {
+  .g-col-6, .col-4, .col-8 {
+    padding: 25px;
+  }
+}
+ 
+/* Medium Devices, Desktops */
+@media (min-width: 992px) and (max-width: 1199px) {
+  .g-col-6 {
+    flex: 0 0 50%;
+  }
+}
+ 
+/* Tablets */
+@media (min-width: 768px) and (max-width: 991px) {
+  .g-col-6, .col-4, .col-8 {
+    width: 50%;
+  }
+  .custom-btn-outline {
+    font-size: 24px;
+    padding: 15px 30px;
+  }
+}
+ 
+/* Small Devices, Tablets and Large Phones */
+@media (max-width: 767px) {
+  .grid, .row.body3 {
+    display: block;
+  }
+  .g-col-6, .col-4, .col-8, .body3content {
+    width: 100%;
+    padding: 15px;
+  }
+  .custom-btn-outline {
+    font-size: 20px;
+    padding: 12px 24px;
+  }
+}
+ 
+/* Extra Small Devices, Phones */
+@media (max-width: 576px) {
+  .custom-btn-outline {
+    font-size: 18px;
+    padding: 10px 20px;
+  }
+}
+ 
+/* Additional global adjustments for small devices */
+@media (max-width: 767px) {
+  .body3, .body3 img, .g-col-6 img, .col-4 img {
+    margin-bottom: 15px;
+  }
+  .carousel-control-prev-icon, .carousel-control-next-icon {
+    filter: invert(100%);
+  }
+}
+
+.about-image {
+  max-width: 100%; 
+  height: auto; 
+
+
+}
+.image-container {
+  
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    height: 200px; 
+    width: 200px; 
+    overflow: hidden;
+    margin-left: 15px; 
+  }
+  
+
+
