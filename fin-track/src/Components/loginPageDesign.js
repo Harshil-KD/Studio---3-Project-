@@ -5,6 +5,7 @@ import { useUserId } from "./Firebase/userContext";
 import {
   doSignInUserWithEmailAndPassword,
   doSignInWithGoogle,
+  checkUserExists,
 } from "./Firebase/Auth"; // Adjust the import path as necessary
 import { db } from "./Firebase/firebase";
 import { getDocs, where, query, collection } from "firebase/firestore";
@@ -39,21 +40,16 @@ function LoginPageDesign() {
       const q = query(collectionRef, where("Email", "==", email));
       const snapshot = await getDocs(q);
 
-      console.log("Snapshot:", snapshot);
+      const results = snapshot.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id,
+      }));
 
-      if (!snapshot.empty) {
-        // Get the first document (assuming email is unique)
-        const userDoc = snapshot.docs[0];
-        // Set the userId
-        setUserId(userDoc.id);
-        console.log(userId);
-        console.log("User ID:", userDoc.id);
+      // Set the userId
+      setUserId(results[0].id);
+      console.log(userId)
 
-        navigate("/userAccount"); // Navigate to user account page upon successful login
-      } else {
-        // User not found
-        setErrorMessage("User not found.");
-      }
+      navigate("/userAccount"); // Navigate to user overview page upon successful login
     } catch (error) {
       console.error("Error signing in:", error);
       setErrorMessage(error.message);
@@ -66,17 +62,39 @@ function LoginPageDesign() {
     e.preventDefault();
     setIsSigningIn(true);
     try {
-      // Sign in with Google
-      const userCredential = await doSignInWithGoogle();
+      const user = await doSignInWithGoogle();
+      const userExists = await checkUserExists(user.email);
 
-      // Navigate to register page with pre-filled data
-      navigate("/register", {
-        state: {
-          email: userCredential.user.email,
-          displayName: userCredential.user.displayName,
-        },
-      });
-      console.log(userCredential.user.email, userCredential.user.displayName);
+      if (userExists) {
+        const collectionRef = collection(db, "users");
+        const q = query(collectionRef, where("Email", "==", email));
+        const snapshot = await getDocs(q);
+
+        if (!snapshot.empty) {
+          const results = snapshot.docs.map((doc) => ({
+            ...doc.data(),
+            id: doc.id,
+          }));
+
+          if (results.length === 1) {
+            // Set the userId if only one result is found
+            setUserId(results[0].id);
+            console.log(userId);
+            navigate("/userOverview");
+          } else {
+            // Handle multiple results
+            // You may want to display an error message or log the issue
+            console.error("Multiple users found with the same email");
+            setErrorMessage("Multiple users found with the same email. Please contact support.");
+          }
+        } else {
+          // Navigate to register if no user found
+          navigate("/register");
+        }
+      } else {
+        // Navigate to register if user doesn't exist
+        navigate("/register");
+      }
     } catch (error) {
       console.log(error.message);
       setErrorMessage(error.message);
@@ -84,6 +102,8 @@ function LoginPageDesign() {
       setIsSigningIn(false);
     }
   };
+
+
 
   return (
     <div>
