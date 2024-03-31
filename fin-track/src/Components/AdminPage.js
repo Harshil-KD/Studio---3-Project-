@@ -5,6 +5,7 @@ import { db } from "./Firebase/firebase";
 import { collection, onSnapshot, deleteDoc,doc } from "firebase/firestore";
 import VectorLogo from "../Images/Vector_Logo_White.png";
 import Table from "react-bootstrap/Table";
+import Modal from "react-bootstrap/Modal";
 import "../CSS/userNavbar.css";
  
 function AdminPage() {
@@ -104,6 +105,35 @@ function AdminPage() {
           ))}
         </tbody>
       </Table>
+ 
+      {/* Edit User Modal */}
+      <Modal show={showModal} onHide={() => setShowModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Edit User</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <form onSubmit={(e) => {
+            e.preventDefault();
+            updateUser();
+          }}>
+            <div>
+              <label htmlFor="edit-fullname">Full Name:</label>
+              <input type="text" id="edit-fullname" name="Full_Name" value={editUser.Full_Name} onChange={handleInputChange} />
+            </div>
+            <div>
+              <label htmlFor="edit-account-type">Account Type:</label>
+              <input type="text" id="edit-account-type" name="Type" value={editUser.Type} onChange={handleInputChange} />
+            </div>
+            <button type="submit">Update</button>
+          </form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowModal(false)}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
+     
     </div>
   );
 }
