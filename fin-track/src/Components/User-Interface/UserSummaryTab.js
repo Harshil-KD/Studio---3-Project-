@@ -14,6 +14,7 @@ import {
 } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage"; // Import necessary storage functions
 import { Tabs, Tab, FloatingLabel, Form, Button, Table } from "react-bootstrap";
+import ImageModal from "./ImageModal";
 
 function UserSummaryTab() {
   // State variables to store form data
@@ -26,6 +27,8 @@ function UserSummaryTab() {
   const [image, setImage] = useState(null);
   const [accountData, setAccountData] = useState([]);
   const [transactionsData, setTransactionsData] = useState([]);
+  const [hoveredImageUrl, setHoveredImageUrl] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [loading, setLoading] = useState(true);
 
   const { userId } = useUserId();
@@ -181,6 +184,27 @@ function UserSummaryTab() {
     setImage(file);
   };
 
+  // Function to fetch image URL from Firebase Storage
+  const fetchImageUrl = async (imageUrl) => {
+    try {
+      const url = await getDownloadURL(ref(storage, imageUrl));
+      setHoveredImageUrl(url);
+      setIsModalOpen(true); // Open the modal when image URL is fetched
+    } catch (error) {
+      console.error("Error fetching image URL:", error);
+    }
+  };
+
+  // Event handler for double click
+  const handleDoubleClick = (imageUrl) => {
+    fetchImageUrl(imageUrl);
+  };
+
+  // Event handler for closing modal
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <>
       <Tabs
@@ -265,17 +289,31 @@ function UserSummaryTab() {
                     <tr key={transaction.id}>
                       <td>{transaction.accountName}</td>
                       <td>{transaction.category}</td>
-                      <td>{transaction.amount}</td>
+                      <td
+                        onDoubleClick={() =>
+                          handleDoubleClick(transaction.imageUrl)
+                        }
+                        style={{ cursor: "pointer" }} // Set cursor to pointer to indicate clickability
+                      >
+                        {transaction.amount}
+                      </td>
                     </tr>
                   ))}
                 </tbody>
               </Table>
+              {/* Render the modal */}
+              {isModalOpen && (
+                <ImageModal
+                  imageUrl={hoveredImageUrl}
+                  onClose={handleCloseModal}
+                />
+              )}
             </div>
           ))}
         </Tab>
 
         <Tab eventKey="expense" title="Expense">
-        <Form onSubmit={(event) => handleFormSubmit(event, "expense")}>
+          <Form onSubmit={(event) => handleFormSubmit(event, "expense")}>
             <FloatingLabel controlId="date" label="Date">
               <Form.Control
                 type="date"

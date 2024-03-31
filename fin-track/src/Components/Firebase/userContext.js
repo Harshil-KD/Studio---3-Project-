@@ -12,13 +12,10 @@ export const UserIdProvider = ({ children }) => {
   useEffect(() => {
     if (userId) {
       localStorage.setItem("userId", userId);
-    } else {
-      localStorage.removeItem("userId");
     }
+
     if (userType) {
       localStorage.setItem("userType", userType); // Store user type in local storage
-    } else {
-      localStorage.removeItem("userType"); // Remove user type from local storage if it's null
     }
   }, [userId, userType]);
   

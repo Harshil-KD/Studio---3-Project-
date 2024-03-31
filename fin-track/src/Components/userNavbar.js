@@ -10,6 +10,8 @@ function UserNavbar() {
   const handleLogout = async () => {
     try {
       await doSignOut(); // Call the logout function
+      localStorage.removeItem("userId");
+      localStorage.removeItem("userType");
       navigate("/"); // Navigate to the home page
     } catch (error) {
       console.log("Failed to log out:", error.message);
