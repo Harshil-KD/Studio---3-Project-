@@ -5,7 +5,20 @@ import VectorLogo from "../Images/Vector_Logo_White.png";
 import "../CSS/userNavbar.css";
  
 function AdminPage() {
+ 
+  const handleLogout = async () => {
+    try {
+      await doSignOut(); // Call the logout function
+      navigate("/"); // Navigate to the home page
+      localStorage.removeItem("userId");
+      localStorage.removeItem("userType");
+    } catch (error) {
+      console.log("Failed to log out:", error.message);
+    }
+  };
+ 
   return (
+   
     <div>
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
         <div className="container-fluid">
@@ -34,7 +47,7 @@ function AdminPage() {
                 Log Out
               </button>
             </div>
-           
+ 
           </div>
         </div>
       </nav>
