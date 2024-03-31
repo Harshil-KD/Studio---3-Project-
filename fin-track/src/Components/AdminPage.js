@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { doSignOut } from "./Firebase/Auth";
-import { db } from "./Firebase/Firebase";
-import { collection, onSnapshot } from "firebase/firestore";
+import { db } from "./Firebase/firebase";
+import { collection, onSnapshot, deleteDoc,doc } from "firebase/firestore";
 import VectorLogo from "../Images/Vector_Logo_White.png";
 import Table from "react-bootstrap/Table";
 import "../CSS/userNavbar.css";
@@ -33,6 +33,16 @@ function AdminPage() {
  
     return () => unsubscribe();
   }, []);
+ 
+  const deleteUser = async (userId) => {
+    try {
+      await deleteDoc(doc(db, "users", userId));
+      console.log("User deleted successfully.");
+      console.log(userId);
+    } catch (error) {
+      console.error("Error deleting user:", error);
+    }
+  };
  
   return (
     <div>
@@ -88,7 +98,7 @@ function AdminPage() {
                 <button key={`edit-${index}`}>Edit</button>
               </td>
               <td>
-                <button key={`delete-${index}`}>Delete</button>
+              <button key={`delete-${index}`} onClick={() => deleteUser(user.id)}>Delete</button>
               </td>
             </tr>
           ))}
