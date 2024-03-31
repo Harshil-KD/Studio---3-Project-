@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { doSignOut } from "./Firebase/Auth";
 import { db } from "./Firebase/Firebase";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, onSnapshot } from "firebase/firestore";
 import VectorLogo from "../Images/Vector_Logo_White.png";
 import Table from "react-bootstrap/Table";
 import "../CSS/userNavbar.css";
@@ -23,20 +23,15 @@ function AdminPage() {
   };
  
   useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const usersCollectionRef = collection(db, "users"); // Reference to the users collection
-        const snapshot = await getDocs(usersCollectionRef); // Get all documents from the users collection
-        const userData = snapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-        setUsers(userData);
-      } catch (error) {
-        console.error("Error fetching users:", error);
-      }
-    };
-    fetchUsers();
+    const unsubscribe = onSnapshot(collection(db, "users"), (snapshot) => {
+      const userData = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setUsers(userData);
+    });
+ 
+    return () => unsubscribe();
   }, []);
  
   return (
