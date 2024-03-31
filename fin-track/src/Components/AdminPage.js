@@ -2,15 +2,18 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { doSignOut } from "./Firebase/Auth";
 import { db } from "./Firebase/firebase";
-import { collection, onSnapshot, deleteDoc,doc } from "firebase/firestore";
+import { collection, onSnapshot, deleteDoc, doc, updateDoc } from "firebase/firestore";
 import VectorLogo from "../Images/Vector_Logo_White.png";
 import Table from "react-bootstrap/Table";
 import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
 import "../CSS/userNavbar.css";
  
 function AdminPage() {
   const navigate = useNavigate(); // Get the navigate function from react-router-dom
   const [users, setUsers] = useState([]);
+  const [editUser, setEditUser] = useState({ id: "", Full_Name: "", Email: "", Type: "" });
+  const [showModal, setShowModal] = useState(false);
  
   const handleLogout = async () => {
     try {
@@ -39,10 +42,32 @@ function AdminPage() {
     try {
       await deleteDoc(doc(db, "users", userId));
       console.log("User deleted successfully.");
-      console.log(userId);
     } catch (error) {
       console.error("Error deleting user:", error);
     }
+  };
+ 
+  const updateUser = async () => {
+    try {
+      await updateDoc(doc(db, "users", editUser.id), {
+        Full_Name: editUser.Full_Name,
+        Type: editUser.Type
+      });
+      console.log("User updated successfully.");
+      setShowModal(false);
+    } catch (error) {
+      console.error("Error updating user:", error);
+    }
+  };
+ 
+  const handleEdit = (user) => {
+    setEditUser(user);
+    setShowModal(true);
+  };
+ 
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setEditUser({ ...editUser, [name]: value });
   };
  
   return (
@@ -96,10 +121,14 @@ function AdminPage() {
               <td>{user.Email}</td>
               <td>{user.Type}</td>
               <td>
-                <button key={`edit-${index}`}>Edit</button>
+                <button key={`edit-${index}`} onClick={() => handleEdit(user)}>
+                  Edit
+                </button>
               </td>
               <td>
-              <button key={`delete-${index}`} onClick={() => deleteUser(user.id)}>Delete</button>
+                <button key={`delete-${index}`} onClick={() => deleteUser(user.id)}>
+                  Delete
+                </button>
               </td>
             </tr>
           ))}
@@ -133,7 +162,6 @@ function AdminPage() {
           </Button>
         </Modal.Footer>
       </Modal>
-     
     </div>
   );
 }
