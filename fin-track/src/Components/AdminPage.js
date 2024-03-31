@@ -1,9 +1,9 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { doSignOut } from "./Firebase/Auth";
 import { db } from "./Firebase/Firebase";
 import VectorLogo from "../Images/Vector_Logo_White.png";
-import Table from 'react-bootstrap/Table';
+import Table from "react-bootstrap/Table";
 import "../CSS/userNavbar.css";
  
 function AdminPage() {
@@ -26,7 +26,10 @@ function AdminPage() {
       try {
         const usersRef = db.collection("users");
         const snapshot = await usersRef.get();
-        const userData = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+        const userData = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
         setUsers(userData);
       } catch (error) {
         console.error("Error fetching users:", error);
@@ -36,7 +39,6 @@ function AdminPage() {
   }, []);
  
   return (
-   
     <div>
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
         <div className="container-fluid">
@@ -58,51 +60,46 @@ function AdminPage() {
           </Link>
  
           <div className="collapse navbar-collapse" id="navbarTogglerDemo03">
- 
             <div className="d-flex">
               {/* Call handleLogout function when the logout button is clicked */}
               <button className="btn custom-btn" onClick={handleLogout}>
                 Log Out
               </button>
             </div>
- 
           </div>
         </div>
       </nav>
  
       <Table responsive>
-      <thead>
-        <tr>
-          <th>#</th>
-          {Array.from({ length: 12 }).map((_, index) => (
-            <th key={index}>Table heading</th>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Account Type</th>
+            <th>Edit</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          {users.map((user, index) => (
+            <tr key={user.id}>
+              <td>{index + 1}</td>
+              <td>{user.name}</td>
+              <td>{user.email}</td>
+              <td>{user.accountType}</td>
+              <td>
+                <button>Edit</button>
+              </td>
+              <td>
+                <button>Delete</button>
+              </td>
+            </tr>
           ))}
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>1</td>
-          {Array.from({ length: 12 }).map((_, index) => (
-            <td key={index}>Table cell {index}</td>
-          ))}
-        </tr>
-        <tr>
-          <td>2</td>
-          {Array.from({ length: 12 }).map((_, index) => (
-            <td key={index}>Table cell {index}</td>
-          ))}
-        </tr>
-        <tr>
-          <td>3</td>
-          {Array.from({ length: 12 }).map((_, index) => (
-            <td key={index}>Table cell {index}</td>
-          ))}
-        </tr>
-      </tbody>
-    </Table>
- 
+        </tbody>
+      </Table>
     </div>
   );
 }
  
-export default AdminPage; 
+export default AdminPage;
