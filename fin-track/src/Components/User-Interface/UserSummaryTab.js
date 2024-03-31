@@ -74,14 +74,27 @@ function UserSummaryTab() {
   // Function to handle form submission
   const handleFormSubmit = async (event, type) => {
     event.preventDefault();
-    try {
-      const imageRef = ref(
-        storage,
-        `${userId}/${accountId}/${Date.now()}_${image.name}`
-      );
-      await uploadBytes(imageRef, image);
 
-      const imageUrl = await getDownloadURL(imageRef);
+    // Check if required fields are filled
+    if (!date || !account || !category || !amount) {
+      window.alert("Please fill in all required fields.");
+      return; // Exit early if any required field is missing
+    }
+
+    try {
+      let imageUrl = null; // Initialize imageUrl to null
+
+      // Check if an image is selected before attempting to upload
+      if (image) {
+        const imageRef = ref(
+          storage,
+          `${userId}/${accountId}/${Date.now()}_${image.name}`
+        );
+        await uploadBytes(imageRef, image);
+
+        // Get the download URL of the uploaded image
+        imageUrl = await getDownloadURL(imageRef);
+      }
 
       const selectedAccount = accountData.find((acc) => acc.id === accountId);
       const currentBalance = parseFloat(selectedAccount.accountBalance);
@@ -104,7 +117,7 @@ function UserSummaryTab() {
         category,
         amount,
         description,
-        imageUrl,
+        imageUrl, // Use imageUrl as the value for imageUrl in the transaction document
       });
 
       setDate("");
@@ -187,13 +200,19 @@ function UserSummaryTab() {
   // Function to fetch image URL from Firebase Storage
   const fetchImageUrl = async (imageUrl) => {
     try {
-      const url = await getDownloadURL(ref(storage, imageUrl));
-      setHoveredImageUrl(url);
-      setIsModalOpen(true); // Open the modal when image URL is fetched
+      // Check if imageUrl is not null before fetching
+      if (imageUrl) {
+        const url = await getDownloadURL(ref(storage, imageUrl));
+        setHoveredImageUrl(url);
+        setIsModalOpen(true); // Open the modal when image URL is fetched
+      } else {
+        console.error("Image URL is null.");
+      }
     } catch (error) {
       console.error("Error fetching image URL:", error);
     }
   };
+  
 
   // Event handler for double click
   const handleDoubleClick = (imageUrl) => {

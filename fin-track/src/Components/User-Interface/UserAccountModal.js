@@ -41,6 +41,12 @@ function UserAccountModal() {
 
   const handleAddAccount = async () => {
     try {
+      // Check if any field is empty
+      if (!accountName || !accountNumber || !accountType || !accountBalance) {
+        window.alert("Please fill in all required fields.");
+        return;
+      }
+
       const accountsCollectionRef = collection(db, "users", userId, "accounts");
       const accountData = {
         accountName,
@@ -77,12 +83,14 @@ function UserAccountModal() {
     }
   };
 
-  useEffect(() => {
-    console.log("Mode: ", mode);
-  }, [mode]);
-
   const handleUpdateAccount = async (editAccount) => {
     try {
+      // Check if any field is empty
+      if (!accountName || !accountNumber || !accountType || !accountBalance) {
+        window.alert("Please fill in all required fields.");
+        return;
+      }
+
       const accountsCollectionRef = collection(db, "users", userId, "accounts");
       const accountData = {
         accountName,
@@ -215,8 +223,7 @@ function UserAccountModal() {
           </form>
         </Modal.Body>
       </Modal>
-              
-      
+
       {Object.entries(
         accounts.reduce((acc, account) => {
           if (!acc[account.accountType]) {
