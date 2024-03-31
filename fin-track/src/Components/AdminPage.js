@@ -1,7 +1,8 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { doSignOut } from "./Firebase/Auth";
 import { db } from "./Firebase/Firebase";
+import { collection, getDocs } from "firebase/firestore";
 import VectorLogo from "../Images/Vector_Logo_White.png";
 import Table from "react-bootstrap/Table";
 import "../CSS/userNavbar.css";
@@ -24,8 +25,8 @@ function AdminPage() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const usersRef = db.collection("users");
-        const snapshot = await usersRef.get();
+        const usersCollectionRef = collection(db, "users"); // Reference to the users collection
+        const snapshot = await getDocs(usersCollectionRef); // Get all documents from the users collection
         const userData = snapshot.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
@@ -85,14 +86,14 @@ function AdminPage() {
           {users.map((user, index) => (
             <tr key={user.id}>
               <td>{index + 1}</td>
-              <td>{user.name}</td>
-              <td>{user.email}</td>
-              <td>{user.accountType}</td>
+              <td>{user.Full_Name}</td>
+              <td>{user.Email}</td>
+              <td>{user.Type}</td>
               <td>
-                <button>Edit</button>
+                <button key={`edit-${index}`}>Edit</button>
               </td>
               <td>
-                <button>Delete</button>
+                <button key={`delete-${index}`}>Delete</button>
               </td>
             </tr>
           ))}
