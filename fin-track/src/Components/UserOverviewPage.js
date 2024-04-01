@@ -5,7 +5,7 @@ import { ResponsiveContainer, PieChart, Pie, Cell, Legend, BarChart, Bar, XAxis,
 import { db } from "./Firebase/firebase";
 import UserNavbar from './userNavbar';
 import "../CSS/UserOverviewPage.css";
-const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
+const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#AF19FF', '#FF1971', '#19FF8C'];
 
 function UserOverviewPage() {
   const [transactionData, setTransactionData] = useState([]);
