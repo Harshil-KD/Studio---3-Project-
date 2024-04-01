@@ -14,7 +14,7 @@ function UserNavbar() {
       localStorage.removeItem("userType");
       navigate("/"); // Navigate to the home page
     } catch (error) {
-      console.log("Failed to log out:", error.message);
+      console.error("Failed to log out:", error.message);
     }
   };
 

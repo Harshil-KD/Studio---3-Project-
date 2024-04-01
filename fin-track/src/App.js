@@ -7,8 +7,8 @@ import HomePageDesign from "./Components/HomePageDesign.js";
 import UserAccountPage from "./Components/UserAccountPage.js";
 import UserOverviewPage from "./Components/UserOverviewPage.js";
 import UserSummaryPage from "./Components/UserSummaryPage.js";
-import Features from "./Components/Features.js";
-import About from "./Components/About.js";
+import Features from "./Components/FeaturesPage.js";
+import About from "./Components/AboutPage.js";
 import AdminPage from "./Components/AdminPage.js";
 import ProtectedRoute, {
   AdminRoute,

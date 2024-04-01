@@ -1,0 +1,99 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center items horizontally */
+  justify-content: flex-start; /* Align items to the top */
+  min-height: 100vh; /* Ensure the container has at least the viewport height */
+  margin-top: 20px; /* Adjust the top margin */
+  background-color: #f0f0f0; /* Change background color for container */
+  padding: 20px; /* Add padding to the container */
+}
+
+.modal-body {
+  padding: 20px; /* Add padding to the modal body */
+}
+
+.modal-footer {
+  justify-content: space-between; /* Align buttons at the end */
+}
+
+.btn-add {
+  margin-bottom: 20px;
+  /* Add margin to the Add Account button */
+}
+
+.table-container {
+  margin-top: 20px; /* Add margin to the table container */
+}
+@media (max-width: 768px) {
+  .container {
+    padding: 10px; /* Adjust padding for smaller screens */
+  }
+
+  .modal-body {
+    padding: 10px; /* Adjust padding for smaller screens */
+  }
+
+  .btn-add {
+    margin-bottom: 10px; /* Adjust margin for smaller screens */
+  }
+
+  .table-container {
+    margin-top: 10px; /* Adjust margin for smaller screens */
+  }
+}
+/* Add font style */
+body {
+  font-family: Arial, sans-serif;
+}
+
+/* Change background color for container */
+.container {
+  background-color: #f0f0f0;
+}
+
+/* Change background color for modal body */
+.modal-body {
+  background-color: #ffffff;
+}
+/* Change background color for primary button */
+.btn-primary {
+  background-color: #007bff;
+}
+
+/* Change background color for danger button */
+.btn-danger {
+  background-color: #dc3545;
+}
+
+/* Change text color for table headers */
+th {
+  color: #333333;
+}
+
+/* Change background color for table rows */
+tbody tr {
+  background-color: #ffffff;
+}
+
+/* Change background color for even table rows */
+tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+/* Change border color for table */
+.table {
+  border-color: #dddddd;
+}
+
+/* Change font style for table data */
+td {
+  font-weight: bold;
+}
+.image-right {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 50px;
+  height: auto;
+}

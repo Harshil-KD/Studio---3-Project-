@@ -39,21 +39,24 @@ function LoginPageDesign() {
       const q = query(collectionRef, where("Email", "==", email));
       const snapshot = await getDocs(q);
 
-      console.log("Snapshot:", snapshot);
 
       if (!snapshot.empty) {
         // Get the first document (assuming email is unique)
         const userDoc = snapshot.docs[0];
         // Set the userId
         setUserId(userDoc.id);
-        console.log("User ID:", userDoc.id);
 
         // Set the user type
         const userType = userDoc.data().Type; // Assuming 'Type' is the field containing user type
         setUserType(userType); // Set user type in context
-        console.log("User Type:", userType);
+        localStorage.setItem("userType", userType);
 
-        navigate("/userOverview"); // Navigate to user account page upon successful login
+        // Navigate based on user type
+        if (userType === "admin") {
+          navigate("/admin");
+        } else {
+          navigate("/userOverview");
+        }
       } else {
         // User not found
         setErrorMessage("User not found.");
@@ -86,10 +89,18 @@ function LoginPageDesign() {
         const userDoc = snapshot.docs[0];
         setUserId(userDoc.id);
 
-        // Retrieve user type from Firestore and set it in context
+        // Retrieve user type from Firestore
         const userType = userDoc.data().Type;
         setUserType(userType);
-        console.log("User ID:", userDoc.id);
+        localStorage.setItem("userType", userType);
+
+        // Navigate based on user type
+        if (userType === "admin") {
+          navigate("/admin");
+        } else {
+          navigate("/userOverview");
+        }
+
       } else {
         // User doesn't exist, save user data to Firestore
         const userData = {
@@ -102,13 +113,13 @@ function LoginPageDesign() {
         const newUserRef = await addDoc(collectionRef, userData);
         setUserId(newUserRef.id);
 
-        // Set default user type in context for new users
+        // Set default user type for new users
         setUserType("trial");
-        console.log("New User ID:", newUserRef.id);
-      }
+        localStorage.setItem("userType", "trial");
 
-      // Navigate to user overview or any other page
-      navigate("/userOverview");
+        // Navigate to user overview for new users
+        navigate("/userOverview");
+      }
     } catch (error) {
       console.error("Error signing in with Google:", error);
       setErrorMessage(error.message);

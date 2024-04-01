@@ -57,7 +57,6 @@ function UserSummaryTab() {
           id: doc.id,
           ...doc.data(),
         }));
-        console.log("Fetched accounts data:", accountsData); // Added console log
         setAccountData(accountsData);
       } catch (error) {
         console.error("Error fetching accounts:", error);
@@ -127,7 +126,6 @@ function UserSummaryTab() {
       setDescription("");
       setImage(null);
 
-      console.log("Form submitted successfully!");
     } catch (error) {
       console.error("Error submitting form:", error);
     }

@@ -63,13 +63,6 @@ function UserAccountModal() {
 
   const handleEditModal = (account) => {
     if (account) {
-      console.log("Edit button clicked");
-      console.log("Account ID:", account.id);
-      console.log("Account Name:", account.accountName);
-      console.log("Account Number:", account.accountNumber);
-      console.log("Account Type:", account.accountType);
-      console.log("Account Balance:", account.accountBalance);
-
       setMode("edit");
 
       setAccountName(account.accountName);
@@ -209,7 +202,6 @@ function UserAccountModal() {
             <button
               type="button"
               onClick={() => {
-                console.log("Current mode:", mode);
                 if (mode === "edit") {
                   handleUpdateAccount(editAccount);
                 } else {

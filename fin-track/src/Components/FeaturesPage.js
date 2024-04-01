@@ -1,19 +1,9 @@
 import React from "react";
-import {useAuth} from "./Firebase/AuthContext"
 import MainNavbar from "./mainNavbar";
-import "../CSS/featuresPage.css";
+import "../CSS/FeaturesPage.css";
 import expenseImage from "../Images/expenseImage.png";
 
 function Features() {
-  const { currentUser, isAuthenticated } = useAuth();
-
-  if(isAuthenticated) {
-    console.log(currentUser.displayName)
-  }
-  else{
-    console.log("No user logged in")
-  }
-  
   return (
     <div className="features-container">
       <MainNavbar />
@@ -53,7 +43,6 @@ function Features() {
           <p>Manage multiple accounts and keep track of their balances.</p>
         </div>
       </div>
-      {/* Add more features as needed */}
     </div>
   );
 }

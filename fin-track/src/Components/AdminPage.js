@@ -22,7 +22,7 @@ function AdminPage() {
       localStorage.removeItem("userId");
       localStorage.removeItem("userType");
     } catch (error) {
-      console.log("Failed to log out:", error.message);
+      console.error("Failed to log out:", error.message);
     }
   };
 
@@ -41,7 +41,6 @@ function AdminPage() {
   const deleteUser = async (userId) => {
     try {
       await deleteDoc(doc(db, "users", userId));
-      console.log("User deleted successfully.");
     } catch (error) {
       console.error("Error deleting user:", error);
     }
@@ -53,7 +52,6 @@ function AdminPage() {
         Full_Name: editUser.Full_Name,
         Type: editUser.Type
       });
-      console.log("User updated successfully.");
       setShowModal(false);
     } catch (error) {
       console.error("Error updating user:", error);

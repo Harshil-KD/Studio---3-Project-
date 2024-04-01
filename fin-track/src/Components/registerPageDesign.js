@@ -6,7 +6,7 @@ import { db } from "./Firebase/Firebase";
 import { addDoc, collection } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import { doCreateUserWithEmailAndPassword } from "./Firebase/Auth";
-import "../CSS/registerPageDesign.css";
+import "../CSS/RegisterPageDesign.css";
 import VectorLogo from "../Images/Vector_Logo.png";
 import loginBg from "../Images/login-bg.png";
 
@@ -53,9 +53,7 @@ function RegisterPageDesign() {
     };
 
     try {
-      const docRef = await addDoc(collectionRef, userData);
-      console.log("User added with ID: ", docRef.id);
-      console.log("User data added to Firestore: ", userData);
+      await addDoc(collectionRef, userData);
     } catch (error) {
       console.error("Error adding user: ", error);
     }

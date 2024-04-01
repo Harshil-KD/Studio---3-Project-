@@ -20,7 +20,6 @@ export const AdminRoute = ({ children }) => {
 
 export const RegisterUserRoute = ({ children }) => {
   const userType = localStorage.getItem("userType");
-    console.log(userType);
   if (userType === null) {
     return <Navigate to="/" />;
   } else {
