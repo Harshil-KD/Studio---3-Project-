@@ -14,7 +14,7 @@ import {
 } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage"; // Import necessary storage functions
 import { Tabs, Tab, FloatingLabel, Form, Button, Table } from "react-bootstrap";
-
+import "../User-Interface/UserSummaryTab.css";
 function UserSummaryTab() {
   // State variables to store form data
   const [date, setDate] = useState("");
@@ -200,7 +200,8 @@ function UserSummaryTab() {
         justify
       >
         <Tab eventKey="income" title="Income">
-          <Form onSubmit={(event) => handleFormSubmit(event, "income")}>
+        <div className="incomeFormContainer"> 
+                  <Form onSubmit={(event) => handleFormSubmit(event, "income")}>
             <FloatingLabel controlId="date" label="Date">
               <Form.Control
                 type="date"
@@ -252,10 +253,15 @@ function UserSummaryTab() {
               <Form.Label>Image</Form.Label>
               <Form.Control type="file" onChange={handleImageChange} />
             </Form.Group>
-            <Button variant="primary" type="submit">
-              Add Income ....
-            </Button>
+            <div className="buttonContainer">
+  <Button className="submitButton" variant="primary" type="submit">
+    Add Income ....
+  </Button>
+</div>
+
           </Form>
+        
+          </div>
         </Tab>
 
         <Tab eventKey="statement" title="Statement">
@@ -284,64 +290,71 @@ function UserSummaryTab() {
           ))}
         </Tab>
 
+
         <Tab eventKey="expense" title="Expense">
-        <Form onSubmit={(event) => handleFormSubmit(event, "expense")}>
-            <FloatingLabel controlId="date" label="Date">
-              <Form.Control
-                type="date"
-                value={date}
-                onChange={(e) => setDate(e.target.value)}
-              />
-            </FloatingLabel>
-            <FloatingLabel controlId="account" label="Account">
-              <Form.Select
-                aria-label="Select Account"
-                onChange={(e) => {
-                  setAccount(e.target.value);
-                  setAccountId(e.target.value); // Set the selected account ID
-                }}
-                value={account}
-                disabled={loading} // Disable the dropdown when loading
-              >
-                <option value="">Select Account</option>
-                {!loading &&
-                  accountData.map((acc) => (
-                    <option key={acc.accountNumber} value={acc.id}>
-                      {acc.accountName}
-                    </option>
-                  ))}
-              </Form.Select>
-            </FloatingLabel>
-            <FloatingLabel controlId="category" label="Category">
-              <Form.Control
-                type="text"
-                value={category}
-                onChange={(e) => setCategory(e.target.value)}
-              />
-            </FloatingLabel>
-            <FloatingLabel controlId="amount" label="Amount">
-              <Form.Control
-                type="number"
-                value={amount}
-                onChange={(e) => setAmount(e.target.value)}
-              />
-            </FloatingLabel>
-            <FloatingLabel controlId="description" label="Description">
-              <Form.Control
-                as="textarea"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-              />
-            </FloatingLabel>
-            <Form.Group controlId="image">
-              <Form.Label>Image</Form.Label>
-              <Form.Control type="file" onChange={handleImageChange} />
-            </Form.Group>
-            <Button variant="primary" type="submit">
-              Add Expense ....
-            </Button>
-          </Form>
-        </Tab>
+  <div className="formContainer">
+    <Form onSubmit={(event) => handleFormSubmit(event, "expense")}>
+      <FloatingLabel controlId="date" label="Date">
+        <Form.Control
+          type="date"
+          value={date}
+          onChange={(e) => setDate(e.target.value)}
+        />
+      </FloatingLabel>
+      <FloatingLabel controlId="account" label="Account">
+        <Form.Select
+          aria-label="Select Account"
+          onChange={(e) => {
+            setAccount(e.target.value);
+            setAccountId(e.target.value); // Set the selected account ID
+          }}
+          value={account}
+          disabled={loading} // Disable the dropdown when loading
+        >
+          <option value="">Select Account</option>
+          {!loading &&
+            accountData.map((acc) => (
+              <option key={acc.accountNumber} value={acc.id}>
+                {acc.accountName}
+              </option>
+            ))}
+        </Form.Select>
+      </FloatingLabel>
+      <FloatingLabel controlId="category" label="Category">
+        <Form.Control
+          type="text"
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+        />
+      </FloatingLabel>
+      <FloatingLabel controlId="amount" label="Amount">
+        <Form.Control
+          type="number"
+          value={amount}
+          onChange={(e) => setAmount(e.target.value)}
+        />
+      </FloatingLabel>
+      <FloatingLabel controlId="description" label="Description">
+        <Form.Control
+          as="textarea"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+        />
+      </FloatingLabel>
+      <Form.Group controlId="image">
+        <Form.Label>Image</Form.Label>
+        <Form.Control type="file" onChange={handleImageChange} />
+      </Form.Group>
+      <div className="buttonContainer">
+  <Button className="submitButton" variant="primary" type="submit">
+    Add Expense ....
+  </Button>
+</div>
+
+    </Form>
+  </div>
+</Tab>
+
       </Tabs>
     </>
   );
