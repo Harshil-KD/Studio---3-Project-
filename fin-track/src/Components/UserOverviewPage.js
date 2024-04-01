@@ -85,11 +85,54 @@ function UserOverviewPage() {
 
   return (
     <div>
-        <UserNavbar />
-    </div>
-
-    
-  )
+      <UserNavbar />
+      <div style={{ textAlign: 'center', paddingTop: '20px' }}>
+  <h1>Overview of accounts in Graph Form</h1>
+</div>
+<div className="charts-container">
+  <div className="chart-heading">
+    <h2>Pie Chart: Account Balances</h2>
+  </div>
+  <div className="pie-chart">
+    <ResponsiveContainer width="100%" height={400}>
+      <PieChart>
+        <Pie
+          data={accountData}
+          cx="50%"
+          cy="50%"
+          outerRadius={80}
+          fill="#8884d8"
+          dataKey="value"
+          nameKey="name"
+          label={(entry) => `${entry.name}: ${(entry.percent * 100).toFixed(0)}%`}
+        >
+          {accountData.map((entry, index) => (
+            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+          ))}
+        </Pie>
+        <Legend align="center" verticalAlign="bottom" />
+      </PieChart>
+    </ResponsiveContainer>
+  </div>
+  <div className="chart-heading">
+    <h2>Bar Chart: Transaction History</h2>
+  </div>
+  <div className="bar-chart">
+    <ResponsiveContainer width="100%" height={400}>
+      <BarChart data={transactionData}>
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis dataKey="accountName" />
+        <YAxis />
+        <Tooltip />
+        <Bar dataKey="Credit" fill="#82ca9d" />
+        <Bar dataKey="Debit" fill="#ff6961" />
+      </BarChart>
+    </ResponsiveContainer>
+  </div>
+</div> 
+ </div>
+   
+  );
 }
 
 export default UserOverviewPage;

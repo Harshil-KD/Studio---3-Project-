@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-
+import MainNavbar from "./mainNavbar";
 import Container from "react-bootstrap/Container";
 import { db } from "./Firebase/firebase";
 import { addDoc, collection } from "firebase/firestore";
