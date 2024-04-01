@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { useUserId } from "../Firebase/userContext";
-import { db } from "../Firebase/firebase"; // Import storage from Firebase
-import { storage } from "../Firebase/firebase";
+import { useUserId } from "../Firebase/UserContext";
+import { db } from "../Firebase/Firebase"; // Import storage from Firebase
+import { storage } from "../Firebase/Firebase";
 import {
   getDocs,
   collection,
@@ -14,7 +14,8 @@ import {
 } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage"; // Import necessary storage functions
 import { Tabs, Tab, FloatingLabel, Form, Button, Table } from "react-bootstrap";
-import "../User-Interface/UserSummaryTab.css";
+import ImageModal from "./ImageModal";
+
 function UserSummaryTab() {
   // State variables to store form data
   const [date, setDate] = useState("");
@@ -26,6 +27,8 @@ function UserSummaryTab() {
   const [image, setImage] = useState(null);
   const [accountData, setAccountData] = useState([]);
   const [transactionsData, setTransactionsData] = useState([]);
+  const [hoveredImageUrl, setHoveredImageUrl] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [loading, setLoading] = useState(true);
   const { userId } = useUserId();
 
@@ -53,7 +56,6 @@ function UserSummaryTab() {
           id: doc.id,
           ...doc.data(),
         }));
-        console.log("Fetched accounts data:", accountsData); // Added console log
         setAccountData(accountsData);
       } catch (error) {
         console.error("Error fetching accounts:", error);
@@ -74,19 +76,28 @@ function UserSummaryTab() {
  
 
     event.preventDefault();
-    try {
-      const imageRef = ref(
-        storage,
-        `${userId}/${accountId}/${Date.now()}_${image.name}`
-      );
-      await uploadBytes(imageRef, image);
 
-      const imageUrl = await getDownloadURL(imageRef);
-      let newAmount = parseFloat(amount);
-      if (transactionType === "expense") {
-        newAmount *= -1; // Make the amount negative for expenses
+    // Check if required fields are filled
+    if (!date || !account || !category || !amount) {
+      window.alert("Please fill in all required fields.");
+      return; // Exit early if any required field is missing
+    }
+
+    try {
+      let imageUrl = null; // Initialize imageUrl to null
+
+      // Check if an image is selected before attempting to upload
+      if (image) {
+        const imageRef = ref(
+          storage,
+          `${userId}/${accountId}/${Date.now()}_${image.name}`
+        );
+        await uploadBytes(imageRef, image);
+
+        // Get the download URL of the uploaded image
+        imageUrl = await getDownloadURL(imageRef);
       }
-  
+
       const selectedAccount = accountData.find((acc) => acc.id === accountId);
       const currentBalance = parseFloat(selectedAccount.accountBalance);
       const newBalance = currentBalance + newAmount;
@@ -108,7 +119,7 @@ function UserSummaryTab() {
         category,
         amount: newAmount.toString(),
         description,
-        imageUrl,
+        imageUrl, // Use imageUrl as the value for imageUrl in the transaction document
       });
 
       setDate("");
@@ -118,7 +129,6 @@ function UserSummaryTab() {
       setDescription("");
       setImage(null);
 
-      console.log("Form submitted successfully!");
     } catch (error) {
       console.error("Error submitting form:", error);
     }
@@ -189,6 +199,33 @@ function UserSummaryTab() {
   const handleImageChange = (event) => {
     const file = event.target.files[0];
     setImage(file);
+  };
+
+  // Function to fetch image URL from Firebase Storage
+  const fetchImageUrl = async (imageUrl) => {
+    try {
+      // Check if imageUrl is not null before fetching
+      if (imageUrl) {
+        const url = await getDownloadURL(ref(storage, imageUrl));
+        setHoveredImageUrl(url);
+        setIsModalOpen(true); // Open the modal when image URL is fetched
+      } else {
+        console.error("Image URL is null.");
+      }
+    } catch (error) {
+      console.error("Error fetching image URL:", error);
+    }
+  };
+  
+
+  // Event handler for double click
+  const handleDoubleClick = (imageUrl) => {
+    fetchImageUrl(imageUrl);
+  };
+
+  // Event handler for closing modal
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
   };
 
   return (
@@ -281,80 +318,88 @@ function UserSummaryTab() {
                     <tr key={transaction.id}>
                       <td>{transaction.accountName}</td>
                       <td>{transaction.category}</td>
-                      <td>{transaction.amount}</td>
+                      <td
+                        onDoubleClick={() =>
+                          handleDoubleClick(transaction.imageUrl)
+                        }
+                        style={{ cursor: "pointer" }} // Set cursor to pointer to indicate clickability
+                      >
+                        {transaction.amount}
+                      </td>
                     </tr>
                   ))}
                 </tbody>
               </Table>
+              {/* Render the modal */}
+              {isModalOpen && (
+                <ImageModal
+                  imageUrl={hoveredImageUrl}
+                  onClose={handleCloseModal}
+                />
+              )}
             </div>
           ))}
         </Tab>
 
 
         <Tab eventKey="expense" title="Expense">
-  <div className="formContainer">
-    <Form onSubmit={(event) => handleFormSubmit(event, "expense")}>
-      <FloatingLabel controlId="date" label="Date">
-        <Form.Control
-          type="date"
-          value={date}
-          onChange={(e) => setDate(e.target.value)}
-        />
-      </FloatingLabel>
-      <FloatingLabel controlId="account" label="Account">
-        <Form.Select
-          aria-label="Select Account"
-          onChange={(e) => {
-            setAccount(e.target.value);
-            setAccountId(e.target.value); // Set the selected account ID
-          }}
-          value={account}
-          disabled={loading} // Disable the dropdown when loading
-        >
-          <option value="">Select Account</option>
-          {!loading &&
-            accountData.map((acc) => (
-              <option key={acc.accountNumber} value={acc.id}>
-                {acc.accountName}
-              </option>
-            ))}
-        </Form.Select>
-      </FloatingLabel>
-      <FloatingLabel controlId="category" label="Category">
-        <Form.Control
-          type="text"
-          value={category}
-          onChange={(e) => setCategory(e.target.value)}
-        />
-      </FloatingLabel>
-      <FloatingLabel controlId="amount" label="Amount">
-        <Form.Control
-          type="number"
-          value={amount}
-          onChange={(e) => setAmount(e.target.value)}
-        />
-      </FloatingLabel>
-      <FloatingLabel controlId="description" label="Description">
-        <Form.Control
-          as="textarea"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        />
-      </FloatingLabel>
-      <Form.Group controlId="image">
-        <Form.Label>Image</Form.Label>
-        <Form.Control type="file" onChange={handleImageChange} />
-      </Form.Group>
-      <div className="buttonContainer">
-  <Button className="submitButton" variant="primary" type="submit">
-    Add Expense ....
-  </Button>
-</div>
-
-    </Form>
-  </div>
-</Tab>
-
+          <Form onSubmit={(event) => handleFormSubmit(event, "expense")}>
+            <FloatingLabel controlId="date" label="Date">
+              <Form.Control
+                type="date"
+                value={date}
+                onChange={(e) => setDate(e.target.value)}
+              />
+            </FloatingLabel>
+            <FloatingLabel controlId="account" label="Account">
+              <Form.Select
+                aria-label="Select Account"
+                onChange={(e) => {
+                  setAccount(e.target.value);
+                  setAccountId(e.target.value); // Set the selected account ID
+                }}
+                value={account}
+                disabled={loading} // Disable the dropdown when loading
+              >
+                <option value="">Select Account</option>
+                {!loading &&
+                  accountData.map((acc) => (
+                    <option key={acc.accountNumber} value={acc.id}>
+                      {acc.accountName}
+                    </option>
+                  ))}
+              </Form.Select>
+            </FloatingLabel>
+            <FloatingLabel controlId="category" label="Category">
+              <Form.Control
+                type="text"
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+              />
+            </FloatingLabel>
+            <FloatingLabel controlId="amount" label="Amount">
+              <Form.Control
+                type="number"
+                value={amount}
+                onChange={(e) => setAmount(e.target.value)}
+              />
+            </FloatingLabel>
+            <FloatingLabel controlId="description" label="Description">
+              <Form.Control
+                as="textarea"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+              />
+            </FloatingLabel>
+            <Form.Group controlId="image">
+              <Form.Label>Image</Form.Label>
+              <Form.Control type="file" onChange={handleImageChange} />
+            </Form.Group>
+            <Button variant="primary" type="submit">
+              Add Expense ....
+            </Button>
+          </Form>
+        </Tab>
       </Tabs>
     </>
   );

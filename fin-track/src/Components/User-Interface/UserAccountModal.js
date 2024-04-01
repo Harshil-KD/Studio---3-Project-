@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useUserId } from "../Firebase/userContext";
+import { useUserId } from "../Firebase/UserContext";
 import {
   collection,
   doc,
@@ -8,7 +8,7 @@ import {
   updateDoc,
   deleteDoc,
 } from "firebase/firestore";
-import { db } from "../Firebase/firebase";
+import { db } from "../Firebase/Firebase";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Table from "react-bootstrap/Table";
@@ -42,6 +42,12 @@ function UserAccountModal() {
 
   const handleAddAccount = async () => {
     try {
+      // Check if any field is empty
+      if (!accountName || !accountNumber || !accountType || !accountBalance) {
+        window.alert("Please fill in all required fields.");
+        return;
+      }
+
       const accountsCollectionRef = collection(db, "users", userId, "accounts");
       const accountData = {
         accountName,
@@ -58,13 +64,6 @@ function UserAccountModal() {
 
   const handleEditModal = (account) => {
     if (account) {
-      console.log("Edit button clicked");
-      console.log("Account ID:", account.id);
-      console.log("Account Name:", account.accountName);
-      console.log("Account Number:", account.accountNumber);
-      console.log("Account Type:", account.accountType);
-      console.log("Account Balance:", account.accountBalance);
-
       setMode("edit");
 
       setAccountName(account.accountName);
@@ -78,12 +77,14 @@ function UserAccountModal() {
     }
   };
 
-  useEffect(() => {
-    console.log("Mode: ", mode);
-  }, [mode]);
-
   const handleUpdateAccount = async (editAccount) => {
     try {
+      // Check if any field is empty
+      if (!accountName || !accountNumber || !accountType || !accountBalance) {
+        window.alert("Please fill in all required fields.");
+        return;
+      }
+
       const accountsCollectionRef = collection(db, "users", userId, "accounts");
       const accountData = {
         accountName,
@@ -195,7 +196,6 @@ function UserAccountModal() {
             <button
               type="button"
               onClick={() => {
-                console.log("Current mode:", mode);
                 if (mode === "edit") {
                   handleUpdateAccount(editAccount);
                 } else {

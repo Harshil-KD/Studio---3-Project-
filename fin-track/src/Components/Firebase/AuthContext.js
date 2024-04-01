@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { auth } from "./firebase";
+import { auth } from "./Firebase";
 import { onAuthStateChanged } from "firebase/auth";
 
 const AuthContext = createContext();
@@ -31,7 +31,7 @@ export function AuthProvider({ children }) {
 
   const value = {
     currentUser,
-    userLoggedIn,
+    isAuthenticated: userLoggedIn, // Renamed to isAuthenticated
     loading,
   };
 

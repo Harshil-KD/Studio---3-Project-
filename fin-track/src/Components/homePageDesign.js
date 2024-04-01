@@ -1,8 +1,7 @@
 import React from "react";
-
 import { Link } from "react-router-dom";
 
-import "../CSS/homePageDesign.css";
+import "../CSS/HomePageDesign.css";
 import MainNavbar from "./mainNavbar";
 
 import carouselImage1 from "../Images/Financial_manager1.jpeg";
@@ -13,8 +12,10 @@ import fileImage from "../Images/fileImage.svg";
 import CardImage1 from "../Images/CardImage1.svg";
 import CardImage2 from "../Images/CardImage2.svg";
 import CardImage3 from "../Images/CardImage3.svg";
+// import { Navigate } from "react-router-dom";
 
 function HomePageDesign() {
+  
   return (
     <div>
       {/* Body Navbar */}

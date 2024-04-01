@@ -1,17 +1,20 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import { UserIdProvider } from "./Components/Firebase/userContext";
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { AuthProvider } from "./Components/Firebase/AuthContext";
+import "./index.css";
+import App from "./App";
+import { UserIdProvider } from "./Components/Firebase/UserContext";
+import reportWebVitals from "./reportWebVitals";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <UserIdProvider>
-      <App />
-    </UserIdProvider>
-  </React.StrictMode>,
+    <AuthProvider>
+      <UserIdProvider>
+        <App />
+      </UserIdProvider>
+    </AuthProvider>
+  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function
