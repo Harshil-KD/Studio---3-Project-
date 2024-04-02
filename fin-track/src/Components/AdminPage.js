@@ -8,6 +8,7 @@ import Table from "react-bootstrap/Table";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import "../CSS/userNavbar.css";
+import "../CSS/Admin.css"
 
 function AdminPage() {
   const navigate = useNavigate(); // Get the navigate function from react-router-dom
@@ -92,46 +93,45 @@ function AdminPage() {
           <div className="collapse navbar-collapse" id="navbarTogglerDemo03">
             <div className="d-flex">
               {/* Call handleLogout function when the logout button is clicked */}
-              <button className="btn custom-btn" onClick={handleLogout}>
-                Log Out
-              </button>
+              <button className="btn log" onClick={handleLogout} style={{ backgroundColor: "white", color: "black" }}>
+    Log Out
+</button>
+
+
             </div>
           </div>
         </div>
       </nav>
 
-      <Table responsive>
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Account Type</th>
-            <th>Edit</th>
-            <th>Delete</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.map((user, index) => (
-            <tr key={user.id}>
-              <td>{index + 1}</td>
-              <td>{user.Full_Name}</td>
-              <td>{user.Email}</td>
-              <td>{user.Type}</td>
-              <td>
-                <button key={`edit-${index}`} onClick={() => handleEdit(user)}>
-                  Edit
-                </button>
-              </td>
-              <td>
-                <button key={`delete-${index}`} onClick={() => deleteUser(user.id)}>
-                  Delete
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
+      <Table responsive className="table-container">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Account Type</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {users.map((user, index) => (
+      <tr key={user.id}>
+        <td>{index + 1}</td>
+        <td>{user.Full_Name}</td>
+        <td>{user.Email}</td>
+        <td>{user.Type}</td>
+        <td className="action-buttons">
+          <button className="edit-button" onClick={() => handleEdit(user)}>
+            Edit
+          </button>
+          <button className="delete-button" onClick={() => deleteUser(user.id)}>
+            Delete
+          </button>
+        </td>
+      </tr>
+    ))}
+  </tbody>
+</Table>
 
       {/* Edit User Modal */}
       <Modal show={showModal} onHide={() => setShowModal(false)}>
