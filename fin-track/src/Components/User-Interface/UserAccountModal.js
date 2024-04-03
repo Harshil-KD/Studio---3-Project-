@@ -12,7 +12,7 @@ import { db } from "../Firebase/Firebase";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Table from "react-bootstrap/Table";
-import  "../User-Interface/UserAccountModal.css"; 
+import  "../../CSS/UserAccountPage.css"; 
 
 function UserAccountModal() {
   const [show, setShow] = useState(false);

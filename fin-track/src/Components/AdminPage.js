@@ -8,6 +8,7 @@ import Table from "react-bootstrap/Table";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import "../CSS/userNavbar.css";
+import "../CSS/AdminPage.css";
 
 function AdminPage() {
   const navigate = useNavigate(); // Get the navigate function from react-router-dom

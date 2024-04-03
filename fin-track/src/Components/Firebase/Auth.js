@@ -1,5 +1,5 @@
 import { getAuth, createUserWithEmailAndPassword, GoogleAuthProvider, sendEmailVerification, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup, updatePassword } from "firebase/auth";
-import { app } from "./firebase";
+import { app } from "./Firebase";
 
 // Initialize your authentication instance
 export const auth = getAuth(app);
