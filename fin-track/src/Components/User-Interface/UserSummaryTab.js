@@ -79,7 +79,7 @@ function UserSummaryTab() {
 
       const imageUrl = await getDownloadURL(imageRef);
       let newAmount = parseFloat(amount);
-      if (transactionType === "expense") {
+      if (type === "expense") {
         newAmount *= -1; // Make the amount negative for expenses
       }
   

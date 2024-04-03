@@ -12,10 +12,6 @@ import { db } from "../Firebase/Firebase";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Table from "react-bootstrap/Table";
-<<<<<<< HEAD
-import  "../../CSS/UserAccountPage.css"; 
-=======
->>>>>>> parent of 54c2a60 (Copy code and files from google-authentication branch to main branch)
 
 function UserAccountModal() {
   const [show, setShow] = useState(false);

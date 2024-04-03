@@ -1,8 +1,4 @@
 import { getAuth, createUserWithEmailAndPassword, GoogleAuthProvider, sendEmailVerification, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup, updatePassword } from "firebase/auth";
-<<<<<<< HEAD
-import { app } from "./Firebase";
-=======
->>>>>>> parent of 54c2a60 (Copy code and files from google-authentication branch to main branch)
 
 // Initialize your authentication instance
 export const auth = getAuth();
