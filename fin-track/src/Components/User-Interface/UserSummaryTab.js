@@ -30,7 +30,6 @@ function UserSummaryTab() {
   const [hoveredImageUrl, setHoveredImageUrl] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [loading, setLoading] = useState(true);
-
   const { userId } = useUserId();
 
   // Function to generate a random alphanumeric string of given length
@@ -71,7 +70,11 @@ function UserSummaryTab() {
   }, [userId]);
 
   // Function to handle form submission
-  const handleFormSubmit = async (event, type) => {
+
+  const handleFormSubmit = async (event, transactionType) => {
+
+ 
+
     event.preventDefault();
 
     // Check if required fields are filled
@@ -97,13 +100,13 @@ function UserSummaryTab() {
 
       const selectedAccount = accountData.find((acc) => acc.id === accountId);
       const currentBalance = parseFloat(selectedAccount.accountBalance);
-      const newBalance =
-        type === "income"
-          ? currentBalance + parseFloat(amount)
-          : currentBalance - parseFloat(amount);
+      const newBalance = currentBalance + newAmount;
+  
+      // Update the balance field of the account document in Firestore
 
       const accountDocRef = doc(db, "users", userId, "accounts", accountId);
       await updateDoc(accountDocRef, { accountBalance: newBalance });
+  
 
       const transactionId = generateId(10);
 
@@ -114,7 +117,7 @@ function UserSummaryTab() {
         date,
         account,
         category,
-        amount,
+        amount: newAmount.toString(),
         description,
         imageUrl, // Use imageUrl as the value for imageUrl in the transaction document
       });
@@ -164,6 +167,7 @@ function UserSummaryTab() {
                 accountId: accountDoc.id,
               };
 
+
               const date = transaction.date;
 
               if (!transactionsData[date]) {
@@ -188,6 +192,8 @@ function UserSummaryTab() {
     return () => {
       unsubscribeFunctions.forEach((unsubscribe) => unsubscribe());
     };
+
+
   }, [userId]);
 
   const handleImageChange = (event) => {
@@ -231,7 +237,8 @@ function UserSummaryTab() {
         justify
       >
         <Tab eventKey="income" title="Income">
-          <Form onSubmit={(event) => handleFormSubmit(event, "income")}>
+        <div className="incomeFormContainer"> 
+                  <Form onSubmit={(event) => handleFormSubmit(event, "income")}>
             <FloatingLabel controlId="date" label="Date">
               <Form.Control
                 type="date"
@@ -283,10 +290,15 @@ function UserSummaryTab() {
               <Form.Label>Image</Form.Label>
               <Form.Control type="file" onChange={handleImageChange} />
             </Form.Group>
-            <Button variant="primary" type="submit">
-              Add Income ....
-            </Button>
+            <div className="buttonContainer">
+  <Button className="submitButton" variant="primary" type="submit">
+    Add Income ....
+  </Button>
+</div>
+
           </Form>
+        
+          </div>
         </Tab>
 
         <Tab eventKey="statement" title="Statement">
@@ -328,6 +340,7 @@ function UserSummaryTab() {
             </div>
           ))}
         </Tab>
+
 
         <Tab eventKey="expense" title="Expense">
           <Form onSubmit={(event) => handleFormSubmit(event, "expense")}>

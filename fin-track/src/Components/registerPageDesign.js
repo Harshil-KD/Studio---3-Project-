@@ -1,14 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Navbar from "react-bootstrap/Navbar";
+import MainNavbar from "./mainNavbar";
 import Container from "react-bootstrap/Container";
 import { db } from "./Firebase/Firebase";
 import { addDoc, collection } from "firebase/firestore";
+<<<<<<< HEAD
+import { useNavigate } from 'react-router-dom';
+import { doCreateUserWithEmailAndPassword, getCurrentUser, checkUserExists} from "./Firebase/Auth";
+import "../CSS/registerPageDesign.css";
+=======
 import { useNavigate } from "react-router-dom";
 import { doCreateUserWithEmailAndPassword } from "./Firebase/Auth";
 import "../CSS/RegisterPageDesign.css";
+>>>>>>> google-authentication
 import VectorLogo from "../Images/Vector_Logo.png";
 import loginBg from "../Images/login-bg.png";
+import { Link } from "react-router-dom";
 
 function RegisterPageDesign() {
   const navigate = useNavigate();
@@ -18,11 +25,48 @@ function RegisterPageDesign() {
   const [fullName, setFullName] = useState("");
   const [address, setAddress] = useState("");
   const [isRegistering, setIsRegistering] = useState(false);
+<<<<<<< HEAD
+  const [errorMessage, setErrorMessage] = useState('');
+  const [firstTimeGoogleUser, setFirstTimeGoogleUser] = useState(false);
+  
+
+  useEffect(() => {
+    // Check if user is signed in with Google
+    const checkSignInWithGoogle = async () => {
+      const currentUser = await getCurrentUser();
+      if (currentUser && currentUser.providerData[0]?.providerId === 'google.com') {
+        // User signed in with Google, autofill email and full name
+        setEmail(currentUser.email);
+        setFullName(currentUser.displayName);
+        const isFirstTimeUser = await checkUserExists(currentUser.uid); // Assuming you have a function to check if the user exists in your database
+        setFirstTimeGoogleUser(isFirstTimeUser); //
+      }
+    };
+
+    checkSignInWithGoogle();
+  }, []);
+=======
   const [errorMessage, setErrorMessage] = useState("");
+>>>>>>> google-authentication
 
   const onSubmit = async (e) => {
     e.preventDefault();
 
+<<<<<<< HEAD
+    if (password !== confirmPassword && !firstTimeGoogleUser) {
+      setErrorMessage("Passwords do not match.");
+      return;
+    }
+    setIsRegistering(true);
+    try {
+      if (firstTimeGoogleUser === true) {
+        await addUserToDatabase();
+      }
+      else{
+        await doCreateUserWithEmailAndPassword(email, password);
+        await addUserToDatabase(); // Add user data to Firestore after successful registration
+      }
+=======
     if (password !== confirmPassword) {
       setErrorMessage("Passwords do not match.");
       return;
@@ -35,6 +79,7 @@ function RegisterPageDesign() {
 
       await doCreateUserWithEmailAndPassword(email, password);
       await addUserToDatabase(); // Add user data to Firestore after successful registration
+>>>>>>> google-authentication
       navigate("/login"); // Or navigate to any page you'd like the user to go to after registration
     } catch (error) {
       setErrorMessage(error.message);
@@ -44,6 +89,11 @@ function RegisterPageDesign() {
   };
 
   const addUserToDatabase = async () => {
+    const currentUser = getCurrentUser();
+    if (!currentUser) {
+      throw new Error("User not authenticated");
+    }
+
     const collectionRef = collection(db, "users");
     const userData = {
       Full_Name: fullName,
@@ -53,7 +103,14 @@ function RegisterPageDesign() {
     };
 
     try {
+<<<<<<< HEAD
+      const docRef = await addDoc(collectionRef, userData);
+      console.log("User added with ID: ", docRef.id);
+      console.log("User data added to Firestore: ", userData);
+      setFirstTimeGoogleUser(false);
+=======
       await addDoc(collectionRef, userData);
+>>>>>>> google-authentication
     } catch (error) {
       console.error("Error adding user: ", error);
     }
@@ -61,6 +118,9 @@ function RegisterPageDesign() {
 
   return (
     <div>
+<<<<<<< HEAD
+      <MainNavbar/>
+=======
       <Navbar
         style={{
           backgroundColor: "#9600DC",
@@ -86,6 +146,7 @@ function RegisterPageDesign() {
         </Container>
       </Navbar>
 
+>>>>>>> google-authentication
       <Container
         fluid
         className="register-container"
@@ -130,6 +191,7 @@ function RegisterPageDesign() {
                     onChange={(e) => setFullName(e.target.value)}
                     placeholder="Enter your full name"
                     required
+                    disabled={firstTimeGoogleUser} // Disable if first time Google user
                   />
                 </div>
 
@@ -160,12 +222,13 @@ function RegisterPageDesign() {
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Enter your email address"
                     required
+                    disabled={firstTimeGoogleUser} // Disable if first time Google user
                   />
                 </div>
 
                 <div className="mb-4">
                   <label htmlFor="inputPassword" className="form-label label">
-                    <h4 className="label">Password:</h4>
+                    <h4 className="label" hidden={firstTimeGoogleUser}>Password:</h4>
                   </label>
                   <input
                     type="password"
@@ -174,16 +237,23 @@ function RegisterPageDesign() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="Enter your password"
-                    required
+                    required={!firstTimeGoogleUser}
+                    disabled={firstTimeGoogleUser} // Disable if first time Google user
+                    hidden={firstTimeGoogleUser}
                   />
                 </div>
 
                 <div className="mb-4">
+<<<<<<< HEAD
+                  <label htmlFor="inputRetypePassword" className="form-label label">
+                    <h4 className="label" hidden={firstTimeGoogleUser}>Retype Password:</h4>
+=======
                   <label
                     htmlFor="inputRetypePassword"
                     className="form-label label"
                   >
                     <h4 className="label">Retype Password:</h4>
+>>>>>>> google-authentication
                   </label>
                   <input
                     type="password"
@@ -192,18 +262,30 @@ function RegisterPageDesign() {
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     placeholder="Retype your password"
-                    required
+                    required={!firstTimeGoogleUser}
+                    disabled={firstTimeGoogleUser} // Disable if first time Google user
+                    hidden={firstTimeGoogleUser}
                   />
                 </div>
 
+<<<<<<< HEAD
+                <button type="submit" className="custom-button mb-3" disabled={isRegistering}>
+                {firstTimeGoogleUser ? "Update Profile" : "Register"}
+=======
                 <button
                   type="submit"
                   className="custom-button mb-3"
                   disabled={isRegistering}
                 >
                   Register
+>>>>>>> google-authentication
                 </button>
               </form>
+              <Link to="/login" hidden={firstTimeGoogleUser}>
+                <button type="link" className="custom-button mb-3">
+                  Login
+                </button>
+              </Link>
             </div>
           </div>
         </div>
