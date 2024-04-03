@@ -1,8 +1,11 @@
 import { getAuth, createUserWithEmailAndPassword, GoogleAuthProvider, sendEmailVerification, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup, updatePassword } from "firebase/auth";
+<<<<<<< HEAD
 import { app } from "./Firebase";
+=======
+>>>>>>> parent of 54c2a60 (Copy code and files from google-authentication branch to main branch)
 
 // Initialize your authentication instance
-export const auth = getAuth(app);
+export const auth = getAuth();
 
 // Your other functions remain the same
 export const doCreateUserWithEmailAndPassword = async (email, password) => {
@@ -14,42 +17,13 @@ export const doSignInUserWithEmailAndPassword = async (email, password) => {
     return signInWithEmailAndPassword(auth, email, password);
 }
 
-export const doSignInWithGoogle = async () => {
-  try {
+export const doSignInWithGoogle = async (email, password) => {
     const provider = new GoogleAuthProvider();
     const result = await signInWithPopup(auth, provider);
+
     return result;
-  } catch (error) {
-    throw new Error("Failed to sign in with Google: " + error.message);
-  }
-};
+}
 
-export const checkUserExists = async () => {
-  try {
-    // Get the currently signed-in user
-    const user = auth.currentUser;
-    if (user) {
-      console.log('User exists:', user.uid);
-      return true;
-    } else {
-      console.log('No user signed in.');
-      return false;
-    }
-  } catch (error) {
-    console.error('Error checking user existence:', error.message);
-    return false;
-  }
-};
-
-export const getCurrentUser = () => {
-    return new Promise((resolve, reject) => {
-      const unsubscribe = auth.onAuthStateChanged(user => {
-        unsubscribe();
-        resolve(user);
-      }, reject);
-    });
-  };
-  
 export const doSignOut = () => {
     return auth.signOut();
 }

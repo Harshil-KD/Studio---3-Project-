@@ -12,7 +12,10 @@ import { db } from "../Firebase/Firebase";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Table from "react-bootstrap/Table";
+<<<<<<< HEAD
 import  "../../CSS/UserAccountPage.css"; 
+=======
+>>>>>>> parent of 54c2a60 (Copy code and files from google-authentication branch to main branch)
 
 function UserAccountModal() {
   const [show, setShow] = useState(false);
@@ -125,11 +128,18 @@ function UserAccountModal() {
       return unsubscribe;
     }
   }, [userId]);
-  
 
   return (
-    <div className="container">
-     
+    <>
+      <Button
+        className="me-2 mb-2"
+        onClick={() => {
+          handleShow();
+          setMode("add");
+        }}
+      >
+        Add Account
+      </Button>
 
       <Modal show={show} onHide={handleClose} fullscreen>
         <Modal.Header closeButton>
@@ -219,14 +229,13 @@ function UserAccountModal() {
           return acc;
         }, {})
       ).map(([accountType, accountsGroup]) => (
-        <div key={accountType} className="table-container">
+        <div key={accountType}>
           <h3>{accountType.toUpperCase()}</h3>
           <Table responsive="sm">
             <thead>
               <tr>
-                <th>Account Name</th>         
+                <th>Account Name</th>
                 <th>Account Balance</th>
-                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -249,24 +258,12 @@ function UserAccountModal() {
                     </Button>
                   </td>
                 </tr>
-                
               ))}
             </tbody>
           </Table>
         </div>
       ))}
-       <Button
-        className="me-2 mb-2 btn-add"
-        onClick={() => {
-          handleShow();
-          setMode("add");
-        }}
-      >
-        Add Account
-      </Button>
-
-     
-    </div>
+    </>
   );
 }
 

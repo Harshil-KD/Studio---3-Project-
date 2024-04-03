@@ -14,8 +14,9 @@
 
 .register-title,
 .register-description {
-  margin-left: 100px;
+  margin-left: 100px; /* Adjust the right margin as needed */
 }
+
 .register-title {
   padding-top: 50px;
 }

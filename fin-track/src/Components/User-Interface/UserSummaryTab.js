@@ -26,6 +26,7 @@ function UserSummaryTab() {
   const [accountData, setAccountData] = useState([]);
   const [transactionsData, setTransactionsData] = useState([]);
   const [loading, setLoading] = useState(true);
+
   const { userId } = useUserId();
 
   // Function to generate a random alphanumeric string of given length
@@ -67,11 +68,7 @@ function UserSummaryTab() {
   }, [userId]);
 
   // Function to handle form submission
-
-  const handleFormSubmit = async (event, transactionType) => {
-
- 
-
+  const handleFormSubmit = async (event, type) => {
     event.preventDefault();
     try {
       const imageRef = ref(
@@ -88,13 +85,13 @@ function UserSummaryTab() {
   
       const selectedAccount = accountData.find((acc) => acc.id === accountId);
       const currentBalance = parseFloat(selectedAccount.accountBalance);
-      const newBalance = currentBalance + newAmount;
-  
-      // Update the balance field of the account document in Firestore
+      const newBalance =
+        type === "income"
+          ? currentBalance + parseFloat(amount)
+          : currentBalance - parseFloat(amount);
 
       const accountDocRef = doc(db, "users", userId, "accounts", accountId);
       await updateDoc(accountDocRef, { accountBalance: newBalance });
-  
 
       const transactionId = generateId(10);
 
@@ -105,7 +102,7 @@ function UserSummaryTab() {
         date,
         account,
         category,
-        amount: newAmount.toString(),
+        amount,
         description,
         imageUrl,
       });
@@ -156,7 +153,6 @@ function UserSummaryTab() {
                 accountId: accountDoc.id,
               };
 
-
               const date = transaction.date;
 
               if (!transactionsData[date]) {
@@ -181,8 +177,6 @@ function UserSummaryTab() {
     return () => {
       unsubscribeFunctions.forEach((unsubscribe) => unsubscribe());
     };
-
-
   }, [userId]);
 
   const handleImageChange = (event) => {
@@ -199,8 +193,7 @@ function UserSummaryTab() {
         justify
       >
         <Tab eventKey="income" title="Income">
-        <div className="incomeFormContainer"> 
-                  <Form onSubmit={(event) => handleFormSubmit(event, "income")}>
+          <Form onSubmit={(event) => handleFormSubmit(event, "income")}>
             <FloatingLabel controlId="date" label="Date">
               <Form.Control
                 type="date"
@@ -252,15 +245,10 @@ function UserSummaryTab() {
               <Form.Label>Image</Form.Label>
               <Form.Control type="file" onChange={handleImageChange} />
             </Form.Group>
-            <div className="buttonContainer">
-  <Button className="submitButton" variant="primary" type="submit">
-    Add Income ....
-  </Button>
-</div>
-
+            <Button variant="primary" type="submit">
+              Add Income ....
+            </Button>
           </Form>
-        
-          </div>
         </Tab>
 
         <Tab eventKey="statement" title="Statement">
@@ -288,7 +276,6 @@ function UserSummaryTab() {
             </div>
           ))}
         </Tab>
-
 
         <Tab eventKey="expense" title="Expense">
         <Form onSubmit={(event) => handleFormSubmit(event, "expense")}>
