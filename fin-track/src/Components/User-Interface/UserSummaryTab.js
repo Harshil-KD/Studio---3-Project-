@@ -13,6 +13,7 @@ import {
 } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage"; // Import necessary storage functions
 import { Tabs, Tab, FloatingLabel, Form, Button, Table } from "react-bootstrap";
+import '../User-Interface/Usersummary.css';
 
 function UserSummaryTab() {
   // State variables to store form data
@@ -26,9 +27,8 @@ function UserSummaryTab() {
   const [accountData, setAccountData] = useState([]);
   const [transactionsData, setTransactionsData] = useState([]);
   const [loading, setLoading] = useState(true);
-
   const { userId } = useUserId();
-
+ 
   // Function to generate a random alphanumeric string of given length
   function generateId(length) {
     const characters =
@@ -41,14 +41,14 @@ function UserSummaryTab() {
     }
     return result;
   }
-
+ 
   useEffect(() => {
     const fetchAccounts = async () => {
       try {
         const userDocRef = doc(db, "users", userId); // Reference to the user document
         const accountsCollectionRef = collection(userDocRef, "accounts"); // Reference to the accounts subcollection
         const snapshot = await getDocs(accountsCollectionRef); // Get all documents from the accounts subcollection
-
+ 
         const accountsData = snapshot.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
@@ -61,14 +61,18 @@ function UserSummaryTab() {
         setLoading(false); // Moved setLoading inside the try block
       }
     };
-
+ 
     if (userId) {
       fetchAccounts();
     }
   }, [userId]);
-
+ 
   // Function to handle form submission
-  const handleFormSubmit = async (event, type) => {
+ 
+  const handleFormSubmit = async (event, transactionType) => {
+ 
+ 
+ 
     event.preventDefault();
     try {
       const imageRef = ref(
@@ -76,25 +80,25 @@ function UserSummaryTab() {
         `${userId}/${accountId}/${Date.now()}_${image.name}`
       );
       await uploadBytes(imageRef, image);
-
+ 
       const imageUrl = await getDownloadURL(imageRef);
       let newAmount = parseFloat(amount);
-      if (type === "expense") {
+      if (transactionType === "expense") {
         newAmount *= -1; // Make the amount negative for expenses
       }
-  
+ 
       const selectedAccount = accountData.find((acc) => acc.id === accountId);
       const currentBalance = parseFloat(selectedAccount.accountBalance);
-      const newBalance =
-        type === "income"
-          ? currentBalance + parseFloat(amount)
-          : currentBalance - parseFloat(amount);
-
+      const newBalance = currentBalance + newAmount;
+ 
+      // Update the balance field of the account document in Firestore
+ 
       const accountDocRef = doc(db, "users", userId, "accounts", accountId);
       await updateDoc(accountDocRef, { accountBalance: newBalance });
-
+ 
+ 
       const transactionId = generateId(10);
-
+ 
       const accountsRef = doc(db, "users", userId, "accounts", accountId);
       const transactionsCollectionRef = collection(accountsRef, "transactions");
       await setDoc(doc(transactionsCollectionRef, transactionId), {
@@ -102,48 +106,48 @@ function UserSummaryTab() {
         date,
         account,
         category,
-        amount,
+        amount: newAmount.toString(),
         description,
         imageUrl,
       });
-
+ 
       setDate("");
       setAccount("");
       setCategory("");
       setAmount("");
       setDescription("");
       setImage(null);
-
+ 
       console.log("Form submitted successfully!");
     } catch (error) {
       console.error("Error submitting form:", error);
     }
   };
-
+ 
   useEffect(() => {
     const unsubscribeFunctions = []; // Define unsubscribeFunctions array
-
+ 
     const fetchData = async () => {
       if (!userId) return;
-
+ 
       try {
         const userDocRef = doc(db, "users", userId);
         const accountsCollectionRef = collection(userDocRef, "accounts");
         const accountsSnapshot = await getDocs(accountsCollectionRef);
-
+ 
         const transactionsData = {};
-
+ 
         accountsSnapshot.forEach((accountDoc) => {
           const transactionsCollectionRef = collection(
             accountDoc.ref,
             "transactions"
           );
-
+ 
           const transactionsQuery = query(
             transactionsCollectionRef,
             orderBy("date", "desc")
           );
-
+ 
           const unsubscribe = onSnapshot(transactionsQuery, (snapshot) => {
             snapshot.docs.forEach((doc) => {
               const transaction = {
@@ -152,38 +156,41 @@ function UserSummaryTab() {
                 accountName: accountDoc.data().accountName,
                 accountId: accountDoc.id,
               };
-
+ 
+ 
               const date = transaction.date;
-
+ 
               if (!transactionsData[date]) {
                 transactionsData[date] = [];
               }
-
+ 
               transactionsData[date].push(transaction);
             });
-
+ 
             setTransactionsData(transactionsData);
           });
-
+ 
           unsubscribeFunctions.push(unsubscribe);
         });
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
-
+ 
     fetchData();
-
+ 
     return () => {
       unsubscribeFunctions.forEach((unsubscribe) => unsubscribe());
     };
+ 
+ 
   }, [userId]);
-
+ 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
     setImage(file);
   };
-
+ 
   return (
     <>
       <Tabs
@@ -193,6 +200,7 @@ function UserSummaryTab() {
         justify
       >
         <Tab eventKey="income" title="Income">
+        <div className="incomeFormContainer"> 
           <Form onSubmit={(event) => handleFormSubmit(event, "income")}>
             <FloatingLabel controlId="date" label="Date">
               <Form.Control
@@ -245,12 +253,16 @@ function UserSummaryTab() {
               <Form.Label>Image</Form.Label>
               <Form.Control type="file" onChange={handleImageChange} />
             </Form.Group>
-            <Button variant="primary" type="submit">
+            <div className="buttonContainer">
+  <Button className="submitButton" variant="primary" type="submit">
               Add Income ....
             </Button>
+            </div>
           </Form>
-        </Tab>
 
+          </div>
+        </Tab>
+ 
         <Tab eventKey="statement" title="Statement">
           {Object.keys(transactionsData).map((date) => (
             <div key={date}>
@@ -276,8 +288,9 @@ function UserSummaryTab() {
             </div>
           ))}
         </Tab>
-
+ 
         <Tab eventKey="expense" title="Expense">
+        <div className="incomeFormContainer"> 
         <Form onSubmit={(event) => handleFormSubmit(event, "expense")}>
             <FloatingLabel controlId="date" label="Date">
               <Form.Control
@@ -330,14 +343,18 @@ function UserSummaryTab() {
               <Form.Label>Image</Form.Label>
               <Form.Control type="file" onChange={handleImageChange} />
             </Form.Group>
-            <Button variant="primary" type="submit">
-              Add Expense ....
-            </Button>
+            <div className="buttonContainer">
+  <Button className="submitButton" variant="primary" type="submit">
+    Add Expense ....
+  </Button>
+  </div>
+
           </Form>
+          </div>
         </Tab>
       </Tabs>
     </>
   );
 }
-
+ 
 export default UserSummaryTab;
