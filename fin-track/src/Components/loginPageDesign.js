@@ -5,11 +5,7 @@ import { useUserId } from "./Firebase/UserContext";
 import {
   doSignInUserWithEmailAndPassword,
   doSignInWithGoogle,
-<<<<<<< HEAD
-} from "./Firebase/Auth"; 
-=======
 } from "./Firebase/Auth"; // Adjust the import path as necessary
->>>>>>> parent of 54c2a60 (Copy code and files from google-authentication branch to main branch)
 import { db } from "./Firebase/Firebase";
 import { getDocs, where, query, collection, addDoc } from "firebase/firestore";
 import "bootstrap/dist/css/bootstrap.min.css";
