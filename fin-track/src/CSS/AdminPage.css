@@ -1,61 +1,76 @@
-/* Styles for the table */
 .table-container {
-    margin-top: 20px;
-  }
-  
-  .table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  .table th,
-  .table td {
-    padding: 12px;
-    border: 1px solid #ddd;
-    text-align: left;
-  }
-  .table-container th {
-    font-weight: bold; 
-    font-style: italic;}
+  margin-top: 20px;
+ 
 
-  .action-buttons {
-    display: flex;
-  }
-  
-  .edit-button,
-  .delete-button {
-    padding: 8px 16px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .edit-button {
-    margin-right: 8px;
-  }
-  
-  .edit-button:hover,
-  .delete-button:hover {
-    background-color: #45a049;
-  }
-  
-  /* Styles for the modal */
-  .modal-content {
-    border-radius: 8px;
-  }
-  
-  .modal-header,
-  .modal-footer {
-    background-color: #f2f2f2;
-  }
-  
-  .modal-body {
-    padding: 20px;
-  }
-  .btn.log {
-    background-color: white !important;
-    color: black !important;
+}
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  padding: 12px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+.table-container th {
+  font-weight: bold;
+  font-style: italic;}
+
+.action-buttons {
+  display: flex;
+}
+
+.edit-button,
+.delete-button {
+  padding: 8px 16px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.edit-button {
+  margin-right: 8px;
+}
+
+.edit-button:hover,
+.delete-button:hover {
+  background-color: #45a049;
+}
+
+/* Styles for the modal */
+.modal-content {
+  border-radius: 8px;
+}
+
+.modal-header,
+.modal-footer {
+  background-color: #f2f2f2;
+}
+
+.modal-body {
+  padding: 20px;
+}
+.btn.log {
+  background-color: white !important;
+  color: black !important;
+}
+.table-responsive-custom table {
+width: 100%;
+overflow-x: auto;
+}
+
+@media (max-width: 768px) {
+.table-responsive-custom table {
+  font-size: 0.8rem;
+}
+
+.table-responsive-custom thead th:nth-last-child(-n+2),
+.table-responsive-custom tbody td:nth-last-child(-n+2) {
+  display: none;
+}
 }

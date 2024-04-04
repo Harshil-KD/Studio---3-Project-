@@ -9,13 +9,13 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import "../CSS/userNavbar.css";
 import "../CSS/AdminPage.css";
-
+ 
 function AdminPage() {
   const navigate = useNavigate(); // Get the navigate function from react-router-dom
   const [users, setUsers] = useState([]);
   const [editUser, setEditUser] = useState({ id: "", Full_Name: "", Email: "", Type: "" });
   const [showModal, setShowModal] = useState(false);
-
+ 
   const handleLogout = async () => {
     try {
       await doSignOut(); // Call the logout function
@@ -26,7 +26,7 @@ function AdminPage() {
       console.error("Failed to log out:", error.message);
     }
   };
-
+ 
   useEffect(() => {
     const unsubscribe = onSnapshot(collection(db, "users"), (snapshot) => {
       const userData = snapshot.docs.map((doc) => ({
@@ -35,10 +35,10 @@ function AdminPage() {
       }));
       setUsers(userData);
     });
-
+ 
     return () => unsubscribe();
   }, []);
-
+ 
   const deleteUser = async (userId) => {
     try {
       await deleteDoc(doc(db, "users", userId));
@@ -46,7 +46,7 @@ function AdminPage() {
       console.error("Error deleting user:", error);
     }
   };
-
+ 
   const updateUser = async () => {
     try {
       await updateDoc(doc(db, "users", editUser.id), {
@@ -58,17 +58,17 @@ function AdminPage() {
       console.error("Error updating user:", error);
     }
   };
-
+ 
   const handleEdit = (user) => {
     setEditUser(user);
     setShowModal(true);
   };
-
+ 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setEditUser({ ...editUser, [name]: value });
   };
-
+ 
   return (
     <div>
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -84,56 +84,60 @@ function AdminPage() {
           >
             <span className="navbar-toggler-icon"></span>
           </button>
-
+ 
           <Link to="/" className="navbar-brand">
             <img src={VectorLogo} className="img-fluid" alt="brand-logo" />{" "}
             FinTrack
           </Link>
-
-          <div className="collapse navbar-collapse" id="navbarTogglerDemo03">
-            <div className="d-flex">
-              {/* Call handleLogout function when the logout button is clicked */}
-              <button className="btn custom-btn" onClick={handleLogout}>
-                Log Out
-              </button>
-            </div>
+          <div className="collapse navbar-collapse justify-content-end" id="navbarTogglerDemo03">
+  <div className="d-flex">
+    {/* Call handleLogout function when the logout button is clicked */}
+    <button className="btn custom-btn custom-white-bg" onClick={handleLogout}>
+      Log Out
+    </button>
+  </div>
+</div>
+ 
+ 
           </div>
-        </div>
       </nav>
-
-      <Table responsive>
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Account Type</th>
-            <th>Edit</th>
-            <th>Delete</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.map((user, index) => (
-            <tr key={user.id}>
-              <td>{index + 1}</td>
-              <td>{user.Full_Name}</td>
-              <td>{user.Email}</td>
-              <td>{user.Type}</td>
-              <td>
-                <button key={`edit-${index}`} onClick={() => handleEdit(user)}>
-                  Edit
-                </button>
-              </td>
-              <td>
-                <button key={`delete-${index}`} onClick={() => deleteUser(user.id)}>
-                  Delete
-                </button>
-              </td>
+      <div className="container-fluid mt-4">
+        <div className="table-responsive-custom">
+          <Table striped bordered hover size="sm">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Account Type</th>
+              <th>Edit</th>
+              <th>Delete</th>
             </tr>
-          ))}
-        </tbody>
-      </Table>
-
+          </thead>
+          <tbody>
+            {users.map((user, index) => (
+              <tr key={user.id}>
+                <td>{index + 1}</td>
+                <td>{user.Full_Name}</td>
+                <td>{user.Email}</td>
+                <td>{user.Type}</td>
+                <td>
+                  <button key={`edit-${index}`} onClick={() => handleEdit(user)}>
+                    Edit
+                  </button>
+                </td>
+                <td>
+                  <button key={`delete-${index}`} onClick={() => deleteUser(user.id)}>
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      </div>
+      </div>
+ 
       {/* Edit User Modal */}
       <Modal show={showModal} onHide={() => setShowModal(false)}>
         <Modal.Header closeButton>
@@ -164,5 +168,6 @@ function AdminPage() {
     </div>
   );
 }
-
+ 
 export default AdminPage;
+ 
