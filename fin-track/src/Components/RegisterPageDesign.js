@@ -10,39 +10,50 @@ import "../CSS/RegisterPageDesign.css";
 import VectorLogo from "../Images/Vector_Logo.png";
 import loginBg from "../Images/login-bg.png";
 
+/**
+ * Functional component representing the registration page.
+ */
 function RegisterPageDesign() {
-  const navigate = useNavigate();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [fullName, setFullName] = useState("");
-  const [address, setAddress] = useState("");
-  const [isRegistering, setIsRegistering] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate(); // Get the navigate function from react-router-dom
+  const [email, setEmail] = useState(""); // State for email input
+  const [password, setPassword] = useState(""); // State for password input
+  const [confirmPassword, setConfirmPassword] = useState(""); // State for confirming password input
+  const [fullName, setFullName] = useState(""); // State for full name input
+  const [address, setAddress] = useState(""); // State for address input
+  const [isRegistering, setIsRegistering] = useState(false); // State for tracking registration process
+  const [errorMessage, setErrorMessage] = useState(""); // State for error messages
 
+  // Function to handle form submission
   const onSubmit = async (e) => {
     e.preventDefault();
 
+    // Check if passwords match
     if (password !== confirmPassword) {
       setErrorMessage("Passwords do not match.");
       return;
     }
 
+    // Set isRegistering to true to indicate registration process is ongoing
     setIsRegistering(true);
     try {
-      await addUserToDatabase();
-      navigate("/userOverview");
-
+      // Call the registration function from Firebase Auth
       await doCreateUserWithEmailAndPassword(email, password);
-      await addUserToDatabase(); // Add user data to Firestore after successful registration
-      navigate("/login"); // Or navigate to any page you'd like the user to go to after registration
+      
+      // Add user data to Firestore after successful registration
+      await addUserToDatabase();
+
+      // Navigate to user overview page after successful registration
+      navigate("/userOverview");
     } catch (error) {
+      // Set error message if registration fails
       setErrorMessage(error.message);
     } finally {
+      // Set isRegistering back to false after registration process is complete
       setIsRegistering(false);
     }
   };
 
+  // Function to add user data to Firestore
   const addUserToDatabase = async () => {
     const collectionRef = collection(db, "users");
     const userData = {
@@ -61,6 +72,7 @@ function RegisterPageDesign() {
 
   return (
     <div>
+      {/* Navbar */}
       <Navbar
         style={{
           backgroundColor: "#9600DC",
@@ -86,6 +98,7 @@ function RegisterPageDesign() {
         </Container>
       </Navbar>
 
+      {/* Registration Container */}
       <Container
         fluid
         className="register-container"
@@ -100,6 +113,7 @@ function RegisterPageDesign() {
         <p className="register-description">Register to create your account.</p>
       </Container>
 
+      {/* Registration Form */}
       <div className="container px-9 text-center">
         <div className="row gx-5">
           <div className="col">
@@ -112,11 +126,13 @@ function RegisterPageDesign() {
 
           <div className="col colForm">
             <div className="p-3">
+              {/* Display error message if there's any */}
               {errorMessage && (
                 <div className="alert alert-danger" role="alert">
                   {errorMessage}
                 </div>
               )}
+              {/* Registration Form */}
               <form onSubmit={onSubmit}>
                 <div className="mb-3">
                   <label htmlFor="fullName" className="form-label label">
@@ -196,6 +212,7 @@ function RegisterPageDesign() {
                   />
                 </div>
 
+                {/* Registration Button */}
                 <button
                   type="submit"
                   className="custom-button mb-3"

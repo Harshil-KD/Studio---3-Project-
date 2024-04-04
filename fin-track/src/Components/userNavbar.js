@@ -4,14 +4,18 @@ import { doSignOut } from "./Firebase/Auth";
 import VectorLogo from "../Images/Vector_Logo_White.png";
 import "../CSS/userNavbar.css";
 
+/**
+ * Functional component representing the navigation bar for authenticated users.
+ */
 function UserNavbar() {
   const navigate = useNavigate(); // Get the navigate function from react-router-dom
 
+  //Function to handle user logout
   const handleLogout = async () => {
     try {
       await doSignOut(); // Call the logout function
-      localStorage.removeItem("userId");
-      localStorage.removeItem("userType");
+      localStorage.removeItem("userId"); // Remove user ID from local storage
+      localStorage.removeItem("userType"); // Remove user type from local storage
       navigate("/"); // Navigate to the home page
     } catch (error) {
       console.error("Failed to log out:", error.message);
@@ -34,11 +38,13 @@ function UserNavbar() {
             <span className="navbar-toggler-icon"></span>
           </button>
 
+          {/* Brand logo */}
           <Link to="/" className="navbar-brand">
             <img src={VectorLogo} className="img-fluid" alt="brand-logo" />{" "}
             FinTrack
           </Link>
 
+          {/* Navbar links */}
           <div className="collapse navbar-collapse" id="navbarTogglerDemo03">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
@@ -64,8 +70,8 @@ function UserNavbar() {
               </li>
             </ul>
 
+            {/* Logout button */}
             <div className="d-flex">
-              {/* Call handleLogout function when the logout button is clicked */}
               <button className="btn custom-btn" onClick={handleLogout}>
                 Log Out
               </button>

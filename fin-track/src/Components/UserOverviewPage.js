@@ -17,6 +17,8 @@ import {
 import { db } from "./Firebase/Firebase";
 import UserNavbar from "./userNavbar";
 import "../CSS/UserOverviewPage.css";
+
+// Array of colors for pie chart
 const COLORS = [
   "#0088FE",
   "#00C49F",
@@ -27,11 +29,15 @@ const COLORS = [
   "#19FF8C",
 ];
 
+/**
+ * Functional component representing the user overview page displaying account balances and transaction history.
+ */
 function UserOverviewPage() {
   const [transactionData, setTransactionData] = useState([]);
   const [accountData, setAccountData] = useState([]);
-  const { userId } = useUserId();
+  const { userId } = useUserId(); // Get the user ID from UserContext
 
+  // Fetch account data for the pie chart
   useEffect(() => {
     const fetchPieChartData = async () => {
       if (!userId) return;
@@ -56,6 +62,7 @@ function UserOverviewPage() {
     fetchPieChartData();
   }, [userId]);
 
+  // Fetch transaction data for the bar chart
   useEffect(() => {
     const fetchBarChartData = async () => {
       if (!userId) return;
@@ -64,11 +71,13 @@ function UserOverviewPage() {
       const accountsRef = collection(db, "users", userId, "accounts");
       const accountsSnapshot = await getDocs(accountsRef);
 
+      // Iterate over each account to fetch its transactions
       for (const doc of accountsSnapshot.docs) {
         const transactionsCollectionRef = collection(doc.ref, "transactions");
         const transactionsSnapshot = await getDocs(transactionsCollectionRef);
         const accountName = doc.data().accountName;
 
+        // Iterate over each transaction to add it to fetchedTransactions array
         transactionsSnapshot.forEach((transactionDoc) => {
           fetchedTransactions.push({
             accountName: accountName,
@@ -77,7 +86,7 @@ function UserOverviewPage() {
         });
       }
 
-      // Group transactions by account name
+      // Group transactions by account name and calculate Debit/Credit
       const transactionsByAccount = fetchedTransactions.reduce(
         (acc, { accountName, amount }) => {
           if (!acc[accountName]) {
@@ -115,6 +124,7 @@ function UserOverviewPage() {
         <h1>Overview of accounts in Graph Form</h1>
       </div>
       <div className="charts-container">
+        {/* Pie Chart */}
         <div className="chart-heading">
           <h2>Pie Chart: Account Balances</h2>
         </div>
@@ -144,6 +154,8 @@ function UserOverviewPage() {
             </PieChart>
           </ResponsiveContainer>
         </div>
+
+        {/* Bar Chart */}
         <div className="chart-heading">
           <h2>Bar Chart: Transaction History</h2>
         </div>

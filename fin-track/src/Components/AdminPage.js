@@ -10,23 +10,26 @@ import Button from "react-bootstrap/Button";
 import "../CSS/userNavbar.css";
 import "../CSS/AdminPage.css";
 
+
 function AdminPage() {
   const navigate = useNavigate(); // Get the navigate function from react-router-dom
-  const [users, setUsers] = useState([]);
-  const [editUser, setEditUser] = useState({ id: "", Full_Name: "", Email: "", Type: "" });
-  const [showModal, setShowModal] = useState(false);
+  const [users, setUsers] = useState([]); // State variable to store user data
+  const [editUser, setEditUser] = useState({ id: "", Full_Name: "", Email: "", Type: "" }); // State variable to store data of the user being edited
+  const [showModal, setShowModal] = useState(false); // State variable to control the visibility of the edit user modal
 
+  // Function to handle user logout
   const handleLogout = async () => {
     try {
       await doSignOut(); // Call the logout function
       navigate("/"); // Navigate to the home page
-      localStorage.removeItem("userId");
-      localStorage.removeItem("userType");
+      localStorage.removeItem("userId"); // Remove userId from localStorage
+      localStorage.removeItem("userType"); // Remove userType from localStorage
     } catch (error) {
       console.error("Failed to log out:", error.message);
     }
   };
 
+  // Fetch user data from the database on component mount
   useEffect(() => {
     const unsubscribe = onSnapshot(collection(db, "users"), (snapshot) => {
       const userData = snapshot.docs.map((doc) => ({
@@ -39,6 +42,7 @@ function AdminPage() {
     return () => unsubscribe();
   }, []);
 
+  // Function to delete a user
   const deleteUser = async (userId) => {
     try {
       await deleteDoc(doc(db, "users", userId));
@@ -47,6 +51,7 @@ function AdminPage() {
     }
   };
 
+  // Function to update user data
   const updateUser = async () => {
     try {
       await updateDoc(doc(db, "users", editUser.id), {
@@ -59,11 +64,13 @@ function AdminPage() {
     }
   };
 
+  // Function to handle editing a user
   const handleEdit = (user) => {
     setEditUser(user);
     setShowModal(true);
   };
 
+  // Function to handle input change in the edit user modal
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setEditUser({ ...editUser, [name]: value });
@@ -71,6 +78,7 @@ function AdminPage() {
 
   return (
     <div>
+      {/* Navigation bar */}
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
         <div className="container-fluid">
           <button
@@ -85,6 +93,7 @@ function AdminPage() {
             <span className="navbar-toggler-icon"></span>
           </button>
 
+          {/* Brand logo and name */}
           <Link to="/" className="navbar-brand">
             <img src={VectorLogo} className="img-fluid" alt="brand-logo" />{" "}
             FinTrack
@@ -92,7 +101,7 @@ function AdminPage() {
 
           <div className="collapse navbar-collapse" id="navbarTogglerDemo03">
             <div className="d-flex">
-              {/* Call handleLogout function when the logout button is clicked */}
+              {/* Log out button */}
               <button className="btn custom-btn" onClick={handleLogout}>
                 Log Out
               </button>
@@ -101,6 +110,7 @@ function AdminPage() {
         </div>
       </nav>
 
+      {/* Table displaying user data */}
       <Table responsive>
         <thead>
           <tr>
@@ -120,11 +130,13 @@ function AdminPage() {
               <td>{user.Email}</td>
               <td>{user.Type}</td>
               <td>
+                {/* Edit button */}
                 <button key={`edit-${index}`} onClick={() => handleEdit(user)}>
                   Edit
                 </button>
               </td>
               <td>
+                {/* Delete button */}
                 <button key={`delete-${index}`} onClick={() => deleteUser(user.id)}>
                   Delete
                 </button>

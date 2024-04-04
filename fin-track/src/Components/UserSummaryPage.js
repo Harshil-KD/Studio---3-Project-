@@ -7,10 +7,10 @@ function UserSummaryPage() {
   
   return (
     <div>
-      <UserNavbar />
-      <UserSummaryTab />
+      <UserNavbar />  {/* Render the user navigation bar */}
+      <UserSummaryTab />   {/* Render the user summary tab */}
     </div>
   )
 }
 
-export default UserSummaryPage
+export default UserSummaryPage;

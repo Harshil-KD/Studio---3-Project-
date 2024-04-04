@@ -1,10 +1,13 @@
 import React from "react";
 import { Modal } from "react-bootstrap";
 
+// ImageModal component displays an image in a modal dialog
 const ImageModal = ({ imageUrl, onClose }) => {
   return (
+    // Modal component from react-bootstrap, shows when 'show' is true
     <Modal show={true} onHide={onClose} centered size="md">
       <Modal.Body>
+        {/* Display image if imageUrl is provided, otherwise display message */}
         {imageUrl ? (
           <img
             src={imageUrl}
@@ -16,6 +19,7 @@ const ImageModal = ({ imageUrl, onClose }) => {
         )}
       </Modal.Body>
       <Modal.Footer>
+        {/* Close button */}
         <button className="btn btn-secondary" onClick={onClose}>
           Close
         </button>
@@ -24,4 +28,4 @@ const ImageModal = ({ imageUrl, onClose }) => {
   );
 };
 
-export default ImageModal;
+export default ImageModal; // Export ImageModal component

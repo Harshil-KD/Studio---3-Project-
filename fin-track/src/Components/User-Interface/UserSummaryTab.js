@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { useUserId } from "../Firebase/UserContext";
-import { db, storage } from "../Firebase/Firebase";
+import { useUserId } from "../Firebase/UserContext"; // Importing custom hook to get user ID
+import { db, storage } from "../Firebase/Firebase"; // Importing Firestore database and storage instances
 import {
   getDocs,
   collection,
@@ -10,9 +10,9 @@ import {
   query,
   orderBy,
   onSnapshot,
-} from "firebase/firestore";
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage"; // Import necessary storage functions
-import { Tabs, Tab, FloatingLabel, Form, Button, Table } from "react-bootstrap";
+} from "firebase/firestore"; // Importing Firestore functions
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage"; // Importing storage functions
+import { Tabs, Tab, FloatingLabel, Form, Button, Table } from "react-bootstrap"; // Importing Bootstrap components
 
 function UserSummaryTab() {
   // State variables to store form data
@@ -27,7 +27,7 @@ function UserSummaryTab() {
   const [transactionsData, setTransactionsData] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const { userId } = useUserId();
+  const { userId } = useUserId(); // Using custom hook to get user ID
 
   // Function to generate a random alphanumeric string of given length
   function generateId(length) {
@@ -42,6 +42,7 @@ function UserSummaryTab() {
     return result;
   }
 
+  // Fetch user accounts from Firestore
   useEffect(() => {
     const fetchAccounts = async () => {
       try {
@@ -53,12 +54,12 @@ function UserSummaryTab() {
           id: doc.id,
           ...doc.data(),
         }));
-        console.log("Fetched accounts data:", accountsData); // Added console log
+        console.log("Fetched accounts data:", accountsData); // Log fetched accounts data
         setAccountData(accountsData);
       } catch (error) {
         console.error("Error fetching accounts:", error);
       } finally {
-        setLoading(false); // Moved setLoading inside the try block
+        setLoading(false); // Set loading state to false
       }
     };
 
@@ -71,18 +72,23 @@ function UserSummaryTab() {
   const handleFormSubmit = async (event, type) => {
     event.preventDefault();
     try {
+      // Upload image to storage
       const imageRef = ref(
         storage,
         `${userId}/${accountId}/${Date.now()}_${image.name}`
       );
       await uploadBytes(imageRef, image);
 
+      // Get image URL
       const imageUrl = await getDownloadURL(imageRef);
+
+      // Adjust amount for expenses
       let newAmount = parseFloat(amount);
       if (type === "expense") {
         newAmount *= -1; // Make the amount negative for expenses
       }
   
+      // Update account balance
       const selectedAccount = accountData.find((acc) => acc.id === accountId);
       const currentBalance = parseFloat(selectedAccount.accountBalance);
       const newBalance =
@@ -93,8 +99,8 @@ function UserSummaryTab() {
       const accountDocRef = doc(db, "users", userId, "accounts", accountId);
       await updateDoc(accountDocRef, { accountBalance: newBalance });
 
+      // Add transaction document
       const transactionId = generateId(10);
-
       const accountsRef = doc(db, "users", userId, "accounts", accountId);
       const transactionsCollectionRef = collection(accountsRef, "transactions");
       await setDoc(doc(transactionsCollectionRef, transactionId), {
@@ -107,6 +113,7 @@ function UserSummaryTab() {
         imageUrl,
       });
 
+      // Clear form fields
       setDate("");
       setAccount("");
       setCategory("");
@@ -120,8 +127,9 @@ function UserSummaryTab() {
     }
   };
 
+  // Fetch transactions data from Firestore
   useEffect(() => {
-    const unsubscribeFunctions = []; // Define unsubscribeFunctions array
+    const unsubscribeFunctions = []; // Array to store unsubscribe functions
 
     const fetchData = async () => {
       if (!userId) return;
@@ -175,10 +183,12 @@ function UserSummaryTab() {
     fetchData();
 
     return () => {
+      // Cleanup function to unsubscribe from snapshot listeners
       unsubscribeFunctions.forEach((unsubscribe) => unsubscribe());
     };
   }, [userId]);
 
+  // Function to handle image selection
   const handleImageChange = (event) => {
     const file = event.target.files[0];
     setImage(file);
@@ -192,8 +202,11 @@ function UserSummaryTab() {
         className="mb-3"
         justify
       >
+        {/* Income Tab */}
         <Tab eventKey="income" title="Income">
+          {/* Form for adding income */}
           <Form onSubmit={(event) => handleFormSubmit(event, "income")}>
+            {/* Date input */}
             <FloatingLabel controlId="date" label="Date">
               <Form.Control
                 type="date"
@@ -201,6 +214,7 @@ function UserSummaryTab() {
                 onChange={(e) => setDate(e.target.value)}
               />
             </FloatingLabel>
+            {/* Account selection */}
             <FloatingLabel controlId="account" label="Account">
               <Form.Select
                 aria-label="Select Account"
@@ -212,6 +226,7 @@ function UserSummaryTab() {
                 disabled={loading} // Disable the dropdown when loading
               >
                 <option value="">Select Account</option>
+                {/* Map through accountData to generate options */}
                 {!loading &&
                   accountData.map((acc) => (
                     <option key={acc.accountNumber} value={acc.id}>
@@ -220,6 +235,7 @@ function UserSummaryTab() {
                   ))}
               </Form.Select>
             </FloatingLabel>
+            {/* Category input */}
             <FloatingLabel controlId="category" label="Category">
               <Form.Control
                 type="text"
@@ -227,6 +243,7 @@ function UserSummaryTab() {
                 onChange={(e) => setCategory(e.target.value)}
               />
             </FloatingLabel>
+            {/* Amount input */}
             <FloatingLabel controlId="amount" label="Amount">
               <Form.Control
                 type="number"
@@ -234,6 +251,7 @@ function UserSummaryTab() {
                 onChange={(e) => setAmount(e.target.value)}
               />
             </FloatingLabel>
+            {/* Description input */}
             <FloatingLabel controlId="description" label="Description">
               <Form.Control
                 as="textarea"
@@ -241,17 +259,21 @@ function UserSummaryTab() {
                 onChange={(e) => setDescription(e.target.value)}
               />
             </FloatingLabel>
+            {/* Image upload */}
             <Form.Group controlId="image">
               <Form.Label>Image</Form.Label>
               <Form.Control type="file" onChange={handleImageChange} />
             </Form.Group>
+            {/* Submit button */}
             <Button variant="primary" type="submit">
               Add Income ....
             </Button>
           </Form>
         </Tab>
 
+        {/* Statement Tab */}
         <Tab eventKey="statement" title="Statement">
+          {/* Display transactions */}
           {Object.keys(transactionsData).map((date) => (
             <div key={date}>
               <h4>Date: {date}</h4>
@@ -277,8 +299,11 @@ function UserSummaryTab() {
           ))}
         </Tab>
 
+        {/* Expense Tab */}
         <Tab eventKey="expense" title="Expense">
-        <Form onSubmit={(event) => handleFormSubmit(event, "expense")}>
+          {/* Form for adding expenses */}
+          <Form onSubmit={(event) => handleFormSubmit(event, "expense")}>
+            {/* Date input */}
             <FloatingLabel controlId="date" label="Date">
               <Form.Control
                 type="date"
@@ -286,6 +311,7 @@ function UserSummaryTab() {
                 onChange={(e) => setDate(e.target.value)}
               />
             </FloatingLabel>
+            {/* Account selection */}
             <FloatingLabel controlId="account" label="Account">
               <Form.Select
                 aria-label="Select Account"
@@ -297,6 +323,7 @@ function UserSummaryTab() {
                 disabled={loading} // Disable the dropdown when loading
               >
                 <option value="">Select Account</option>
+                {/* Map through accountData to generate options */}
                 {!loading &&
                   accountData.map((acc) => (
                     <option key={acc.accountNumber} value={acc.id}>
@@ -305,6 +332,7 @@ function UserSummaryTab() {
                   ))}
               </Form.Select>
             </FloatingLabel>
+            {/* Category input */}
             <FloatingLabel controlId="category" label="Category">
               <Form.Control
                 type="text"
@@ -312,6 +340,7 @@ function UserSummaryTab() {
                 onChange={(e) => setCategory(e.target.value)}
               />
             </FloatingLabel>
+            {/* Amount input */}
             <FloatingLabel controlId="amount" label="Amount">
               <Form.Control
                 type="number"
@@ -319,6 +348,7 @@ function UserSummaryTab() {
                 onChange={(e) => setAmount(e.target.value)}
               />
             </FloatingLabel>
+            {/* Description input */}
             <FloatingLabel controlId="description" label="Description">
               <Form.Control
                 as="textarea"
@@ -326,10 +356,12 @@ function UserSummaryTab() {
                 onChange={(e) => setDescription(e.target.value)}
               />
             </FloatingLabel>
+            {/* Image upload */}
             <Form.Group controlId="image">
               <Form.Label>Image</Form.Label>
               <Form.Control type="file" onChange={handleImageChange} />
             </Form.Group>
+            {/* Submit button */}
             <Button variant="primary" type="submit">
               Add Expense ....
             </Button>
