@@ -1,9 +1,9 @@
 import React from "react";
 import { Modal } from "react-bootstrap";
 
-const ImageModal = ({ imageUrl, onClose }) => {
+const ImageModal = ({ show, imageUrl, onClose }) => {
   return (
-    <Modal show={true} onHide={onClose} centered size="md">
+    <Modal show={show} onHide={onClose} centered size="md">
       <Modal.Body>
         {imageUrl ? (
           <img
