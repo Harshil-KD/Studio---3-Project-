@@ -12,6 +12,7 @@ import { db } from "../Firebase/Firebase";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Table from "react-bootstrap/Table";
+import "../User-Interface/Useraccount.css";
 
 function UserAccountModal() {
   const [show, setShow] = useState(false);
@@ -127,15 +128,11 @@ function UserAccountModal() {
 
   return (
     <>
-      <Button
-        className="me-2 mb-2"
-        onClick={() => {
-          handleShow();
-          setMode("add");
-        }}
-      >
-        Add Account
-      </Button>
+    
+   
+      
+        
+      <div className="container">
 
       <Modal show={show} onHide={handleClose} fullscreen>
         <Modal.Header closeButton>
@@ -217,50 +214,63 @@ function UserAccountModal() {
       </Modal>
 
       {Object.entries(
-        accounts.reduce((acc, account) => {
-          if (!acc[account.accountType]) {
-            acc[account.accountType] = [];
-          }
-          acc[account.accountType].push(account);
-          return acc;
-        }, {})
-      ).map(([accountType, accountsGroup]) => (
-        <div key={accountType}>
-          <h3>{accountType.toUpperCase()}</h3>
-          <Table responsive="sm">
-            <thead>
-              <tr>
-                <th>Account Name</th>
-                <th>Account Balance</th>
-              </tr>
-            </thead>
-            <tbody>
-              {accountsGroup.map((account) => (
-                <tr key={account.id}>
-                  <td>{account.accountName}</td>
-                  <td>{account.accountBalance}</td>
-                  <td>
-                    <Button
-                      variant="primary"
-                      onClick={() => handleEditModal(account)}
-                    >
-                      Edit
-                    </Button>{" "}
-                    <Button
-                      variant="danger"
-                      onClick={() => handleDeleteAccount(account.id)}
-                    >
-                      Delete
-                    </Button>
-                  </td>
+          accounts.reduce((acc, account) => {
+            if (!acc[account.accountType]) {
+              acc[account.accountType] = [];
+            }
+            acc[account.accountType].push(account);
+            return acc;
+          }, {})
+        ).map(([accountType, accountsGroup]) => (
+          <div key={accountType}>
+            <h3>{accountType.toUpperCase()}</h3>
+            <Table responsive="sm">
+              <thead>
+                <tr>
+                  <th>Account Name</th>
+                  <th>Account Balance</th>
+                  <th>Actions</th>
                 </tr>
-              ))}
-            </tbody>
-          </Table>
+              </thead>
+              <tbody>
+                {accountsGroup.map((account) => (
+                  <tr key={account.id}>
+                    <td>{account.accountName}</td>
+                    <td>{account.accountBalance}</td>
+                    <td>
+                      <Button
+                        variant="primary"
+                        onClick={() => handleEditModal(account)}
+                      >
+                        Edit
+                      </Button>{" "}
+                      <Button
+                        variant="danger"
+                        onClick={() => handleDeleteAccount(account.id)}
+                      >
+                        Delete
+                      </Button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+          </div>
+        ))}
+      
+            <Button
+          className="me-2 mb-2 btn-add"
+          onClick={() => {
+            handleShow();
+            setMode("add");
+          }}
+        >
+          Add Account
+        </Button>
         </div>
-      ))}
     </>
   );
 }
+
 
 export default UserAccountModal;
