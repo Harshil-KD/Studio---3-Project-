@@ -142,7 +142,7 @@ function LoginPageDesign() {
       >
         <Container fluid className="forNavbar">
           {/* Title Bar Design Logo*/}
-          <Navbar.Brand href="#">
+          <Navbar.Brand href="/">
             <img
               src={VectorLogo}
               width="30"

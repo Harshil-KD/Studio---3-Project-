@@ -72,7 +72,7 @@ function RegisterPageDesign() {
         expand="lg"
       >
         <Container fluid className="forNavbar">
-          <Navbar.Brand href="#">
+          <Navbar.Brand href="/">
             <img
               src={VectorLogo}
               width="30"
