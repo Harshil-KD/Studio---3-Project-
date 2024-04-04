@@ -6,10 +6,10 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import MainNavbar from "./mainNavbar";
 import { Link } from "react-router-dom";
 import "../CSS/AboutPage.css";
-// import ourScope from "../Images/about.jpeg";
-// import support from "../Images/support.jpg";
-// import money from "../Images/9834606.jpg";
-// import join from "../Images/join.jpg";
+ import ourScope from "../Images/about.jpeg";
+ import support from "../Images/support.jpg";
+ import money from "../Images/9834606.jpg";
+ import join from "../Images/join.jpg";
 
 function About() {
   return (
@@ -30,7 +30,7 @@ function About() {
           </Col>
           <Col md={6} className="d-flex align-self-center justify-content-end">
             <img
-              // src={ourScope}
+               src={ourScope}
               alt="..."
               className="rounded img-fluid w-auto mx-auto about-image"
             />
@@ -53,7 +53,7 @@ function About() {
               }}
             >
               <img
-                // src={join}
+                 src={join}
                 className="img-fluid img-thumbnail"
                 style={{
                   width: "100px",
@@ -82,7 +82,7 @@ function About() {
               }}
             >
               <img
-                /*src={money}*/ className="img-fluid img-thumbnail"
+                src={money} className="img-fluid img-thumbnail"
                 style={{
                   width: "100px",
                   height: "auto",
@@ -111,7 +111,7 @@ function About() {
               }}
             >
               <img
-                /*src={support}*/ className="img-fluid img-thumbnail"
+                src={support} className="img-fluid img-thumbnail"
                 style={{
                   width: "100px",
                   height: "auto",
