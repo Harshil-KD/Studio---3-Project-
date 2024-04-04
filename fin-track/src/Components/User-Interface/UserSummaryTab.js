@@ -68,30 +68,39 @@ function UserSummaryTab() {
 
   const handleFormSubmit = async (event, transactionType) => {
     event.preventDefault();
-    if (!image) {
-      console.error("Image file is not selected");
-      return;
-    }
+
+    let imageUrl = ""; // Default value if no image is uploaded
+
     try {
-      const imageRef = ref(
-        storage,
-        `${userId}/${accountId}/${Date.now()}_${image.name}`
-      );
-      await uploadBytes(imageRef, image);
-      const imageUrl = await getDownloadURL(imageRef);
-      let newAmount = parseFloat(amount);
-      if (transactionType === "expense") {
-        newAmount *= -1;
+      // Proceed with image upload only if an image is selected
+      if (image) {
+        const imageRef = ref(
+          storage,
+          `${userId}/${accountId}/${Date.now()}_${image.name}`
+        );
+        await uploadBytes(imageRef, image);
+        imageUrl = await getDownloadURL(imageRef);
       }
 
+      let transactionAmount = parseFloat(amount);
+
+      // Adjust the balance based on the transaction type
       const selectedAccount = accountData.find((acc) => acc.id === accountId);
       const currentBalance = parseFloat(selectedAccount.accountBalance);
-      const newBalance = currentBalance + newAmount;
+      let newBalance = currentBalance;
 
+      if (transactionType === "income") {
+        newBalance += transactionAmount;
+      } else if (transactionType === "expense") {
+        newBalance -= transactionAmount;
+      }
+
+      // Update the account document with the new balance
       const accountDocRef = doc(db, "users", userId, "accounts", accountId);
       await updateDoc(accountDocRef, { accountBalance: newBalance });
 
-      const transactionId = generateId(10);
+      // Create a new transaction with the transactionType field and the imageUrl (empty if no image)
+      const transactionId = generateId(10); // Ensure this is a method you've defined for unique IDs
       const transactionsCollectionRef = collection(
         doc(db, "users", userId, "accounts", accountId),
         "transactions"
@@ -101,12 +110,13 @@ function UserSummaryTab() {
         date,
         account,
         category,
-        amount: newAmount.toString(),
+        amount: transactionAmount,
         description,
-        imageUrl,
+        imageUrl, // Will be an empty string if no image was uploaded
+        transactionType,
       });
 
-      // Reset form fields
+      // Reset form fields after submission
       setDate("");
       setAccount("");
       setAccountId("");
@@ -128,9 +138,9 @@ function UserSummaryTab() {
         const accountsCollectionRef = collection(userDocRef, "accounts");
         const accountsSnapshot = await getDocs(accountsCollectionRef);
 
-        const transactionsData = {};
+        let groupedTransactions = {};
 
-        accountsSnapshot.docs.forEach((accountDoc) => {
+        for (const accountDoc of accountsSnapshot.docs) {
           const transactionsCollectionRef = collection(
             accountDoc.ref,
             "transactions"
@@ -141,18 +151,26 @@ function UserSummaryTab() {
           );
 
           const unsubscribe = onSnapshot(transactionsQuery, (snapshot) => {
-            transactionsData[accountDoc.id] = snapshot.docs.map((doc) => ({
-              id: doc.id,
-              ...doc.data(),
-              accountName: accountDoc.data().accountName,
-              accountId: accountDoc.id,
-            }));
+            snapshot.docs.forEach((doc) => {
+              const transaction = {
+                id: doc.id,
+                ...doc.data(),
+                accountName: accountDoc.data().accountName,
+              };
+              const transactionDate = transaction.date;
 
-            setTransactionsData({ ...transactionsData });
+              if (!groupedTransactions[transactionDate]) {
+                groupedTransactions[transactionDate] = [];
+              }
+
+              groupedTransactions[transactionDate].push(transaction);
+            });
+
+            setTransactionsData({ ...groupedTransactions });
           });
 
           unsubscribeFunctions.push(unsubscribe);
-        });
+        }
       } catch (error) {
         console.error("Error fetching transactions:", error);
       }
@@ -251,11 +269,11 @@ function UserSummaryTab() {
         </Tab>
 
         <Tab eventKey="statement" title="Statement">
-          {Object.keys(transactionsData).map((accountId) =>
-            transactionsData[accountId].map((transaction) => (
-              <div key={transaction.id}>
-                <h4>Date: {transaction.date}</h4>
-                <Table striped bordered hover>
+          <div className="transactions-container">
+            {Object.entries(transactionsData).map(([date, transactions]) => (
+              <div key={date} className="table-container">
+                <h4>Date: {date}</h4>
+                <Table striped bordered hover className="table">
                   <thead>
                     <tr>
                       <th>Account Name</th>
@@ -264,22 +282,30 @@ function UserSummaryTab() {
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>{transaction.accountName}</td>
-                      <td>{transaction.category}</td>
-                      <td
-                        onDoubleClick={() =>
-                          handleAmountDoubleClick(transaction.imageUrl)
-                        }
-                      >
-                        {transaction.amount}
-                      </td>
-                    </tr>
+                    {transactions.map((transaction, index) => (
+                      <tr key={`${date}-${transaction.id}-${index}`}>
+                        <td>{transaction.accountName}</td>
+                        <td>{transaction.category}</td>
+                        <td
+                          onDoubleClick={() =>
+                            handleAmountDoubleClick(transaction.imageUrl)
+                          }
+                          style={{
+                            color:
+                              transaction.transactionType === "expense"
+                                ? "red"
+                                : "green",
+                          }}
+                        >
+                          {transaction.amount}
+                        </td>
+                      </tr>
+                    ))}
                   </tbody>
                 </Table>
               </div>
-            ))
-          )}
+            ))}
+          </div>
         </Tab>
 
         <Tab eventKey="expense" title="Expense">

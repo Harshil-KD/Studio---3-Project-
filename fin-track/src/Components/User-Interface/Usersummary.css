@@ -1,35 +1,84 @@
-
-
 .incomeFormContainer {
-    width: 60%; /* Adjust the width as needed */
-    margin: 0 auto; /* Center the container horizontally */
-    padding: 20px; /* Add padding for spacing */
-    background-color:rgb(200, 200, 200);
-  }
-  
+  width: 60%; /* Adjust the width as needed */
+  margin: 0 auto; /* Center the container horizontally */
+  padding: 20px; /* Add padding for spacing */
+  background-color: rgb(200, 200, 200);
+}
 
 .formContainer {
-    width: 60%; /* Adjust the width as needed */
-    margin: 0 auto; /* Center the container horizontally */
-    padding: 20px; 
-    background-color:rgb(200, 200, 200);
+  width: 60%; /* Adjust the width as needed */
+  margin: 0 auto; /* Center the container horizontally */
+  padding: 20px;
+  background-color: rgb(200, 200, 200);
 }
 .buttonContainer {
-    display: flex;
-    justify-content: center;
-  }
-  
-  .submitButton {
-    align-self: flex-start;
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 10px; /* Adjust the margin-top value as needed */
-  }
-  
+  display: flex;
+  justify-content: center;
+}
+
+.submitButton {
+  align-self: flex-start;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px; /* Adjust the margin-top value as needed */
+}
+
 .submitButton:hover {
-    background-color: #0056b3;
+  background-color: #0056b3;
+}
+
+/* Container for the table to apply perspective */
+.table-container {
+  perspective: 1000px;
+  margin: 0 auto;
+  width: 80%; /* Adjust to control the screen width the table should take */
+  margin-bottom: 2rem; /* Spacing between each table if multiple */
+}
+
+/* Styling for the table */
+.table {
+  transform: rotateX(-10deg); /* Creates the "going into the screen" effect */
+  border-collapse: collapse;
+  width: 100%; /* Table will fill the container */
+  table-layout: fixed; /* Ensures equal column widths */
+}
+
+.table th,
+.table td {
+  text-align: center;
+  border: 1px solid #ddd; /* Light border for cells, adjust color as needed */
+  padding: 8px;
+}
+
+/* Header row styling */
+.table thead tr {
+  background-color: #f2f2f2; /* Light grey background for header, adjust as needed */
+  color: black;
+}
+
+/* Adds zebra striping to table rows */
+.table tbody tr:nth-child(odd) {
+  background-color: #f9f9f9;
+}
+
+/* Styling for table cells to ensure equal height */
+.table td {
+  height: 50px; /* Adjust based on your content needs */
+}
+
+/* Add a hover effect to table rows */
+.table tbody tr:hover {
+  background-color: #ddd; /* Adjust hover color as needed */
+}
+
+.transaction-expense {
+  color: red;
+}
+
+.transaction-income {
+  color: green; /* or any other color you prefer for income */
 }

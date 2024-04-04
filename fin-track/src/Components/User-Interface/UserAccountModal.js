@@ -128,92 +128,87 @@ function UserAccountModal() {
 
   return (
     <>
-    
-   
-      
-        
       <div className="container">
-
-      <Modal show={show} onHide={handleClose} fullscreen>
-        <Modal.Header closeButton>
-          <Modal.Title>
-            {mode === "edit" ? "Edit Account" : "Add Account"}
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <form>
-            <div className="mb-3">
-              <label htmlFor="accountName" className="form-label">
-                Account Name :
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                value={accountName}
-                onChange={(e) => setAccountName(e.target.value)}
-                id="accountName"
-              />
-            </div>
-            <div className="mb-3">
-              <label htmlFor="accountNumber" className="form-label">
-                Account Number :
-              </label>
-              <input
-                type="number"
-                className="form-control"
-                value={accountNumber}
-                onChange={(e) => setAccountNumber(e.target.value)}
-                id="accountNumber"
-              />
-            </div>
-            <div className="mb-3">
-              <label htmlFor="accountType" className="form-label">
-                Account Type :
-              </label>
-              <select
-                className="form-select"
-                value={accountType}
-                onChange={(e) => setAccountType(e.target.value)}
-                id="accountType"
+        <Modal show={show} onHide={handleClose} fullscreen>
+          <Modal.Header closeButton>
+            <Modal.Title>
+              {mode === "edit" ? "Edit Account" : "Add Account"}
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <form>
+              <div className="mb-3">
+                <label htmlFor="accountName" className="form-label">
+                  Account Name :
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  value={accountName}
+                  onChange={(e) => setAccountName(e.target.value)}
+                  id="accountName"
+                />
+              </div>
+              <div className="mb-3">
+                <label htmlFor="accountNumber" className="form-label">
+                  Account Number :
+                </label>
+                <input
+                  type="number"
+                  className="form-control"
+                  value={accountNumber}
+                  onChange={(e) => setAccountNumber(e.target.value)}
+                  id="accountNumber"
+                />
+              </div>
+              <div className="mb-3">
+                <label htmlFor="accountType" className="form-label">
+                  Account Type :
+                </label>
+                <select
+                  className="form-select"
+                  value={accountType}
+                  onChange={(e) => setAccountType(e.target.value)}
+                  id="accountType"
+                >
+                  <option value="cheque">Cheque Account</option>
+                  <option value="savings">Savings Account</option>
+                  <option value="credit">Credit Card</option>
+                  <option value="loan">Loan Account</option>
+                  <option value="cash">Cash</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+              <div className="mb-3">
+                <label htmlFor="accountBalance" className="form-label">
+                  Account Balance :
+                </label>
+                <input
+                  type="number"
+                  className="form-control"
+                  value={accountBalance}
+                  onChange={(e) => setAccountBalance(e.target.value)}
+                  id="accountBalance"
+                />
+              </div>
+              <button
+                type="button"
+                onClick={() => {
+                  if (mode === "edit") {
+                    handleUpdateAccount(editAccount);
+                  } else {
+                    handleAddAccount();
+                  }
+                }}
+                className="btn btn-primary"
               >
-                <option value="cheque">Cheque Account</option>
-                <option value="savings">Savings Account</option>
-                <option value="credit">Credit Card</option>
-                <option value="loan">Loan Account</option>
-                <option value="cash">Cash</option>
-                <option value="other">Other</option>
-              </select>
-            </div>
-            <div className="mb-3">
-              <label htmlFor="accountBalance" className="form-label">
-                Account Balance :
-              </label>
-              <input
-                type="number"
-                className="form-control"
-                value={accountBalance}
-                onChange={(e) => setAccountBalance(e.target.value)}
-                id="accountBalance"
-              />
-            </div>
-            <button
-              type="button"
-              onClick={() => {
-                if (mode === "edit") {
-                  handleUpdateAccount(editAccount);
-                } else {
-                  handleAddAccount();
-                }
-              }}
-              className="btn btn-primary"
-            >
-              {mode === "edit" ? "Update Account" : "Add Account"}
-            </button>
-          </form>
-        </Modal.Body>
-      </Modal>
+                {mode === "edit" ? "Update Account" : "Add Account"}
+              </button>
+            </form>
+          </Modal.Body>
+        </Modal>
 
-      {Object.entries(
+        {Object.entries(
           accounts.reduce((acc, account) => {
             if (!acc[account.accountType]) {
               acc[account.accountType] = [];
@@ -222,9 +217,9 @@ function UserAccountModal() {
             return acc;
           }, {})
         ).map(([accountType, accountsGroup]) => (
-          <div key={accountType}>
+          <div key={accountType} className="table-container">
             <h3>{accountType.toUpperCase()}</h3>
-            <Table responsive="sm">
+            <Table responsive="sm" className="table">
               <thead>
                 <tr>
                   <th>Account Name</th>
@@ -233,20 +228,23 @@ function UserAccountModal() {
                 </tr>
               </thead>
               <tbody>
-                {accountsGroup.map((account) => (
-                  <tr key={account.id}>
-                    <td>{account.accountName}</td>
-                    <td>{account.accountBalance}</td>
-                    <td>
+                {accountsGroup.map((account, index) => (
+                  <tr key={`${accountType}-${index}`}>
+                    <td data-label="Account Name">{account.accountName}</td>
+                    <td data-label="Account Balance">
+                      {account.accountBalance}
+                    </td>
+                    <td data-label="Actions">
                       <Button
                         variant="primary"
                         onClick={() => handleEditModal(account)}
                       >
                         Edit
-                      </Button>{" "}
+                      </Button>
                       <Button
                         variant="danger"
                         onClick={() => handleDeleteAccount(account.id)}
+                        style={{ marginLeft: "10px" }}
                       >
                         Delete
                       </Button>
@@ -257,8 +255,8 @@ function UserAccountModal() {
             </Table>
           </div>
         ))}
-      
-            <Button
+
+        <Button
           className="me-2 mb-2 btn-add"
           onClick={() => {
             handleShow();
@@ -267,10 +265,9 @@ function UserAccountModal() {
         >
           Add Account
         </Button>
-        </div>
+      </div>
     </>
   );
 }
-
 
 export default UserAccountModal;

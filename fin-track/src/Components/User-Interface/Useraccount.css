@@ -1,61 +1,111 @@
 /* Styles for the table */
 .table-container {
-    margin-top: 20px;
+  perspective: 1000px;
+  margin-bottom: 2rem;
+  overflow: hidden;
+}
+
+.table {
+  transform-origin: center bottom;
+  transform: rotateX(10deg);
+  transition: transform 0.3s ease-out;
+  box-shadow: 0 20px 30px rgba(0, 0, 0, 0.2);
+}
+
+.table-container:hover .table {
+  transform: rotateX(5deg);
+  box-shadow: 0 30px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* Adjustments for medium screens, e.g., tablets */
+@media (min-width: 321px) and (max-width: 767px) {
+  .table-container {
+    margin-bottom: 1.5rem;
   }
-  
-  .table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
+
+  .table,
   .table th,
   .table td {
-    padding: 12px;
-    border: 1px solid #ddd;
-    text-align: left;
+    /* Return to more traditional table layout but keep it compact */
+    display: table-cell;
+    width: auto;
   }
-  .table-container th {
-    font-weight: bold; 
-    font-style: italic;}
 
-  .action-buttons {
-    display: flex;
+  .table th,
+  .table td {
+    padding: 10px; /* Slightly smaller padding for more space efficiency */
   }
-  
-  .edit-button,
-  .delete-button {
-    padding: 8px 16px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+
+  .table thead {
+    display: table-header-group;
   }
-  
-  .edit-button {
-    margin-right: 8px;
+
+  .table tbody tr {
+    border-bottom: 1px solid #ddd;
   }
-  
-  .edit-button:hover,
-  .delete-button:hover {
-    background-color: #45a049;
+
+  /* Adjust button sizes for medium screens */
+  .btn {
+    padding: 8px 12px;
+    font-size: 14px;
   }
-  
-  /* Styles for the modal */
-  .modal-content {
-    border-radius: 8px;
+}
+
+/* Adjustments for large screens */
+@media (min-width: 768px) {
+  .table-container {
+    margin-bottom: 2rem;
   }
-  
-  .modal-header,
-  .modal-footer {
-    background-color: #f2f2f2;
+
+  .table {
+    /* For large screens, enhance the 3D effect slightly */
+    transform: rotateX(10deg);
   }
-  
-  .modal-body {
-    padding: 20px;
+
+  .table th,
+  .table td {
+    padding: 12px 15px; /* More comfortable padding for larger displays */
+    text-align: left; /* Ensure text alignment is consistent */
   }
-  .btn.log {
-    background-color: white !important;
-    color: black !important;
+
+  .table-container:hover .table {
+    /* Slightly more pronounced shadow on hover for large screens */
+    box-shadow: 0 40px 50px rgba(0, 0, 0, 0.4);
+  }
+
+  /* Standard button sizes for larger screens */
+  .btn {
+    padding: 10px 16px;
+    font-size: 16px;
+  }
+}
+
+/* Styles for smaller screens, originally provided */
+@media (max-width: 320px) {
+  /* Small screen styles as previously defined */
+  .table-container {
+    perspective: none;
+    overflow: visible;
+    margin-bottom: 1rem;
+  }
+
+  /* Additional small screen adjustments here */
+}
+
+/* Styles for the modal */
+.modal-content {
+  border-radius: 8px;
+}
+
+.modal-header,
+.modal-footer {
+  background-color: #f2f2f2;
+}
+
+.modal-body {
+  padding: 20px;
+}
+.btn.log {
+  background-color: white !important;
+  color: black !important;
 }
